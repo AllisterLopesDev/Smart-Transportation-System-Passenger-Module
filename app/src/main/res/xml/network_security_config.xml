@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Note:
+    It is not recommended to use clear text traffic as it's not secure,
+    but in some scenarios it might be needed.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.226.107</domain>
+    </domain-config>
+</network-security-config>

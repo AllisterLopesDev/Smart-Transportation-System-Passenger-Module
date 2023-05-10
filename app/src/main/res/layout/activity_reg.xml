@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminText"
+        android:text="User Registration"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="email"
+        android:id="@+id/email"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/button_border"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="55dp"
+        android:layout_below="@id/adminText"
+        android:drawableLeft="@drawable/baseline_person_24"
+        android:padding="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:id="@+id/password"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/button_border"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/email"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:padding="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reg"
+        android:text="Register"
+        android:layout_below="@id/password"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="55dp"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:background="@drawable/button_border"
+        android:shadowRadius="@integer/material_motion_duration_medium_2"/>
+
+    <TextView
+        android:id="@+id/tv_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28dp"
+        android:layout_margin="50dp"
+        android:layout_below="@+id/reg"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
