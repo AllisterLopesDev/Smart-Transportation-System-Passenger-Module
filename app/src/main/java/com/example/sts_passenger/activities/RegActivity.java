@@ -10,11 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sts_passenger.Client;
+import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.send_otp.RequestOtp;
-import com.example.sts_passenger.send_otp.ResponseOtp;
+import com.example.sts_passenger.apiservices.response.RegistrationOtp;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +46,6 @@ public class RegActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                register(createRequest());
                 sendOtp(createOtpRequest());
             }
         });
@@ -56,17 +54,17 @@ public class RegActivity extends AppCompatActivity {
 
     //-------------------------------Send otp --------------------------------//
 
-    public RequestOtp createOtpRequest() {
-        RequestOtp requestOtp = new RequestOtp();
+    public com.example.sts_passenger.apiservices.request.RegistrationOtp createOtpRequest() {
+        com.example.sts_passenger.apiservices.request.RegistrationOtp requestOtp = new com.example.sts_passenger.apiservices.request.RegistrationOtp();
         requestOtp.setEmail(getEmail());
         return requestOtp;
     }
 
-    public void sendOtp(RequestOtp requestOtp) {
-        Call<ResponseOtp> responseOtpCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().sendOtp(requestOtp);
-        responseOtpCall.enqueue(new Callback<ResponseOtp>() {
+    public void sendOtp(com.example.sts_passenger.apiservices.request.RegistrationOtp requestOtp) {
+        Call<RegistrationOtp> responseOtpCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().sendOtp(requestOtp);
+        responseOtpCall.enqueue(new Callback<RegistrationOtp>() {
             @Override
-            public void onResponse(Call<ResponseOtp> call, Response<ResponseOtp> response) {
+            public void onResponse(Call<RegistrationOtp> call, Response<RegistrationOtp> response) {
 
                 if (response.body() != null) {
                     if (response.isSuccessful()) {
@@ -87,7 +85,7 @@ public class RegActivity extends AppCompatActivity {
 
 
             @Override
-            public void onFailure(Call<ResponseOtp> call, Throwable t) {
+            public void onFailure(Call<RegistrationOtp> call, Throwable t) {
                 Toast.makeText(RegActivity.this, "failed " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

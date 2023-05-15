@@ -10,11 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sts_passenger.Client;
+import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.login.LoginRequest;
-import com.example.sts_passenger.login.LoginResponse;
+import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import java.net.Inet4Address;
@@ -84,20 +83,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // to create the login request
-    public LoginRequest loginRequest(){
-        LoginRequest loginRequest = new LoginRequest();
+    public com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest(){
+        com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest = new com.example.sts_passenger.apiservices.request.LoginPassenger();
         loginRequest.setEmail(email.getText().toString());
         loginRequest.setPassword(password.getText().toString());
 //        loginRequest.setIpaddress(getIpAddress());
         return loginRequest;
     }
 
-    public void login(LoginRequest loginRequest) {
-        Call<LoginResponse> loginResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().login(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
+    public void login(com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest) {
+        Call<LoginPassenger> loginResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().login(loginRequest);
+        loginResponseCall.enqueue(new Callback<LoginPassenger>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
+            public void onResponse(Call<LoginPassenger> call, Response<LoginPassenger> response) {
+                LoginPassenger loginResponse = response.body();
                 if (response.isSuccessful()) {
                     if (loginResponse != null && loginResponse.getStatus() == 200) {
                         sharedPrefManager.saveUser(loginResponse.getUser());
@@ -115,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<LoginPassenger> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "onFailure: " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

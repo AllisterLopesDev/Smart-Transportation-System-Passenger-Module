@@ -14,12 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.sts_passenger.Client;
+import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.activities.LoginActivity;
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.logout.LogoutRequest;
-import com.example.sts_passenger.logout.LogoutResponse;
+import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import retrofit2.Call;
@@ -68,20 +67,20 @@ public class ProfileFragment extends Fragment {
     }
 
     //------------------------------logout-------------------------
-    public LogoutRequest logoutRequest(){
-        LogoutRequest logoutRequest=new LogoutRequest();
+    public LogoutPassenger logoutRequest(){
+        LogoutPassenger logoutRequest=new LogoutPassenger();
         logoutRequest.setToken(getSessionToken());
         return logoutRequest;
     }
 
 
 
-    public void logout(LogoutRequest logoutRequest){
-        Call<LogoutResponse> logoutResponseCall= Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().logout(logoutRequest);
-        logoutResponseCall.enqueue(new Callback<LogoutResponse>() {
+    public void logout(LogoutPassenger logoutRequest){
+        Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> logoutResponseCall= Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().logout(logoutRequest);
+        logoutResponseCall.enqueue(new Callback<com.example.sts_passenger.apiservices.response.LogoutPassenger>() {
             @Override
-            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
-                LogoutResponse logoutResponse=response.body();
+            public void onResponse(Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> call, Response<com.example.sts_passenger.apiservices.response.LogoutPassenger> response) {
+                com.example.sts_passenger.apiservices.response.LogoutPassenger logoutResponse=response.body();
                 if (response.isSuccessful()){
 //                    Toast.makeText(AdminDashboard.this, "Logout successful", Toast.LENGTH_SHORT).show();
                     if(logoutResponse != null && logoutResponse.getStatus() == 200){
@@ -98,7 +97,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+            public void onFailure(Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> call, Throwable t) {
                 Toast.makeText(mContext, "onFailure: " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
