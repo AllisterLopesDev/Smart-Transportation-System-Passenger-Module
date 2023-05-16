@@ -16,6 +16,12 @@ public class Consts {
     public static final String ENDPOINT_BUS_STOPS = "bus-stops";
     public static final String ENDPOINT_ADD_PASSENGER_DETAILS = "add-passenger-details";
 
+    public static final String ENDPOINT_SEAT_AVAILABILITY = "seat-available";
+
+
+    // booking endpoints
+    public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
+
 
 
 

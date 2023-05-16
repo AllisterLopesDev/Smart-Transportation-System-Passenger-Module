@@ -4,15 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Schedule {
 
-
+    @SerializedName("arrival")
     private String arrival;
-    private @SerializedName("arrival-stand") String arrivalStand;
-    private String date;
+    @SerializedName("arrival-stand")
+    private String arrivalStand;
+    @SerializedName("departure")
     private String departure;
-    private @SerializedName("departure-stand") String departureStand;
+    @SerializedName("departure-stand")
+    private String departureStand;
+    @SerializedName("duration")
     private String duration;
+    @SerializedName("id")
     private Integer id;
-    private @SerializedName("seats-available") Integer seatsAvailable;
 
     public String getArrival() {
         return arrival;
@@ -28,14 +31,6 @@ public class Schedule {
 
     public void setArrivalStand(String arrivalStand) {
         this.arrivalStand = arrivalStand;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getDeparture() {
@@ -68,13 +63,5 @@ public class Schedule {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getSeatsAvailable() {
-        return seatsAvailable;
-    }
-
-    public void setSeatsAvailable(Integer seatsAvailable) {
-        this.seatsAvailable = seatsAvailable;
     }
 }

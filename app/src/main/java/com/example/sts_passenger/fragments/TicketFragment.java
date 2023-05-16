@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.activities.InstantTicketBooking;
 
 public class TicketFragment extends Fragment {
-    Button btn1, btn2, btn3;
+    Button btnInstantTicket, btnPreTicket, btnPass;
 
 
 
@@ -34,24 +34,45 @@ public class TicketFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-        btn1 = rootView.findViewById(R.id.button1);
-        btn2 = rootView.findViewById(R.id.button2);
-        btn3 = rootView.findViewById(R.id.button3);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        // initialize views
+        initViews(rootView);
+    }
+
+    // function to init views
+    private void initViews(View view) {
+        btnInstantTicket = view.findViewById(R.id.btn_instant_ticket);
+        btnPreTicket = view.findViewById(R.id.btn_pre_ticket_booking);
+        btnPass = view.findViewById(R.id.btn_generate_pass);
+    }
+
+
+    // on fragment start
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // on instant button clicked
+        btnInstantTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i  = new Intent(getContext(), InstantTicketBooking.class);
-                startActivity(i);
+                // instance of search ticket frag
+                SearchInstantTicketFragment fragment = new SearchInstantTicketFragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout_booking_container, fragment);
+                transaction.commit();
+
+                // hide views
+                hideViewsOnFragTransaction();
             }
         });
+    }
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    // function to hide views on fragment call
+    private void hideViewsOnFragTransaction() {
+        btnInstantTicket.setVisibility(View.GONE);
+        btnPreTicket.setVisibility(View.GONE);
+        btnPass.setVisibility(View.GONE);
     }
 
 }

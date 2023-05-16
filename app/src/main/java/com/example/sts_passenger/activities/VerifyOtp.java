@@ -98,7 +98,6 @@ public class VerifyOtp extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.isSuccessful()) {
                         Toast.makeText(VerifyOtp.this, "Verified OTP ", Toast.LENGTH_SHORT).show();
-
                         register(createRequest());
 
                     } else {

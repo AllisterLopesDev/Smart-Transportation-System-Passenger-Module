@@ -49,48 +49,48 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addUserDetails(createRequest());
+
+//                addUserDetails(createRequest());
             }
         });
     }
 
-    public RegisterPassenger createRequest() {
-        RegisterPassenger userRequest = new RegisterPassenger();
-//        userRequest.setFirstname(fname.getText().toString());
-//        userRequest.setLastname(lname.getText().toString());
-//        userRequest.setAddress(address.getText().toString());
-//        userRequest.setGender(gender.getText().toString());
-//        userRequest.setContact(contact.getText().toString());
-//        userRequest.setCategory(category.getText().toString());
-//        userRequest.setDob(dob.getText().toString());
-//        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
-        return userRequest;
-    }
+//    public RegisterPassenger createRequest() {
+//        RegisterPassenger userRequest = new RegisterPassenger();
+////        userRequest.setFirstname(fname.getText().toString());
+////        userRequest.setLastname(lname.getText().toString());
+////        userRequest.setAddress(address.getText().toString());
+////        userRequest.setGender(gender.getText().toString());
+////        userRequest.setContact(contact.getText().toString());
+////        userRequest.setCategory(category.getText().toString());
+////        userRequest.setDob(dob.getText().toString());
+////        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
+//        return userRequest;
+//    }
 
-    public void addUserDetails(RegisterPassenger userRequest) {
-        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
-        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
-            @Override
-            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
-                RegisterPassenger userResponse = response.body();
-                if (response.isSuccessful()) {
-                    if (userResponse != null && userResponse.getStatus() == 200) {
-                        sharedPrefManager.addUserDetails(userResponse.getUser());
-                        Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        tvShowServerMessage.setText(response.body().getMessage());
-                        Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
-
-                        startActivity(i);
-                    } else {
-                        Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegisterPassenger> call, Throwable t) {
-                Toast.makeText(User_register_details.this, "failed " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void addUserDetails(RegisterPassenger userRequest) {
+//        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
+//        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
+//            @Override
+//            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
+//                RegisterPassenger userResponse = response.body();
+//                if (response.isSuccessful()) {
+//                    if (userResponse != null && userResponse.getStatus() == 200) {
+//                        sharedPrefManager.addUserDetails(userResponse.getUser());
+//                        Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        tvShowServerMessage.setText(response.body().getMessage());
+//                        Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
+//                        startActivity(i);
+//                    } else {
+//                        Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RegisterPassenger> call, Throwable t) {
+//                Toast.makeText(User_register_details.this, "failed " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }
