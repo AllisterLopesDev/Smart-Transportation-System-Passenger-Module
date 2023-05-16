@@ -40,7 +40,7 @@ public class PassengerHomePage extends AppCompatActivity {
                 } else if (id == R.id.ticket) {
                     loadFrag(new TicketFragment(),false);
                 } else if (id == R.id.schedule) {
-                    loadFrag(new ScheduleFragment(),false);
+                    loadActivity();
                 } else if (id == R.id.issues) {
                     loadFrag(new IssueReportingFragment(),false);
                 }else {
@@ -64,7 +64,7 @@ public class PassengerHomePage extends AppCompatActivity {
     }
 
     public  void loadActivity(){
-        Intent i = new Intent(getApplicationContext(), InstantTicketBooking.class);
+        Intent i = new Intent(getApplicationContext(), ScheduleActivity.class);
         startActivity(i);
 
     }

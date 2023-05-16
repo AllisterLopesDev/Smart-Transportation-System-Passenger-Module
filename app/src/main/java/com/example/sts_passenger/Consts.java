@@ -3,9 +3,9 @@ package com.example.sts_passenger;
 public class Consts {
 
     // Base URLs
-    public static final String BASE_URL_PASSENGER_AUTH = "http://3.110.42.226/user/";
-    public static final String BASE_URL_BOOKING = "http://3.110.42.226/booking/";
-    public static final String BASE_URL_BUS = "http://3.110.42.226/bus/";
+    public static final String BASE_URL_PASSENGER_AUTH = "http://192.168.35.166:5000/user/";
+    public static final String BASE_URL_BOOKING = "http://192.168.35.166:5000/booking/";
+    public static final String BASE_URL_BUS = "http://192.168.35.166:5000/bus/";
 
     // Endpoints
     public static final String ENDPOINT_LOGIN = "login";
