@@ -15,43 +15,43 @@ import com.example.sts_passenger.model.Halts;
 import java.util.List;
 
 public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.ViewHolder> {
-    List<Halts> destinationList;
+
+    List<Halts> destinationBusStopsList;
     Context context;
 
-    // Field for the listener
-    public OnItemClickListener itemClickListener;
+    // onItemClickListener instance
+    public OnItemClickListener onItemClickListener;
 
-    public DestinationAdapter(Context context, List<Halts> destinationList, OnItemClickListener listener) {
+
+    public DestinationAdapter(List<Halts> destinationBusStopsList, Context context, OnItemClickListener onItemClickListener) {
+        this.destinationBusStopsList = destinationBusStopsList;
         this.context = context;
-        this.destinationList = destinationList;
-        this.itemClickListener = listener;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.destination_item,
-                        parent,
-                        false);
+                .inflate(R.layout.destination_item, parent, false);
 
-        return new ViewHolder(view, itemClickListener, destinationList);
+        return new ViewHolder(view, destinationBusStopsList, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvDestinationName.setText(destinationList.get(position).getName());
+        holder.tvBusStopName.setText(destinationBusStopsList.get(position).getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // use getAdapterPosition instead of position everytime
-                int position = holder.getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION && itemClickListener != null) {
-                    Halts clickedDestination = destinationList.get(position);
-                    String destinationName = clickedDestination.getName();
-                    int destinationId = clickedDestination.getId();
-                    itemClickListener.onItemClick(destinationId, destinationName);
+                int pos = holder.getAdapterPosition();
+
+                if (pos != RecyclerView.NO_POSITION && onItemClickListener != null) {
+                    Halts clickedBusStop = destinationBusStopsList.get(pos);
+                    int busStopId = clickedBusStop.getId();
+                    String busStopName = clickedBusStop.getName();
+                    onItemClickListener.onItemClick(busStopId, busStopName);
                 }
             }
         });
@@ -59,28 +59,25 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public int getItemCount() {
-        return destinationList.size();
+        return destinationBusStopsList.size();
     }
 
 
+    // ViewHolder inner class
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        // Views
-        TextView tvDestinationName;
+        TextView tvBusStopName;
 
-        ViewHolder(@NonNull View itemView, final OnItemClickListener listener, final List<Halts> destinationList) {
+        public ViewHolder(@NonNull View itemView, final List<Halts> destinationBusStopsList, final OnItemClickListener listener) {
             super(itemView);
 
-            // init the views
-            tvDestinationName = itemView.findViewById(R.id.textView_list_destination_name);
-        }
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+            tvBusStopName = itemView.findViewById(R.id.textView_list_destination_name);
         }
     }
 
+
+    // onItemClick listener interface for destination item clicked
     public interface OnItemClickListener {
-        void onItemClick(Integer destinationId, String destinationName);
+        void onItemClick(Integer destinationBusStopId, String destinationBusStopName);
     }
 }

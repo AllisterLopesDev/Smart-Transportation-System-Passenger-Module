@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -16,9 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stspassenger"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.InstantTicketBooking"
-            android:exported="false" />
         <activity
             android:name=".activities.PassengerHomePage"
             android:exported="false" />

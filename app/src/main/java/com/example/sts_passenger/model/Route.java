@@ -4,13 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Route {
 
+    @SerializedName("destination")
     private String destination;
-    private @SerializedName("destination-id") Integer destinationId;
+    @SerializedName("destination-id")
+    private Integer destinationId;
+    @SerializedName("distance")
     private String distance;
+    @SerializedName("fare")
     private String fare;
+    @SerializedName("source")
     private String source;
-    private @SerializedName("source-id") Integer sourceId;
-
+    @SerializedName("source-id")
+    private Integer sourceId;
 
     public String getDestination() {
         return destination;

@@ -79,7 +79,6 @@ public class User_register_details extends AppCompatActivity {
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
-
                         startActivity(i);
                     } else {
                         Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
