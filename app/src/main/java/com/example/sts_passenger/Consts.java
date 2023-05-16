@@ -14,7 +14,7 @@ public class Consts {
     public static final String ENDPOINT_REQUEST_OTP = "send_otp";
     public static final String ENDPOINT_VERIFY_OTP = "verify_otp";
     public static final String ENDPOINT_BUS_STOPS = "bus-stops";
-    public static final String ENDPOINT_ADD_PASSENGER_DEATAILS = "add-passenger-details";
+    public static final String ENDPOINT_ADD_PASSENGER_DETAILS = "add-passenger-details";
 
 
 

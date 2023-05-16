@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    Button logout;
+    Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
     private Context mContext;
 
@@ -56,6 +56,14 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         logout = view.findViewById(R.id.logout);
+        tripHistory = view.findViewById(R.id.tripHistory);
+
+        tripHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         logout.setOnClickListener(new View.OnClickListener() {

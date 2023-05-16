@@ -31,6 +31,7 @@ public class SharedPrefManager {
     public void addUserDetails(User user){
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
         editor.putString("firstname",user.getFirstname());
         editor.putString("lastname",user.getLastname());
         editor.putString("contact",user.getContact());

@@ -34,7 +34,7 @@ public interface Api {
     @HTTP(method = "DELETE", path = Consts.ENDPOINT_LOGOUT, hasBody = true)
     Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> logout(@Body LogoutPassenger logoutRequest);
 
-    @POST(Consts.ENDPOINT_ADD_PASSENGER_DEATAILS)
+    @POST(Consts.ENDPOINT_ADD_PASSENGER_DETAILS)
     Call<RegisterPassenger> addDetails(@Header ("Authorization") String token, @Body com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest);
 
     @GET(Consts.ENDPOINT_SEARCH_BUS)

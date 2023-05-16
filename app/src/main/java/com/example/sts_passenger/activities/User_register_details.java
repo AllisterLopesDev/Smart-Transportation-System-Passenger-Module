@@ -54,20 +54,20 @@ public class User_register_details extends AppCompatActivity {
         });
     }
 
-    public com.example.sts_passenger.apiservices.request.RegisterPassenger createRequest() {
-        com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest = new com.example.sts_passenger.apiservices.request.RegisterPassenger();
-        userRequest.setFirstname(fname.getText().toString());
-        userRequest.setLastname(lname.getText().toString());
-        userRequest.setAddress(address.getText().toString());
-        userRequest.setGender(gender.getText().toString());
-        userRequest.setContact(contact.getText().toString());
-        userRequest.setCategory(category.getText().toString());
-        userRequest.setDob(dob.getText().toString());
-        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
+    public RegisterPassenger createRequest() {
+        RegisterPassenger userRequest = new RegisterPassenger();
+//        userRequest.setFirstname(fname.getText().toString());
+//        userRequest.setLastname(lname.getText().toString());
+//        userRequest.setAddress(address.getText().toString());
+//        userRequest.setGender(gender.getText().toString());
+//        userRequest.setContact(contact.getText().toString());
+//        userRequest.setCategory(category.getText().toString());
+//        userRequest.setDob(dob.getText().toString());
+//        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
         return userRequest;
     }
 
-    public void addUserDetails(com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest) {
+    public void addUserDetails(RegisterPassenger userRequest) {
         Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
         userResponseCall.enqueue(new Callback<RegisterPassenger>() {
             @Override

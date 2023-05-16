@@ -66,4 +66,7 @@ public class RegisterPassenger {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
+    public void setFirstname(String toString) {
+    }
 }
