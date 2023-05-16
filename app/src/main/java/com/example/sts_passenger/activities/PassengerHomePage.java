@@ -2,20 +2,27 @@ package com.example.sts_passenger.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.fragments.HomeFragment;
 import com.example.sts_passenger.fragments.IssueReportingFragment;
 import com.example.sts_passenger.fragments.ProfileFragment;
 import com.example.sts_passenger.fragments.ScheduleFragment;
 import com.example.sts_passenger.fragments.TicketFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -23,10 +30,14 @@ public class PassengerHomePage extends AppCompatActivity {
 
     BottomNavigationView bnView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_home_page);
+
+        // initialize views here
+        initViews();
 
         bnView = findViewById(R.id.bnView);
 
@@ -63,9 +74,17 @@ public class PassengerHomePage extends AppCompatActivity {
         ft.commit();
     }
 
-    public  void loadActivity(){
+
+    public  void loadActivity() {
         Intent i = new Intent(getApplicationContext(), ScheduleActivity.class);
         startActivity(i);
 
     }
+
+
+    // init views
+    private void initViews() {
+
+    }
+
 }

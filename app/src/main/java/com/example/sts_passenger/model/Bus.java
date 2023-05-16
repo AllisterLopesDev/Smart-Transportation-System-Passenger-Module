@@ -4,9 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Bus {
 
-
+    @SerializedName("id")
     private Integer id;
-    private @SerializedName("reg-no") String regNo;
+    @SerializedName("reg-no")
+    private String registrationNumber;
+    @SerializedName("type")
     private String type;
 
     public Integer getId() {
@@ -17,12 +19,12 @@ public class Bus {
         this.id = id;
     }
 
-    public String getRegNo() {
-        return regNo;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setRegNo(String regNo) {
-        this.regNo = regNo;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public String getType() {
