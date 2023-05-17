@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.apiservices.response.RegisterPassenger;
+import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
+import com.example.sts_passenger.apiservices.request.RegisterUserRequest;
+import com.example.sts_passenger.apiservices.response.RegisterPassengerResponse;
+import com.example.sts_passenger.apiservices.response.RegisterUserResponse;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.example.sts_passenger.apiservices.response.RegistrationVerifyOtp;
 
@@ -118,20 +121,20 @@ public class VerifyOtp extends AppCompatActivity {
 
     // ---------------------------------------REGISTER User ----------------------------- //
 
-    public com.example.sts_passenger.apiservices.request.RegisterPassenger createRequest() {
-        com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest = new com.example.sts_passenger.apiservices.request.RegisterPassenger();
+    public RegisterUserRequest createRequest() {
+        RegisterUserRequest userRequest = new RegisterUserRequest();
         userRequest.setEmail(getUserEmail());
         userRequest.setPassword(getUserPassword());
         userRequest.setIpAddress(getIpAddress());
         return userRequest;
     }
 
-    public void register(com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest) {
-        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
-        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
+    public void register(RegisterUserRequest userRequest) {
+        Call<RegisterUserResponse> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
+        userResponseCall.enqueue(new Callback<RegisterUserResponse>() {
             @Override
-            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
-                RegisterPassenger userResponse = response.body();
+            public void onResponse(Call<RegisterUserResponse> call, Response<RegisterUserResponse> response) {
+                RegisterUserResponse userResponse = response.body();
                 if (response.isSuccessful()) {
                     if (userResponse.getStatus() == 200) {
                         sharedPrefManager.saveUser(userResponse.getUser());
@@ -145,7 +148,7 @@ public class VerifyOtp extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RegisterPassenger> call, Throwable t) {
+            public void onFailure(Call<RegisterUserResponse> call, Throwable t) {
                 Toast.makeText(VerifyOtp.this, "failed " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

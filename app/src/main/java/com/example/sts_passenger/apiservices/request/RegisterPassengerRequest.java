@@ -1,48 +1,21 @@
 package com.example.sts_passenger.apiservices.request;
 
-public class RegisterPassenger {
+public class RegisterPassengerRequest {
 
     /*
     * User passenger registration and verification
-    * */
-    private String email;
-    private String password;
-    private String ipAddress;
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /* {
-    "firstname":"darron",
-    "lastname":"moraes",
-    "contact":"8668713597",
-    "address":"Hno 789/M, Talconda-Caveri, Raia, Salcete, Goa 403720",
+    * {
+    "firstname":"ali",
+    "lastname":"lop",
+    "contact":"8668173597",
+    "address":"Hno 78/M, quepem, Goa 403720",
     "category":"student",
     "gender":"male",
-    "dob":"1996-12-14",
+    "dob":"1999-12-16",
     "userid": 6
-}*/
+}
+    * */
+
 
 
     /*
@@ -119,5 +92,8 @@ public class RegisterPassenger {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public void setEmail(String userEmail) {
     }
 }

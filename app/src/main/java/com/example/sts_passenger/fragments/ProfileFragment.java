@@ -7,11 +7,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sts_passenger.apiservices.Client;
@@ -29,6 +31,7 @@ public class ProfileFragment extends Fragment {
 
     Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
+    TextView tv_title;
     private Context mContext;
 
 
@@ -57,11 +60,19 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         logout = view.findViewById(R.id.logout);
         tripHistory = view.findViewById(R.id.tripHistory);
+        tv_title = view.findViewById(R.id.tv1);
 
         tripHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+// instance of search ticket frag
+                TripHistory fragment = new TripHistory();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout_profile_container, fragment);
+                transaction.commit();
 
+                // hide views
+                hideViewsOnFragTransaction();
             }
         });
 
@@ -72,6 +83,12 @@ public class ProfileFragment extends Fragment {
                 logout(logoutRequest());
             }
         });
+    }
+
+    private void hideViewsOnFragTransaction() {
+        tripHistory.setVisibility(View.GONE);
+        logout.setVisibility(View.GONE);
+        tv_title.setVisibility(View.GONE);
     }
 
     //------------------------------logout-------------------------

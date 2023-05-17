@@ -34,9 +34,13 @@ public class TripHistoryAdapter extends RecyclerView.Adapter<TripHistoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.busRegNumber.setText();
-//        holder.source.setText();
-
+        holder.source.setText(tripHistoryList.get(position).getTicket().getSource());
+        holder.destnation.setText(tripHistoryList.get(position).getTicket().getDestination());
+        holder.tv_date.setText(tripHistoryList.get(position).getTicket().getDate());
+        holder.seatCount.setText(String.valueOf(tripHistoryList.get(position).getTicket().getPassengerCount()));
+        holder.fare.setText(String.valueOf(tripHistoryList.get(position).getTicket().getFareAmount()));
+        holder.busType.setText(tripHistoryList.get(position).getBus().getType());
+        holder.busRegNumber.setText(tripHistoryList.get(position).getBus().getRegistrationNumber());
     }
 
     @Override
@@ -44,11 +48,10 @@ public class TripHistoryAdapter extends RecyclerView.Adapter<TripHistoryAdapter.
         return tripHistoryList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView busRegNumber,busType, source,destnation, tv_date, seatCount, fare;
 
-TextView busRegNumber,busType, source,destnation, tv_date, seatCount, fare;
-
-       public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
            super(itemView);
 
            busRegNumber = itemView.findViewById(R.id.textView_bus_reg_no);

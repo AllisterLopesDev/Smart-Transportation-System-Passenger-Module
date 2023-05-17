@@ -10,7 +10,7 @@ public class Consts {
     // Endpoints
     public static final String ENDPOINT_LOGIN = "login";
     public static final String ENDPOINT_LOGOUT = "logout";
-    public static final String ENDPOINT_REGISTRATION = "registration";
+    public static final String ENDPOINT_REGISTRATION = "register";
     public static final String ENDPOINT_REQUEST_OTP = "send_otp";
     public static final String ENDPOINT_VERIFY_OTP = "verify_otp";
     public static final String ENDPOINT_BUS_STOPS = "bus-stops";
@@ -26,7 +26,11 @@ public class Consts {
 
 
     // Endpoints for Bus
-    public static final String ENDPOINT_SEARCH_BUS = "search";
+        public static final String ENDPOINT_SEARCH_BUS = "search";
+
+
+        // booking
+        public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings/{passenger_id}";
 
 
     // Request parameters

@@ -10,10 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.apiservices.response.RegisterPassenger;
+import com.example.sts_passenger.apiservices.Client;
+import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
+import com.example.sts_passenger.apiservices.response.RegisterPassengerResponse;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import retrofit2.Call;
@@ -50,47 +51,47 @@ public class User_register_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                addUserDetails(createRequest());
+                addUserInfo(createRequest());
             }
         });
     }
 
-//    public RegisterPassenger createRequest() {
-//        RegisterPassenger userRequest = new RegisterPassenger();
-////        userRequest.setFirstname(fname.getText().toString());
-////        userRequest.setLastname(lname.getText().toString());
-////        userRequest.setAddress(address.getText().toString());
-////        userRequest.setGender(gender.getText().toString());
-////        userRequest.setContact(contact.getText().toString());
-////        userRequest.setCategory(category.getText().toString());
-////        userRequest.setDob(dob.getText().toString());
-////        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
-//        return userRequest;
-//    }
+    public RegisterPassengerRequest createRequest() {
+        RegisterPassengerRequest userRequest = new RegisterPassengerRequest();
+        userRequest.setFirstname(fname.getText().toString());
+        userRequest.setLastname(lname.getText().toString());
+        userRequest.setAddress(address.getText().toString());
+        userRequest.setGender(gender.getText().toString());
+        userRequest.setContact(contact.getText().toString());
+        userRequest.setCategory(category.getText().toString());
+        userRequest.setDob(dob.getText().toString());
+        userRequest.setUserid(sharedPrefManager.getUser().getUserId());
+        return userRequest;
+    }
 
-//    public void addUserDetails(RegisterPassenger userRequest) {
-//        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
-//        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
-//            @Override
-//            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
-//                RegisterPassenger userResponse = response.body();
-//                if (response.isSuccessful()) {
-//                    if (userResponse != null && userResponse.getStatus() == 200) {
-//                        sharedPrefManager.addUserDetails(userResponse.getUser());
-//                        Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                        tvShowServerMessage.setText(response.body().getMessage());
-//                        Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
-//                        startActivity(i);
-//                    } else {
-//                        Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<RegisterPassenger> call, Throwable t) {
-//                Toast.makeText(User_register_details.this, "failed " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    public void addUserInfo(RegisterPassengerRequest userRequest) {
+        Call<RegisterPassengerResponse> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
+        userResponseCall.enqueue(new Callback<RegisterPassengerResponse>() {
+            @Override
+            public void onResponse(Call<RegisterPassengerResponse> call, Response<RegisterPassengerResponse> response) {
+                RegisterPassengerResponse userResponse = response.body();
+                if (response.isSuccessful()) {
+                    if (userResponse != null && userResponse.getStatus() == 200) {
+                        sharedPrefManager.addUserDetails(userResponse.getUser());
+                        Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        tvShowServerMessage.setText(response.body().getMessage());
+                        Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterPassengerResponse> call, Throwable t) {
+                Toast.makeText(User_register_details.this, "failed " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
