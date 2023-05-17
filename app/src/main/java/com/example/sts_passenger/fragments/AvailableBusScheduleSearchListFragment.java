@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Route;
 import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
+import com.example.sts_passenger.model.Ticket;
 import com.example.sts_passenger.model.result.BusScheduleResult;
 
 import java.text.SimpleDateFormat;
@@ -52,8 +54,10 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
     Halts destination;
     CalendarDate date;
     int passengerCount = 0;
+    Ticket ticket;
     ScheduleInfo scheduleInfo;
     Route route;
+    Bus bus;
 
     // on bus schedule item clicked handler
     AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener onAvailableBusClickListener;
@@ -74,7 +78,7 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
 
         onAvailableBusClickListener = new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
             @Override
-            public void onItemClick(Integer busId, Integer scheduleInfoId, Integer scheduleId, String date, String routeFare, String routeDistance) {
+            public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
 
             }
         };
@@ -87,8 +91,19 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
         recyclerViewAvailableBusSchedules = view.findViewById(R.id.recyclerView_available_bus_schedule_search_list);
         recyclerViewAvailableBusSchedules.setHasFixedSize(true);
         recyclerViewAvailableBusSchedules.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        source = new Halts();
+        destination = new Halts();
+        date = new CalendarDate();
+        route = new Route();
+        scheduleInfo = new ScheduleInfo();
+        ticket = new Ticket();
+        bus = new Bus();
     }
 
+
+    // onStart method
     @Override
     public void onStart() {
         super.onStart();
@@ -96,6 +111,8 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
         availableBusSchedule();
     }
 
+
+    // api call function to get available bus schedule
     private void availableBusSchedule() {
         // get the query params from previous frag and pass in the call
         getBusScheduleSearchQueryParams();
@@ -109,15 +126,18 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                     busScheduleResultList = response.body().getResult();
                     recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(busScheduleResultList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
                         @Override
-                        public void onItemClick(Integer busId, Integer scheduleInfoId, Integer scheduleId, String date, String routeFare, String routeDistance) {
-                            Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance);
-                            route = new Route();
-                            scheduleInfo = new ScheduleInfo();
+                        public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
+                            Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance + " " +source + " " +destination);
 
                             route.setFare(routeFare);
-                            scheduleInfo.setId(scheduleInfoId);
                             route.setDistance(routeDistance);
-                            checkSeatAvailability(busId, passengerCount, scheduleInfoId, scheduleId, date);
+                            route.setSource(source);
+                            route.setDestination(destination);
+                            scheduleInfo.setId(scheduleInfoId);
+                            bus.setRegistrationNumber(busRegNo);
+                            bus.setType(busType);
+
+                            checkSeatAvailability(busId, ticket.getPassengerCount(), scheduleInfoId, scheduleId, date);
                         }
                     }));
                 }
@@ -130,21 +150,49 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
         });
     }
 
+
+    // start booking status fragment to confirm ticket
+    private void showBookingStatusFrag() {
+        PreBookingConfirmationInstantFragment fragment = new PreBookingConfirmationInstantFragment();
+
+        // bundle to store data to pass
+        Bundle args = new Bundle();
+        // api call data @instant ticket
+        args.putString("fare", route.getFare());
+        args.putString("distance", route.getDistance());
+        args.putInt("passengerCount", ticket.getPassengerCount());
+        args.putInt("sourceId", source.getId());
+        args.putInt("destinationId", destination.getId());
+        args.putInt("busScheduleId", scheduleInfo.getId());
+
+        // views data @Booking confirmation
+        args.putString("busRegNo", bus.getRegistrationNumber());
+        args.putString("busType", bus.getType());
+        args.putString("source", route.getSource());
+        args.putString("destination", route.getDestination());
+
+        // set arguments
+        fragment.setArguments(args);
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();  // call getParentFragmentManager when calling fragment from another fragment
+        transaction.replace(R.id.frameLayout_booking_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+
     // set query params
     private void getBusScheduleSearchQueryParams() {
         Bundle data = getArguments();
-
-        source = new Halts();
-        destination = new Halts();
-        date = new CalendarDate();
 
         if (data != null) {
             source.setId(data.getInt("sourceId"));
             destination.setId(data.getInt("destinationId"));
             date.setDate(data.getString("currentDate"));
-            passengerCount = data.getInt("passengerCount");
+            ticket.setPassengerCount(data.getInt("passengerCount"));
 
-            Log.i("TAG", "searchQueryParams: " + "source-id " + source.getId() + " destination-id " + destination.getId() + " current-date " + date.getDate() + " count " + passengerCount);
+            Log.i("TAG", "searchQueryParams: " + "source-id " + source.getId() + " destination-id " + destination.getId() + " current-date " + date.getDate() + " count " + ticket.getPassengerCount());
         }
     }
 
@@ -166,10 +214,7 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                         switch (statusCode) {
                             case 200:
                                 // successful response
-                                Log.i("TAG", "onResponse: checkSeatAvailability " + seatAvailabilityResponse.getAvailableSeats());
-                                Double totalFare = calculateTotalFareAmount(route.getFare(), passengerCount);
-                                Log.i("TAG", "get info for ticket from instance Route & ScheduleInfo " + "scheduleInfo-id " + scheduleInfo.getId() + " distance " + route.getDistance() + " fare " + route.getFare());
-                                createInstantTicket(instantTicketBooking(scheduleInfoId, totalFare, route.getDistance(), passengerCount, source.getId(), destination.getId(), 3));
+                                showBookingStatusFrag();
                                 break;
                             case 400:
                                 // handle case 400
@@ -195,59 +240,4 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
 
     }
 
-
-    // request data for instant ticket
-    private InstantTicketBooking instantTicketBooking(Integer scheduleInfoId, Double routeFare, String routeDistance, Integer passengerCount, Integer sourceId, Integer destinationId, Integer passengerId) {
-        InstantTicketBooking instantTicketRequest = new InstantTicketBooking();
-        instantTicketRequest.setBookingDate(getCurrentAppTimeStamp());
-        instantTicketRequest.setTotalFareAmount(routeFare);
-        instantTicketRequest.setDistance(routeDistance);
-        instantTicketRequest.setPassengerCount(passengerCount);
-        instantTicketRequest.setSourceId(sourceId);
-        instantTicketRequest.setDestinationId(destinationId);
-        instantTicketRequest.setPassengerId(passengerId);
-        instantTicketRequest.setBusScheduleId(scheduleInfoId);
-
-        return instantTicketRequest;
-    }
-
-    private void createInstantTicket(InstantTicketBooking instantTicketBooking) {
-        Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> instantTicketBookingCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().instantTicket(instantTicketBooking);
-        instantTicketBookingCall.enqueue(new Callback<com.example.sts_passenger.apiservices.response.InstantTicketBooking>() {
-            @Override
-            public void onResponse(Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> call, Response<com.example.sts_passenger.apiservices.response.InstantTicketBooking> response) {
-                if (response.isSuccessful()) {
-                    com.example.sts_passenger.apiservices.response.InstantTicketBooking ticketResponse = response.body();
-                    if (ticketResponse != null) {
-                        Log.i("TAG", "onResponse: " + ticketResponse.getResult().getTicket());
-                        Toast.makeText(getContext(), "Instant Ticket Successfully created", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-    // function to get current app time-stamp
-    private String getCurrentAppTimeStamp() {
-        long currentTimeMillis = System.currentTimeMillis();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String currentTimeStamp = simpleDateFormat.format(new Date(currentTimeMillis));
-
-        Log.i("TAG", "getCurrentAppTimeStamp: " + currentTimeStamp);
-        return currentTimeStamp;
-    }
-
-
-    // function to get total fare amount
-    private Double calculateTotalFareAmount(String fare, Integer passengerCount) {
-        Double actualFare = Double.valueOf(fare);
-        return actualFare * passengerCount;
-    }
 }
