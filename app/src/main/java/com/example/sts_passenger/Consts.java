@@ -3,9 +3,14 @@ package com.example.sts_passenger;
 public class Consts {
 
     // Base URLs
-    public static final String BASE_URL_PASSENGER_AUTH = "http://192.168.35.166:5000/user/";
-    public static final String BASE_URL_BOOKING = "http://192.168.35.166:5000/booking/";
-    public static final String BASE_URL_BUS = "http://192.168.35.166:5000/bus/";
+    public static final String IP_ADDRESS = "3.110.42.226";
+//    public static final String IP_ADDRESS = "192.168.169.107:5000";
+    public static final String BASE_URL_PASSENGER_AUTH = "http://"+IP_ADDRESS+"/user/";
+    public static final String BASE_URL_BOOKING = "http://"+IP_ADDRESS+"/booking/";
+    public static final String BASE_URL_SCHEDULE = "http://"+IP_ADDRESS+"/schedule/";
+
+
+    public static final String BASE_URL_BUS = "http://"+IP_ADDRESS+"/bus/";
 
     // Endpoints
     public static final String ENDPOINT_LOGIN = "login";
@@ -16,7 +21,7 @@ public class Consts {
     public static final String ENDPOINT_BUS_STOPS = "bus-stops";
     public static final String ENDPOINT_ADD_PASSENGER_DETAILS = "add-passenger-details";
     public static final String ENDPOINT_SEAT_AVAILABILITY = "seat-available";
-
+    public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
 
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
@@ -25,7 +30,8 @@ public class Consts {
 
 
     // Endpoints for Bus
-    public static final String ENDPOINT_SEARCH_BUS = "search";
+    public static final String ENDPOINT_SEARCH = "search";
+
 
 
     // Request parameters

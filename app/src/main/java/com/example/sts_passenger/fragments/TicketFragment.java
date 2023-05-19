@@ -1,6 +1,5 @@
 package com.example.sts_passenger.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -66,7 +65,12 @@ public class TicketFragment extends Fragment {
                 hideViewsOnFragTransaction();
             }
         });
+
+
     }
+
+
+
 
     // function to hide views on fragment call
     private void hideViewsOnFragTransaction() {

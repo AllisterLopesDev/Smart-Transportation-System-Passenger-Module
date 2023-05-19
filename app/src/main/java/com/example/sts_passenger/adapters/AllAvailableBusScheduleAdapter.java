@@ -7,20 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.model.Schedule;
+import com.example.sts_passenger.model.result.BusScheduleResult;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvailableBusScheduleAdapter.ViewHolder> {
 
-    List<Schedule> scheduleList;
+    List<BusScheduleResult> busScheduleSearchList;
     Context context;
 
-    public AllAvailableBusScheduleAdapter(@NonNull View itemView, List<Schedule> scheduleList, Context context) {
-        this.scheduleList = scheduleList;
+    public AllAvailableBusScheduleAdapter(List<BusScheduleResult> busScheduleSearchList, Context context) {
+        this.busScheduleSearchList = busScheduleSearchList;
         this.context = context;
     }
 
@@ -35,23 +37,30 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.busNo.setText(scheduleList.get(position).getArrivalStand());
-        holder.source.setText(scheduleList.get(position).getDepartureStand());
+        holder.busNo.setText(busScheduleSearchList.get(position).getBus().getRegistrationNumber());
+        holder.source.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDepartureStand());
+        holder.destination.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrivalStand());
+        holder.arrival.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrival());
+        holder.departure.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDeparture());
 
     }
 
     @Override
     public int getItemCount() {
-        return scheduleList.size();
+        return busScheduleSearchList.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView busNo,source,destination,arrival,departure;
 
+        CardView cardView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            cardView = itemView.findViewById(R.id.cardView_bus_schedule);
 
             busNo=itemView.findViewById(R.id.tv_Bus_no);
             source=itemView.findViewById(R.id.tv_Source);

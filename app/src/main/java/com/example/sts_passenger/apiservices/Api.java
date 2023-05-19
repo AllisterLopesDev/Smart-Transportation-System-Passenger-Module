@@ -6,6 +6,7 @@ import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.InstantTicketBooking;
 import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
+import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.apiservices.response.RegistrationOtp;
 import com.example.sts_passenger.apiservices.response.RegistrationVerifyOtp;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -40,14 +42,22 @@ public interface Api {
     Call<RegisterPassenger> addDetails(@Header ("Authorization") String token, @Body com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest);
 
     // api call for instant ticket
-    @GET(Consts.ENDPOINT_SEARCH_BUS)
+    @GET(Consts.ENDPOINT_SEARCH)
     Call<BusScheduleSearch> getAllAvailableBuses(@Query("source") Integer sourceId,
                                                  @Query("destination") Integer destinationId,
                                                  @Query("date") String date);
 
+    //api call for bus schedule list given query params date
+    @GET(Consts.ENDPOINT_SEARCH)
+    Call<BusScheduleSearch> getBusScheduleList(@Query("date") String date);
+
     // get halts
     @GET(Consts.ENDPOINT_BUS_STOPS)
     Call<BusStops> getBusStops();
+
+    //GET PASSENGER PASS DETAILS
+    @GET(Consts.ENDPOINT_PASSENGER_PASS_DETAILS)
+    Call<PassengerPassDetailsResponse> getPassengerPassDetails(@Path("passenger_id") Integer passengerId);
 
     // check passenger count
     @POST(Consts.ENDPOINT_SEAT_AVAILABILITY)
