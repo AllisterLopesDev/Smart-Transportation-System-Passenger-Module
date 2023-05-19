@@ -72,10 +72,9 @@ public class User_register_details extends AppCompatActivity {
         userResponseCall.enqueue(new Callback<RegisterPassenger>() {
             @Override
             public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
-                RegisterPassenger userResponse = response.body();
                 if (response.isSuccessful()) {
-                    if (userResponse != null && userResponse.getStatus() == 200) {
-                        sharedPrefManager.addUserDetails(userResponse.getUser());
+                    if (response.body() != null && response.body().getStatus() == 200) {
+                        sharedPrefManager.addUserDetails(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);

@@ -1,9 +1,12 @@
 package com.example.sts_passenger.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,7 @@ import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
+import com.example.sts_passenger.apiservices.response.RegisterUser;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.example.sts_passenger.apiservices.response.RegistrationVerifyOtp;
 
@@ -47,6 +51,7 @@ public class VerifyOtp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 verifyOtp(createVerifyRequest());
+//                register(createRequest());
             }
         });
     }
@@ -90,25 +95,32 @@ public class VerifyOtp extends AppCompatActivity {
     }
 
     public void verifyOtp(com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp requestVerifyOtp) {
-        Call<RegistrationVerifyOtp> responseVerifyOtpCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().verifyOtp(requestVerifyOtp);
-        responseVerifyOtpCall.enqueue(new Callback<RegistrationVerifyOtp>() {
+        Call<RegistrationVerifyOtp> registrationVerifyOtpCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().verifyOtp(requestVerifyOtp);
+        registrationVerifyOtpCall.enqueue(new Callback<RegistrationVerifyOtp>() {
             @Override
             public void onResponse(Call<RegistrationVerifyOtp> call, Response<RegistrationVerifyOtp> response) {
+                try {
+                    Log.i("TAG", "Response code: " + response.code());
+                    Log.i("TAG", "Response body: " + response.body());
 
-                if (response.body() != null) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(VerifyOtp.this, "Verified OTP ", Toast.LENGTH_SHORT).show();
-                        register(createRequest());
-
+                        if (response.body() != null && response.body().getStatus() == 200) {
+                            Log.i("TAG", "onResponse: otp " + response.body().getMessage());
+                            register(createRequest());
+                        } else {
+                            Log.i("TAG", "onResponse: Invalid status code or response body is null");
+                        }
                     } else {
-                        Toast.makeText(VerifyOtp.this, "request failed"+ response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
+                        Log.i("TAG", "onResponse: NOT SUCCESS");
                     }
+                } catch (Exception e) {
+                    Log.i("TAG", "exception e: " + e);
                 }
             }
+
             @Override
             public void onFailure(Call<RegistrationVerifyOtp> call, Throwable t) {
-                Toast.makeText(VerifyOtp.this, "failed " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("TAG", "onFailure: otp "+t.getLocalizedMessage());
             }
         });
 
@@ -118,34 +130,32 @@ public class VerifyOtp extends AppCompatActivity {
 
     // ---------------------------------------REGISTER User ----------------------------- //
 
-    public com.example.sts_passenger.apiservices.request.RegisterPassenger createRequest() {
-        com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest = new com.example.sts_passenger.apiservices.request.RegisterPassenger();
+    public com.example.sts_passenger.apiservices.request.RegisterUser createRequest() {
+        com.example.sts_passenger.apiservices.request.RegisterUser userRequest = new com.example.sts_passenger.apiservices.request.RegisterUser();
         userRequest.setEmail(getUserEmail());
         userRequest.setPassword(getUserPassword());
-        userRequest.setIpAddress(getIpAddress());
+//        userRequest.setIpAddress(getIpAddress());
         return userRequest;
     }
 
-    public void register(com.example.sts_passenger.apiservices.request.RegisterPassenger userRequest) {
-        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
-        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
+    public void register(com.example.sts_passenger.apiservices.request.RegisterUser userRequest) {
+        Call<RegisterUser> userCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
+        userCall.enqueue(new Callback<RegisterUser>() {
             @Override
-            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
-                RegisterPassenger userResponse = response.body();
-                if (response.isSuccessful()) {
-                    if (userResponse.getStatus() == 200) {
-                        sharedPrefManager.saveUser(userResponse.getUser());
-                        Toast.makeText(VerifyOtp.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getStatus() == 200 ){
+                        Toast.makeText(VerifyOtp.this, "user registered " + response.body().getMessage(), Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), User_register_details.class);
                         startActivity(i);
                     }
                 }else {
-                        Toast.makeText(VerifyOtp.this, "request failed"+ response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                    Log.i("TAG", "onResponse: NOT SUCCESS");
+                }
             }
 
             @Override
-            public void onFailure(Call<RegisterPassenger> call, Throwable t) {
+            public void onFailure(Call<RegisterUser> call, Throwable t) {
                 Toast.makeText(VerifyOtp.this, "failed " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -14,7 +14,7 @@
         android:icon="@drawable/schedule"/>
 
     <item android:id="@+id/issues"
-        android:title="Issue Reporting"
+        android:title="Generate pass"
         android:icon="@drawable/issues"/>
 
     <item android:id="@+id/profile"

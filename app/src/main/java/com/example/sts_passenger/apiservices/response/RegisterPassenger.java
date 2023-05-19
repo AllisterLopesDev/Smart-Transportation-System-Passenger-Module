@@ -1,5 +1,6 @@
 package com.example.sts_passenger.apiservices.response;
 
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 
 public class RegisterPassenger {
@@ -11,9 +12,16 @@ public class RegisterPassenger {
 
     private String message;
     private int status;
-
     private User user;
+    private Passenger passenger;
 
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
 
     public String getMessage() {
         return message;
@@ -41,22 +49,6 @@ public class RegisterPassenger {
 
 
 
-    /*
-    * {
-    "message": "passenger details registered successfully",
-    "status": 200,
-    "success": true,
-    "user": {
-        "address": "Hno 41, quepem",
-        "category": "student",
-        "contact": "8805859397",
-        "dob": "Mon, 16 Dec 1996 00:00:00 GMT",
-        "firstname": "allister",
-        "gender": "male",
-        "lastname": "lopes"
-    }
-}
-    * */
     private boolean success;
 
     public boolean isSuccess() {

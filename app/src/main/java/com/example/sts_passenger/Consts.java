@@ -2,15 +2,18 @@ package com.example.sts_passenger;
 
 public class Consts {
 
+
+
+    public static final String IP_ADDRESS = "3.110.42.226";
     // Base URLs
-    public static final String BASE_URL_PASSENGER_AUTH = "http://3.110.42.226/user/";
-    public static final String BASE_URL_BOOKING = "http://3.110.42.226/booking/";
-    public static final String BASE_URL_BUS = "http://3.110.42.226/bus/";
+    public static final String BASE_URL_PASSENGER_AUTH = "http://"+IP_ADDRESS+"/user/";
+    public static final String BASE_URL_BOOKING = "http://"+IP_ADDRESS+"/booking/";
+    public static final String BASE_URL_BUS = "http://"+IP_ADDRESS+"/bus/";
 
     // Endpoints
     public static final String ENDPOINT_LOGIN = "login";
     public static final String ENDPOINT_LOGOUT = "logout";
-    public static final String ENDPOINT_REGISTRATION = "registration";
+    public static final String ENDPOINT_REGISTRATION = "register";
     public static final String ENDPOINT_REQUEST_OTP = "send_otp";
     public static final String ENDPOINT_VERIFY_OTP = "verify_otp";
     public static final String ENDPOINT_BUS_STOPS = "bus-stops";
@@ -20,8 +23,7 @@ public class Consts {
 
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
-
-
+    public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
 
 
     // Endpoints for Bus
