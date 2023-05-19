@@ -1,9 +1,13 @@
 package com.example.sts_passenger.fragments;
 
+import static com.example.sts_passenger.R.drawable.no_results;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,28 +17,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.AvailableBusScheduleSearchAdapter;
 import com.example.sts_passenger.apiservices.Client;
-import com.example.sts_passenger.apiservices.request.InstantTicketBooking;
 import com.example.sts_passenger.apiservices.response.BusScheduleSearch;
 import com.example.sts_passenger.apiservices.response.SeatAvailability;
 import com.example.sts_passenger.model.Bus;
 import com.example.sts_passenger.model.CalendarDate;
 import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Route;
-import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
 import com.example.sts_passenger.model.Ticket;
 import com.example.sts_passenger.model.result.BusScheduleResult;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +44,9 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
 
     // Views
     RecyclerView recyclerViewAvailableBusSchedules;
+
+    // Image view
+    AppCompatImageView noBusScheduleAvailableImg;
 
     // instances
     List<BusScheduleResult> busScheduleResultList;
@@ -88,6 +90,9 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
 
     // view initialisation
     private void initViews(View view) {
+        noBusScheduleAvailableImg = view.findViewById(R.id.appCompatImageView_no_bus_schedule);
+        noBusScheduleAvailableImg.setVisibility(View.GONE);
+
         recyclerViewAvailableBusSchedules = view.findViewById(R.id.recyclerView_available_bus_schedule_search_list);
         recyclerViewAvailableBusSchedules.setHasFixedSize(true);
         recyclerViewAvailableBusSchedules.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -117,6 +122,9 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
         // get the query params from previous frag and pass in the call
         getBusScheduleSearchQueryParams();
 
+        // Create a new list for filtered bus schedules
+        List<BusScheduleResult> filteredBusScheduleList = new ArrayList<>();
+
         Call<BusScheduleSearch> busScheduleSearchCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getAllAvailableBuses(source.getId(), destination.getId(), date.getDate());
         busScheduleSearchCall.enqueue(new Callback<BusScheduleSearch>() {
             @Override
@@ -124,22 +132,44 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.i("TAG", "onResponse: getting data");
                     busScheduleResultList = response.body().getResult();
-                    recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(busScheduleResultList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
-                        @Override
-                        public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
-                            Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance + " " +source + " " +destination);
 
-                            route.setFare(routeFare);
-                            route.setDistance(routeDistance);
-                            route.setSource(source);
-                            route.setDestination(destination);
-                            scheduleInfo.setId(scheduleInfoId);
-                            bus.setRegistrationNumber(busRegNo);
-                            bus.setType(busType);
-
-                            checkSeatAvailability(busId, ticket.getPassengerCount(), scheduleInfoId, scheduleId, date);
+                    // iterate through results
+                    for (BusScheduleResult busScheduleResult : busScheduleResultList) {
+                        // if seats available is greater than 0 show buses
+                        if (busScheduleResult.getScheduleInfo().getSeatsAvailable() > 0) {
+                            // add busScheduleList to filtered List
+                            filteredBusScheduleList.add(busScheduleResult);
                         }
-                    }));
+                    }
+
+                    // update ui based on filtered list
+                    if (filteredBusScheduleList.isEmpty()) {
+                        Log.i("TAG", "onResponse: if seats are > 0");
+                        // hide recycler view and show no results image
+                        noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
+                        noBusScheduleAvailableImg.setImageResource(no_results);
+                    } else {
+                        // show buses with available seats
+                        noBusScheduleAvailableImg.setVisibility(View.INVISIBLE);
+                        recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(filteredBusScheduleList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
+                            @Override
+                            public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
+                                Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance + " " +source + " " +destination);
+
+                                // store data for further processing
+                                route.setFare(routeFare);
+                                route.setDistance(routeDistance);
+                                route.setSource(source);
+                                route.setDestination(destination);
+                                scheduleInfo.setId(scheduleInfoId);
+                                bus.setRegistrationNumber(busRegNo);
+                                bus.setType(busType);
+
+                                // check seat availability
+                                checkSeatAvailability(busId, ticket.getPassengerCount(), scheduleInfoId, scheduleId, date);
+                            }
+                        }));
+                    }
                 }
             }
 
