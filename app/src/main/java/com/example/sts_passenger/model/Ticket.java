@@ -7,7 +7,9 @@ public class Ticket {
     private String date;
     @SerializedName("destination")
     private String destination;
-    @SerializedName("fare-amount")
+    @SerializedName("distance-travelled")
+    private String distance;
+    @SerializedName("total-fare-amount")
     private Integer fareAmount;
     @SerializedName("id")
     private Integer id;
@@ -15,6 +17,24 @@ public class Ticket {
     private Integer passengerCount;
     @SerializedName("source")
     private String source;
+    @SerializedName("status")
+    private String status;
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getDate() {
         return date;

@@ -1,10 +1,20 @@
 package com.example.sts_passenger.apiservices.response;
 
-public class RegistrationVerifyOtp {
-    String message;
-    Integer status;
+import com.example.sts_passenger.model.User;
 
-    String success;
+public class RegisterUserResponse {
+    private String message;
+    private Integer status;
+
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getMessage() {
         return message;
@@ -20,13 +30,5 @@ public class RegistrationVerifyOtp {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(String success) {
-        this.success = success;
     }
 }

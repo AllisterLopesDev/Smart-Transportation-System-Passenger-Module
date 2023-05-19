@@ -1,0 +1,207 @@
+package com.example.sts_passenger.fragments;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextClock;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.sts_passenger.Consts;
+import com.example.sts_passenger.R;
+import com.example.sts_passenger.apiservices.Client;
+import com.example.sts_passenger.apiservices.request.InstantTicketBooking;
+import com.example.sts_passenger.model.Bus;
+import com.example.sts_passenger.model.CalendarDate;
+import com.example.sts_passenger.model.Halts;
+import com.example.sts_passenger.model.Route;
+import com.example.sts_passenger.model.ScheduleInfo;
+import com.example.sts_passenger.model.Ticket;
+import com.example.sts_passenger.model.result.TicketBooking;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
+public class PreBookingConfirmationInstantFragment extends Fragment {
+
+    // views defining
+    TextView tvBusRegistrationNumber, tvBusType, tvSource, tvDestination, tvPassengerCount, tvTicketAmount;
+    AppCompatButton btnBookInstantTicket;
+
+    // models defining
+    Route route;
+    Halts source;
+    Halts destination;
+    Ticket ticket;
+    ScheduleInfo scheduleInfo;
+    Bus bus;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_pre_booking_confirmation_instant, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initView(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        btnBookInstantTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // calculate fare and show
+                double fare = Double.parseDouble(route.getFare());
+                int passengerCount = ticket.getPassengerCount();
+                double fareAmount = calculateTotalFareAmount(fare, passengerCount);
+
+
+                createInstantTicket(instantTicketBooking(scheduleInfo.getId(),
+                        fareAmount,
+                        route.getDistance(),
+                        ticket.getPassengerCount(),
+                        source.getId(),
+                        destination.getId(),
+                        3));
+            }
+        });
+    }
+
+    private void initView(View view) {
+
+        // init views
+        tvBusRegistrationNumber = view.findViewById(R.id.tv_bus_registration_no);
+        tvBusType = view.findViewById(R.id.tv_bus_type);
+        tvSource = view.findViewById(R.id.tv_source);
+        tvDestination = view.findViewById(R.id.tv_destination);
+        tvPassengerCount = view.findViewById(R.id.tv_passenger_count);
+        tvTicketAmount = view.findViewById(R.id.tv_ticket_amount);
+
+        // button
+        btnBookInstantTicket = view.findViewById(R.id.appCompatButton_bookTicket);
+
+        // models
+        source = new Halts();
+        destination = new Halts();
+        route = new Route();
+        scheduleInfo = new ScheduleInfo();
+        ticket = new Ticket();
+        bus = new Bus();
+
+        getBundleData();
+
+        // show data on views
+        tvBusRegistrationNumber.setText(bus.getRegistrationNumber());
+        tvBusType.setText(bus.getType());
+        tvSource.setText(route.getSource());
+        tvDestination.setText(route.getDestination());
+        tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
+
+        // calculate fare and show
+        double fare = Double.parseDouble(route.getFare());
+        int passengerCount = ticket.getPassengerCount();
+        double fareAmount = calculateTotalFareAmount(fare, passengerCount);
+        tvTicketAmount.setText(String.valueOf(fareAmount));
+    }
+
+    // request data for instant ticket
+    private InstantTicketBooking instantTicketBooking(Integer scheduleInfoId, Double routeFare, String routeDistance, Integer passengerCount, Integer sourceId, Integer destinationId, Integer passengerId) {
+        InstantTicketBooking instantTicketRequest = new InstantTicketBooking();
+        instantTicketRequest.setBookingDate(getCurrentAppTimeStamp());
+        instantTicketRequest.setTotalFareAmount(routeFare);
+        instantTicketRequest.setDistance(routeDistance);
+        instantTicketRequest.setPassengerCount(passengerCount);
+        instantTicketRequest.setSourceId(sourceId);
+        instantTicketRequest.setDestinationId(destinationId);
+        instantTicketRequest.setPassengerId(passengerId);
+        instantTicketRequest.setBusScheduleId(scheduleInfoId);
+
+        return instantTicketRequest;
+    }
+
+    // api call to create instant ticket
+    private void createInstantTicket(InstantTicketBooking instantTicketBooking) {
+        Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> instantTicketBookingCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().instantTicket(instantTicketBooking);
+        instantTicketBookingCall.enqueue(new Callback<com.example.sts_passenger.apiservices.response.InstantTicketBooking>() {
+            @Override
+            public void onResponse(Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> call, Response<com.example.sts_passenger.apiservices.response.InstantTicketBooking> response) {
+                if (response.isSuccessful()) {
+                    com.example.sts_passenger.apiservices.response.InstantTicketBooking ticketResponse = response.body();
+                    if (ticketResponse != null) {
+                        Log.i("TAG", "onResponse: " + ticketResponse.getResult().getTicket());
+                        Ticket instantTicket = ticketResponse.getResult().getTicket();
+                        Toast.makeText(getContext(), "Instant Ticket Successfully created", Toast.LENGTH_SHORT).show();
+
+                        // show ticket layout on success
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.sts_passenger.apiservices.response.InstantTicketBooking> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    // function to get current app time-stamp
+    private String getCurrentAppTimeStamp() {
+        long currentTimeMillis = System.currentTimeMillis();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentTimeStamp = simpleDateFormat.format(new Date(currentTimeMillis));
+
+        Log.i("TAG", "getCurrentAppTimeStamp: " + currentTimeStamp);
+        return currentTimeStamp;
+    }
+
+    // function to get total fare amount
+    private Double calculateTotalFareAmount(Double fare, Integer passengerCount) {
+        return fare * passengerCount;
+    }
+
+
+    // set query params
+    private void getBundleData() {
+        Bundle data = getArguments();
+
+        if (data != null) {
+            route.setFare(data.getString("fare"));
+            route.setDistance(data.getString("distance"));
+            route.setSource(data.getString("source"));
+            route.setDestination(data.getString("destination"));
+            ticket.setPassengerCount(data.getInt("passengerCount"));
+            source.setId(data.getInt("sourceId"));
+            destination.setId(data.getInt("destinationId"));
+            scheduleInfo.setId(data.getInt("busScheduleId"));
+            bus.setRegistrationNumber(data.getString("busRegNo"));
+            bus.setType(data.getString("busType"));
+        }
+
+        Log.i("TAG", "getBundleData: " + route.getSource() + " " +route.getDestination());
+    }
+}

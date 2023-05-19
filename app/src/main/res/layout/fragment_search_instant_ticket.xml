@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp">
 
+        <!-- Activity Title -->
         <TextView
             android:id="@+id/textView_searchBus_activityTitle"
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.129" />
 
+        <!-- Source TextView-->
         <TextView
             android:id="@+id/textView_auto_source_stop"
             android:layout_width="0dp"
@@ -37,6 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Destination TextView-->
         <TextView
             android:id="@+id/textView_search_destination_stop"
             android:layout_width="0dp"
@@ -50,6 +53,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Current Date TextView -->
         <TextView
             android:id="@+id/textView_show_current_date"
             android:layout_width="wrap_content"
@@ -60,6 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_search_destination_stop" />
 
+        <!-- Search Button-->
         <Button
             android:id="@+id/button_search_buses_available"
             android:layout_width="wrap_content"
@@ -70,6 +75,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Passenger count View -->
         <LinearLayout
             android:id="@+id/linearlayout_counter_holder"
             android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.model.Bus;
+import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Route;
 import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
@@ -64,24 +65,32 @@ public class AvailableBusScheduleSearchAdapter extends RecyclerView.Adapter<Avai
                 int pos = holder.getAdapterPosition();
 
                 if (pos != RecyclerView.NO_POSITION && onAvailableBusClickListener != null) {
+
                     // bus data
                     Bus clickedBus = busScheduleResultList.get(pos).getBus();
                     Integer busId = clickedBus.getId();
+                    String busRegNo = clickedBus.getRegistrationNumber();
+                    String busType = clickedBus.getType();
+
                     // schedule-info data
                     ScheduleInfo clickedScheduleInfo = busScheduleResultList.get(pos).getScheduleInfo();
                     Integer scheduleInfoId = clickedScheduleInfo.getId();
                     String date = clickedScheduleInfo.getDate();
+
                     // schedule data
                     Schedule clickedSchedule = busScheduleResultList.get(pos).getScheduleInfo().getSchedule();
                     Integer scheduleId = clickedSchedule.getId();
+
                     // route data
                     Route clickedRoute = busScheduleResultList.get(pos).getRoute();
                     String fare = clickedRoute.getFare();
                     String distance = clickedRoute.getDistance();
+                    String source = clickedRoute.getSource();
+                    String destination = clickedRoute.getDestination();
 
-                    // pass data onItemClick
-                    onAvailableBusClickListener.onItemClick(busId, scheduleInfoId, scheduleId, date, fare, distance);
-                    Log.i("TAG", "Adapter onItemClick: " + busId + " " + scheduleInfoId + " " + scheduleId + " " + date);
+                    // get onclick item data
+                    onAvailableBusClickListener.onItemClick(busId, busRegNo, busType, scheduleInfoId, scheduleId, source, destination, date, fare, distance);
+                    Log.i("TAG", "Adapter onItemClick: " + busId + " " + scheduleInfoId + " " + scheduleId + " " + date + " " + source + " " + destination);
                 }
             }
         });
@@ -122,6 +131,6 @@ public class AvailableBusScheduleSearchAdapter extends RecyclerView.Adapter<Avai
 
     // on click handler interface for bus schedule item
     public interface OnAvailableBusClickListener {
-        void onItemClick(Integer busId, Integer scheduleInfoId, Integer scheduleId, String date, String routeFare, String routeDistance);
+        void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance);
     }
 }
