@@ -14,7 +14,7 @@ import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
-import com.example.sts_passenger.apiservices.response.RegisterPassengerResponse;
+import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import retrofit2.Call;
@@ -70,14 +70,14 @@ public class User_register_details extends AppCompatActivity {
     }
 
     public void addUserInfo(RegisterPassengerRequest userRequest) {
-        Call<RegisterPassengerResponse> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
-        userResponseCall.enqueue(new Callback<RegisterPassengerResponse>() {
+        Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
+        userResponseCall.enqueue(new Callback<RegisterPassenger>() {
             @Override
-            public void onResponse(Call<RegisterPassengerResponse> call, Response<RegisterPassengerResponse> response) {
-                RegisterPassengerResponse userResponse = response.body();
+
+            public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
                 if (response.isSuccessful()) {
-                    if (userResponse != null && userResponse.getStatus() == 200) {
-                        sharedPrefManager.addUserDetails(userResponse.getUser());
+                    if (response.body() != null && response.body().getStatus() == 200) {
+                        sharedPrefManager.addUserDetails(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
@@ -89,7 +89,7 @@ public class User_register_details extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RegisterPassengerResponse> call, Throwable t) {
+            public void onFailure(Call< RegisterPassenger > call, Throwable t) {
                 Toast.makeText(User_register_details.this, "failed " +t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

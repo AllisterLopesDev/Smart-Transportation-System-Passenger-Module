@@ -3,6 +3,7 @@ package com.example.sts_passenger.sharedpref;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 
 
@@ -28,25 +29,6 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public void addUserDetails(User user){
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        editor.putString("firstname",user.getFirstname());
-        editor.putString("lastname",user.getLastname());
-        editor.putString("contact",user.getContact());
-        editor.putString("address",user.getAddress());
-        editor.putString("gender",user.getGender());
-        editor.putString("category",user.getCategory());
-        editor.putString("dob",user.getDob());
-        editor.apply();
-    }
-
-    public boolean isLogged() {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("logged", false);
-    }
-
     public User getUser() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
@@ -54,6 +36,39 @@ public class SharedPrefManager {
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("token", null));
     }
+
+    public void addUserDetails(Passenger passenger){
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("firstname",passenger.getFirstname());
+        editor.putString("lastname",passenger.getLastname());
+        editor.putString("contact",passenger.getContact());
+        editor.putString("address",passenger.getAddress());
+        editor.putString("gender",passenger.getGender());
+        editor.putString("category",passenger.getCategory());
+        editor.putString("dob",passenger.getDob());
+        editor.putInt("id",passenger.getId());
+        editor.apply();
+    }
+
+    public Passenger getPassenger() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new Passenger(sharedPreferences.getString("firstname", null),
+                sharedPreferences.getString("lastname", null),
+                sharedPreferences.getString("contact", null),
+                sharedPreferences.getString("address", null),
+                sharedPreferences.getString("gender", null),
+                sharedPreferences.getString("category", null),
+                sharedPreferences.getString("dob", null),
+                sharedPreferences.getInt("id", -1));
+    }
+
+    public boolean isLogged() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("logged", false);
+    }
+
+
 
     public void logout() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

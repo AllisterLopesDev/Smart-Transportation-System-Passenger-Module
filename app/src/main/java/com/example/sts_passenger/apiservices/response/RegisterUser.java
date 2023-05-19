@@ -1,10 +1,12 @@
 package com.example.sts_passenger.apiservices.response;
 
-public class RegistrationVerifyOtp {
-    String message;
-    Integer status;
+import com.google.gson.annotations.SerializedName;
 
-    String success;
+public class RegisterUser {
+
+    @SerializedName("message") String message;
+    @SerializedName("status") Integer status;
+    @SerializedName("success") Boolean success;
 
     public String getMessage() {
         return message;
@@ -22,11 +24,11 @@ public class RegistrationVerifyOtp {
         this.status = status;
     }
 
-    public String getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 }

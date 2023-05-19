@@ -1,8 +1,9 @@
 package com.example.sts_passenger.apiservices.response;
 
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 
-public class RegisterPassengerResponse {
+public class RegisterPassenger {
 
     /*
     * {
@@ -15,9 +16,16 @@ public class RegisterPassengerResponse {
 
     private String message;
     private int status;
-    private  Boolean success;
     private User user;
+    private Passenger passenger;
 
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -52,5 +60,13 @@ public class RegisterPassengerResponse {
     }
 
 
+    private boolean success;
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }
