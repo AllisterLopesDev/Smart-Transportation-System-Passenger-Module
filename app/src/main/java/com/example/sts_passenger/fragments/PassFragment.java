@@ -72,6 +72,8 @@ public class PassFragment extends Fragment {
     // function to hide views on fragment call
     private void hideViewsOnFragTransaction() {
         createPassBtn.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+
     }
 
 
