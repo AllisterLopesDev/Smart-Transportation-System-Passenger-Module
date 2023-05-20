@@ -7,33 +7,11 @@ import com.google.gson.annotations.SerializedName;
 public class LoginPassenger {
     private String message;
     private int status;
-    @SerializedName("token")
-    private String token;
+
+    private User user;
+
     @SerializedName("session")
     private Session session;
-//    private  User user;
-
-//    public LoginPassenger(String message, int status, Session session) {
-//        this.message = message;
-//        this.status = status;
-//        this.session = session;
-//    }
-
-
-    public LoginPassenger(String message, int status, String token, Session session) {
-        this.message = message;
-        this.status = status;
-        this.token = token;
-        this.session = session;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public Session getSession() {
         return session;
@@ -42,6 +20,16 @@ public class LoginPassenger {
     public void setSession(Session session) {
         this.session = session;
     }
+
+
+    public LoginPassenger(String message, int status, Session session) {
+        this.message = message;
+        this.status = status;
+        this.session = session;
+    }
+
+
+
 
     public String getMessage() {
         return message;

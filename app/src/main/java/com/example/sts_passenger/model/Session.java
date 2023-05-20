@@ -5,12 +5,19 @@ import com.google.gson.annotations.SerializedName;
 public class Session {
     @SerializedName("token")
     private String token;
-
     @SerializedName("passenger")
     private Passenger passenger;
-
     @SerializedName("user")
     private User user;
+
+
+    // Session constructor
+    public Session(User user, Passenger passenger, String token) {
+        this.user = user;
+        this.passenger = passenger;
+        this.token = token;
+    }
+
 
     public String getToken() {
         return token;

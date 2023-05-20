@@ -15,6 +15,11 @@ public class User {
         this.token = token;
     }
 
+    public User(int id, String email) {
+        this.userId = id;
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }
