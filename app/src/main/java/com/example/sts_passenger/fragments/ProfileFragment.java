@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,8 @@ public class ProfileFragment extends Fragment {
 
     Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
-    TextView tv_title;
+    TextView tv_title,name_text,email_text,contact_text,address_text;
+    CardView cardViewProfile;
     private Context mContext;
 
 
@@ -58,14 +61,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        logout = view.findViewById(R.id.logout);
-        tripHistory = view.findViewById(R.id.tripHistory);
-        tv_title = view.findViewById(R.id.tv1);
+        initView(view); // views initialization
 
         tripHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-// instance of search ticket frag
                 TripHistory fragment = new TripHistory();
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout_profile_container, fragment);
@@ -88,7 +88,9 @@ public class ProfileFragment extends Fragment {
     private void hideViewsOnFragTransaction() {
         tripHistory.setVisibility(View.GONE);
         logout.setVisibility(View.GONE);
+        cardViewProfile.setVisibility(View.GONE);
         tv_title.setVisibility(View.GONE);
+
     }
 
     //------------------------------logout-------------------------
@@ -138,4 +140,16 @@ public class ProfileFragment extends Fragment {
         sharedPrefManager = new SharedPrefManager(mContext);
         return sharedPrefManager.getUser().getToken();
     }
+
+    public void initView(View view){
+        logout = view.findViewById(R.id.logout);
+        tripHistory = view.findViewById(R.id.tripHistory);
+        cardViewProfile = view.findViewById(R.id.cardView_profile);
+        tv_title = view.findViewById(R.id.sts_title);
+        name_text = view.findViewById(R.id.name_text);
+        email_text = view.findViewById(R.id.email_text);
+        contact_text = view.findViewById(R.id.contact_text);
+        address_text = view.findViewById(R.id.address_text);
+    }
+
 }
