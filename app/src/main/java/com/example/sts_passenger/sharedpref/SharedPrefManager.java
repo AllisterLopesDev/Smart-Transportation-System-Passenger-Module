@@ -3,9 +3,9 @@ package com.example.sts_passenger.sharedpref;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.sts_passenger.apiservices.response.RegisterUser;
 import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Passenger;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.User;
 
 
@@ -40,7 +40,7 @@ public class SharedPrefManager {
                 sharedPreferences.getString("token", null));
     }
 
-    public void addUserDetails(Passenger passenger){
+    public void savePassengerData(Passenger passenger){
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("firstname",passenger.getFirstname());
@@ -86,6 +86,27 @@ public class SharedPrefManager {
         editor = sharedPreferences.edit();
         editor.putInt("id", halts.getId());
         editor.putString("name", halts.getName());
+        editor.apply();
+    }
+
+    public void savePassengerOnLogin(Session session) {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        // editor to insert data
+        editor = sharedPreferences.edit();
+
+        // put data
+        editor.putInt("userId", session.getUser().getUserId());
+        editor.putString("email", session.getUser().getEmail());
+        editor.putString("token", session.getToken());
+        editor.putInt("passengerId", session.getPassenger().getPassengerId());
+        editor.putString("firstName", session.getPassenger().getFirstname());
+        editor.putString("lastName", session.getPassenger().getLastname());
+        editor.putString("contact", session.getPassenger().getContact());
+        editor.putString("address", session.getPassenger().getAddress());
+        editor.putString("gender", session.getPassenger().getGender());
+        editor.putString("category", session.getPassenger().getCategory());
+        editor.putString("dob", session.getPassenger().getDob());
         editor.apply();
     }
 

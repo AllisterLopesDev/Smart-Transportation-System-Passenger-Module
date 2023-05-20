@@ -3,6 +3,7 @@ package com.example.sts_passenger.model;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("email")
     private  String email;
     private  String token;
 

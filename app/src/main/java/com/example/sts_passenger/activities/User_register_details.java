@@ -3,7 +3,6 @@ package com.example.sts_passenger.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +22,6 @@ import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.model.CalendarDate;
-import com.example.sts_passenger.model.RouteInfo;
 import com.example.sts_passenger.model.User;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
@@ -112,7 +110,7 @@ public class User_register_details extends AppCompatActivity {
             public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().getStatus() == 200) {
-                        sharedPrefManager.addUserDetails(response.body().getPassenger());
+                        sharedPrefManager.savePassengerData(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 //                        tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);

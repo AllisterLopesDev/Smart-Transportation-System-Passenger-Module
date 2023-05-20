@@ -4,16 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Passenger {
 
+    @SerializedName("firstname")
     private String firstname;
+    @SerializedName("lastname")
     private String lastname;
+    @SerializedName("contact")
     private String contact;
+    @SerializedName("address")
     private String address;
+    @SerializedName("dob")
     private String dob;
+    @SerializedName("category")
     private String category;
+    @SerializedName("gender")
     private String gender;
 
 
-    @SerializedName("id") Integer passengerId;
+    @SerializedName("id")
+    private Integer passengerId;
 
     public Passenger(String firstname, String lastname, String contact, String address, String dob, String category, String gender, Integer passengerId) {
         this.firstname = firstname;
