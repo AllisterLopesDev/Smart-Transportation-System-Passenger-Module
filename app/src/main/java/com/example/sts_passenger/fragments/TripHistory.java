@@ -44,7 +44,7 @@ public class TripHistory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sharedPrefManager = new SharedPrefManager(getContext());
 
         recyclerView = view.findViewById(R.id.recycleView_tripHistory);
         recyclerView.setHasFixedSize(true);

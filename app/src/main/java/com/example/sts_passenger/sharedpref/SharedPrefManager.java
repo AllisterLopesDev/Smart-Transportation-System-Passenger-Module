@@ -110,6 +110,24 @@ public class SharedPrefManager {
         editor.apply();
     }
 
+
+    public User getPassengerOnLogin() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new User(
+                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getString("email", null),
+                sharedPreferences.getString("token", null));
+//        new Passenger(
+//                sharedPreferences.getInt("passengerId",-1),
+//                sharedPreferences.getString("firstName",null),
+//                sharedPreferences.getString("lastName",null),
+//                sharedPreferences.getString("contact",null),
+//                sharedPreferences.getString("address",null),
+//                sharedPreferences.getString("gender",null),
+//                sharedPreferences.getString("category",null),
+//                sharedPreferences.getString("dob",null));
+    }
+
 /*    public User getPassSource() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
     }*/
