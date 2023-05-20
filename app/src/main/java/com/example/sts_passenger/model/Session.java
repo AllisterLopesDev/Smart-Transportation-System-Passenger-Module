@@ -5,13 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class Session {
     @SerializedName("token")
     private String token;
-
     @SerializedName("passenger")
     private Passenger passenger;
-
     @SerializedName("user")
     private User user;
-
     public String getToken() {
         return token;
     }

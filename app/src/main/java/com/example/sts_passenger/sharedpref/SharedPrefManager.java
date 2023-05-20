@@ -71,15 +71,12 @@ public class SharedPrefManager {
         return sharedPreferences.getBoolean("logged", false);
     }
 
-
-
     public void logout() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
     }
-
 
     public void savePassSource(Halts halts) {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
@@ -110,8 +107,5 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-/*    public User getPassSource() {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
-    }*/
 
 }
