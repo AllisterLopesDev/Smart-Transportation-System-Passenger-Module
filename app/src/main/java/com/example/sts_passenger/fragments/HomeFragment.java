@@ -21,6 +21,7 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.ValidTicketAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.result.TicketBooking;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
@@ -35,7 +36,9 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<TicketBooking> bookingList;
 
+    // SharedPrefManager
     SharedPrefManager sharedPrefManager;
+    private Session savedSession;
 
 
     @Override
@@ -62,6 +65,9 @@ public class HomeFragment extends Fragment {
 //        tv_destination = view.findViewById(R.id.destination);
 //        getTicketDetails();
 
+        // init sharedPrefManager for passenger session
+        setSharedPrefManager();
+
 
         recyclerView = view.findViewById(R.id.recycleView_ticketList);
 
@@ -69,8 +75,16 @@ public class HomeFragment extends Fragment {
         getTicketDetails();
     }
 
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        savedSession = sharedPrefManager.getSavedSessionOnLogin();
+    }
+
     private void getTicketDetails() {
-        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getAllTicketDetails(3);
+        int passengerId = savedSession.getPassenger().getPassengerId();
+        Log.i("TAG", "getTicketDetails: passenger-id " + passengerId);
+        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getAllTicketDetails(savedSession.getPassenger().getPassengerId());
         call.enqueue(new Callback<TicketDetailsResponse>() {
             @Override
             public void onResponse(Call<TicketDetailsResponse> call, Response<TicketDetailsResponse> response) {
@@ -78,7 +92,7 @@ public class HomeFragment extends Fragment {
                     if (response.body()  != null && response.body().getStatus() == 200){
                         bookingList = response.body().getTicketBookingList();
                         recyclerView.setAdapter(new ValidTicketAdapter(bookingList,getContext()));
-                        }
+                    }
                 }
             }
 

@@ -9,6 +9,16 @@ public class Session {
     private Passenger passenger;
     @SerializedName("user")
     private User user;
+
+
+    // Session constructor
+    public Session(User user, Passenger passenger, String token) {
+        this.user = user;
+        this.passenger = passenger;
+        this.token = token;
+    }
+
+
     public String getToken() {
         return token;
     }

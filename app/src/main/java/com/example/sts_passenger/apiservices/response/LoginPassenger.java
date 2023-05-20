@@ -1,11 +1,24 @@
 package com.example.sts_passenger.apiservices.response;
 
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.User;
+import com.google.gson.annotations.SerializedName;
 
 public class LoginPassenger {
     private String message;
     private int status;
-    private  User user;
+    private User user;
+
+    @SerializedName("session")
+    private Session session;
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
 
     public LoginPassenger(String message, int status, User user) {
         this.message = message;

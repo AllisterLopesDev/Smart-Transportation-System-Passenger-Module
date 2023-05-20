@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.AllPassengerPassDetailsAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.result.PassDetails;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -34,6 +37,10 @@ public class PassFragment extends Fragment {
     RecyclerView recyclerView;
 
     List<PassDetails> passDetailsList;
+
+    // SharedPrefManager
+    SharedPrefManager sharedPrefManager;
+    private Session savedSession;
 
 
 
@@ -49,6 +56,9 @@ public class PassFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createPassBtn = view.findViewById(R.id.create_pass);
+
+        // init sharedPrefManager for passenger session
+        setSharedPrefManager();
 
         recyclerView = view.findViewById(R.id.passenger_pass_details_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -76,6 +86,12 @@ public class PassFragment extends Fragment {
 
     }
 
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        savedSession = sharedPrefManager.getSavedSessionOnLogin();
+    }
+
 
 
     @Override
@@ -86,7 +102,9 @@ public class PassFragment extends Fragment {
 
     }
     public void passengerPassDetails(){
-        Call<PassengerPassDetailsResponse> passengerPassDetailsResponseCall= Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getPassengerPassDetails(7);
+        int passengerId = savedSession.getPassenger().getPassengerId();
+        Log.i("TAG", "passengerPassDetails: passenger-id " + passengerId);
+        Call<PassengerPassDetailsResponse> passengerPassDetailsResponseCall= Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getPassengerPassDetails(savedSession.getPassenger().getPassengerId());
 
         passengerPassDetailsResponseCall.enqueue(new Callback<PassengerPassDetailsResponse>() {
             @Override
@@ -94,7 +112,6 @@ public class PassFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null){
                     passDetailsList= response.body().getResult();
                     recyclerView.setAdapter(new AllPassengerPassDetailsAdapter(passDetailsList,getContext()));
-
                 }
             }
 

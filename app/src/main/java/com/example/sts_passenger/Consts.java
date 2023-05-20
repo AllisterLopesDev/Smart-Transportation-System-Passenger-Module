@@ -42,13 +42,12 @@ public class Consts {
 
     // Endpoints for Bus
     public static final String ENDPOINT_SEARCH = "search";
+    public static final String ENDPOINT_SEARCH_BUS = "search";
+    public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings";
 
-
-        public static final String ENDPOINT_SEARCH_BUS = "search";
-
-
-        // booking
-        public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings";
+    // Shared Preferences
+    public static final String SHARED_PREF_AUTH = "stsPassengerAuth";
+    public static final String SHARED_PREF_PASS = "pass";
 
 
 
