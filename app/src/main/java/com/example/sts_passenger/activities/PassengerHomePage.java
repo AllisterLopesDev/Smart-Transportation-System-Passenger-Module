@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.sts_passenger.R;
-import com.example.sts_passenger.fragments.GeneratePass;
 import com.example.sts_passenger.fragments.HomeFragment;
 import com.example.sts_passenger.fragments.PassFragment;
 import com.example.sts_passenger.fragments.ProfileFragment;
@@ -45,7 +44,7 @@ public class PassengerHomePage extends AppCompatActivity {
                 } else if (id == R.id.ticket) {
                     loadFrag(new TicketFragment(),false);
                 } else if (id == R.id.schedule) {
-                    loadActivity();
+                    loadFrag(new ScheduleFragment(),false);
                 } else if (id == R.id.issues) {
                     loadFrag(new PassFragment(),false);
                 }else {
@@ -69,11 +68,11 @@ public class PassengerHomePage extends AppCompatActivity {
     }
 
 
-    public  void loadActivity() {
-        Intent i = new Intent(getApplicationContext(), ScheduleActivity.class);
-        startActivity(i);
-
-    }
+//    public  void loadActivity() {
+//        Intent i = new Intent(getApplicationContext(), ScheduleFragment.class);
+//        startActivity(i);
+//
+//    }
 
 
     // init views

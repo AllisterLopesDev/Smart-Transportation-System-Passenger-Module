@@ -29,6 +29,8 @@ public class GeneratePass extends Fragment {
     private int year, month, day;
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
