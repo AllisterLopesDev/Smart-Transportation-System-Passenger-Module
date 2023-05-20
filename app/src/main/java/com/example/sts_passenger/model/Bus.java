@@ -11,6 +11,17 @@ public class Bus {
     @SerializedName("type")
     private String type;
 
+    public String getBusType() {
+        return busType;
+    }
+
+    public void setBusType(String busType) {
+        this.busType = busType;
+    }
+
+    @SerializedName("bus-type")
+    private String busType;
+
     public Integer getId() {
         return id;
     }
