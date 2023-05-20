@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getTicketDetails() {
-        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getCurrentTicket(3);
+        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getAllTicketDetails(3);
         call.enqueue(new Callback<TicketDetailsResponse>() {
             @Override
             public void onResponse(Call<TicketDetailsResponse> call, Response<TicketDetailsResponse> response) {

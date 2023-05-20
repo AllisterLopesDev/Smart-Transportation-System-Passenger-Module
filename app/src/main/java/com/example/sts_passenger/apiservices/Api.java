@@ -82,7 +82,7 @@ public interface Api {
 
 
     @GET(Consts.ENDPOINT_GET_TICKET_BOOKING+"/{passenger_id}")
-    Call<TicketDetailsResponse> getTicketDetails(@Path("passenger_id") Integer passenger_id);
+    Call<TicketDetailsResponse> getAllTicketDetails(@Path("passenger_id") Integer passenger_id);
 
 
     @GET(Consts.ENDPOINT_GET_TRIP_HISTORY+"/{passenger_id}")

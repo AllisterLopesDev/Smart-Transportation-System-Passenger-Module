@@ -84,11 +84,11 @@ public class GeneratePass extends Fragment {
         });
         getBundleData();
 
-        double fare = Double.parseDouble(routeInfo.getFare().trim());
-        double distance = Double.parseDouble(routeInfo.getDistance().trim());
-        double passPrice = calculateFare(fare, distance);
-        tv_total_fare.setText(String.valueOf(passPrice));
-        Log.i("TAG", "getBundleData: pass price " + passPrice);
+//        double fare = Double.parseDouble(routeInfo.getFare().trim());
+//        double distance = Double.parseDouble(routeInfo.getDistance().trim());
+//        double passPrice = calculateFare(fare, distance);
+//        tv_total_fare.setText(String.valueOf(passPrice));
+//        Log.i("TAG", "getBundleData: pass price " + passPrice);
 
 
 
