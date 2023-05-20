@@ -22,6 +22,7 @@ import com.example.sts_passenger.adapters.ValidTicketAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.model.result.TicketBooking;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<TicketBooking> bookingList;
+
+    SharedPrefManager sharedPrefManager;
 
 
     @Override

@@ -11,9 +11,11 @@ public class Passenger {
     private String dob;
     private String category;
     private String gender;
-    @SerializedName("id") Integer id;
 
-    public Passenger(String firstname, String lastname, String contact, String address, String dob, String category, String gender, Integer id) {
+
+    @SerializedName("id") Integer passengerId;
+
+    public Passenger(String firstname, String lastname, String contact, String address, String dob, String category, String gender, Integer passengerId) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.contact = contact;
@@ -21,15 +23,15 @@ public class Passenger {
         this.dob = dob;
         this.category = category;
         this.gender = gender;
-        this.id = id;
+        this.passengerId = passengerId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getPassengerId() {
+        return passengerId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPassengerId(Integer passengerId) {
+        this.passengerId = passengerId;
     }
 
     public String getFirstname() {

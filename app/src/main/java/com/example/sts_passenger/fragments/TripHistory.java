@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.TripHistoryAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.TripHistoryResponse;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class TripHistory extends Fragment {
 
     RecyclerView recyclerView;
     List<com.example.sts_passenger.model.TripHistory> tripHistoryList;
+    SharedPrefManager sharedPrefManager;
 
 
     @Override
@@ -52,7 +55,10 @@ public class TripHistory extends Fragment {
     }
 
     private void getTripHistory() {
+
+
         Call<TripHistoryResponse> tripHistoryResponseCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getTripHistory(3);
+
         tripHistoryResponseCall.enqueue(new Callback<TripHistoryResponse>() {
             @Override
             public void onResponse(Call<TripHistoryResponse> call, Response<TripHistoryResponse> response) {

@@ -14,12 +14,8 @@ import android.widget.Toast;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
-<<<<<<< HEAD
-import com.example.sts_passenger.apiservices.request.RegisterUserRequest;
-import com.example.sts_passenger.apiservices.response.RegisterUserResponse;
-=======
+
 import com.example.sts_passenger.apiservices.response.RegisterUser;
->>>>>>> c2c76b22a937755116d4a001d82d8fb8f8284a1c
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.example.sts_passenger.apiservices.response.RegistrationVerifyOtp;
 
@@ -132,31 +128,16 @@ public class VerifyOtp extends AppCompatActivity {
 
     // ---------------------------------------REGISTER User ----------------------------- //
 
-<<<<<<< HEAD
-    public RegisterUserRequest createRequest() {
-        RegisterUserRequest userRequest = new RegisterUserRequest();
-=======
+
     public com.example.sts_passenger.apiservices.request.RegisterUser createRequest() {
         com.example.sts_passenger.apiservices.request.RegisterUser userRequest = new com.example.sts_passenger.apiservices.request.RegisterUser();
->>>>>>> c2c76b22a937755116d4a001d82d8fb8f8284a1c
         userRequest.setEmail(getUserEmail());
         userRequest.setPassword(getUserPassword());
-//        userRequest.setIpAddress(getIpAddress());
+        userRequest.setIpAddress(getIpAddress());
         return userRequest;
     }
 
-<<<<<<< HEAD
-    public void register(RegisterUserRequest userRequest) {
-        Call<RegisterUserResponse> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
-        userResponseCall.enqueue(new Callback<RegisterUserResponse>() {
-            @Override
-            public void onResponse(Call<RegisterUserResponse> call, Response<RegisterUserResponse> response) {
-                RegisterUserResponse userResponse = response.body();
-                if (response.isSuccessful()) {
-                    if (userResponse.getStatus() == 200) {
-                        sharedPrefManager.saveUser(userResponse.getUser());
-                        Toast.makeText(VerifyOtp.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-=======
+
     public void register(com.example.sts_passenger.apiservices.request.RegisterUser userRequest) {
         Call<RegisterUser> userCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().saveUser(userRequest);
         userCall.enqueue(new Callback<RegisterUser>() {
@@ -165,7 +146,7 @@ public class VerifyOtp extends AppCompatActivity {
                 if (response.isSuccessful()){
                     if (response.body() != null && response.body().getStatus() == 200 ){
                         Toast.makeText(VerifyOtp.this, "user registered " + response.body().getMessage(), Toast.LENGTH_LONG).show();
->>>>>>> c2c76b22a937755116d4a001d82d8fb8f8284a1c
+                        sharedPrefManager.saveUser(response.body().getUser());
                         Intent i = new Intent(getApplicationContext(), User_register_details.class);
                         startActivity(i);
                     }
@@ -175,11 +156,8 @@ public class VerifyOtp extends AppCompatActivity {
             }
 
             @Override
-<<<<<<< HEAD
-            public void onFailure(Call<RegisterUserResponse> call, Throwable t) {
-=======
+
             public void onFailure(Call<RegisterUser> call, Throwable t) {
->>>>>>> c2c76b22a937755116d4a001d82d8fb8f8284a1c
                 Toast.makeText(VerifyOtp.this, "failed " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

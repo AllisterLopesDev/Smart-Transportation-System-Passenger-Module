@@ -9,6 +9,7 @@ public class Consts {
     public static final String BASE_URL_PASSENGER_AUTH = "http://"+IP_ADDRESS+"/user/";
     public static final String BASE_URL_BOOKING = "http://"+IP_ADDRESS+"/booking/";
     public static final String BASE_URL_BUS = "http://"+IP_ADDRESS+"/bus/";
+    public static final String BASE_URL_SCHEDULE = "http://"+IP_ADDRESS+"/schedule/";
 
     // Endpoints
     public static final String ENDPOINT_LOGIN = "login";
@@ -20,6 +21,7 @@ public class Consts {
     public static final String ENDPOINT_ADD_PASSENGER_DETAILS = "add-passenger-details";
 
     public static final String ENDPOINT_SEAT_AVAILABILITY = "seat-available";
+    public static final String ENDPOINT_ROUTE_INFO = "route-info";
 
 
     // booking endpoints
@@ -32,7 +34,7 @@ public class Consts {
 
 
         // booking
-        public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings/{passenger_id}";
+        public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings";
 
 
     // Request parameters
