@@ -34,6 +34,8 @@ public class Passenger {
         this.passengerId = passengerId;
     }
 
+
+
     public Integer getPassengerId() {
         return passengerId;
     }

@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginPassenger loginResponse = response.body();
                 if (response.isSuccessful()) {
                     if (loginResponse != null && loginResponse.getStatus() == 200) {
-                        sharedPrefManager.saveUser(loginResponse.getUser());
+                        sharedPrefManager.savePassengerOnLogin(loginResponse.getSession());
                         Toast.makeText(LoginActivity.this, "user successfully logged in", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, PassengerHomePage.class);
                         // setFlags clears previous tasks
