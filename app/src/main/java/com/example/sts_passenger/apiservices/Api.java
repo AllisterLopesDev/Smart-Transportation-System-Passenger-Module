@@ -12,6 +12,7 @@ import com.example.sts_passenger.apiservices.response.PassengerPassDetailsRespon
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.apiservices.response.RegisterUser;
 import com.example.sts_passenger.apiservices.response.RegistrationOtp;
+import com.example.sts_passenger.apiservices.response.RouteInfoResponse;
 import com.example.sts_passenger.apiservices.response.SeatAvailability;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.apiservices.response.TripHistoryResponse;
@@ -83,7 +84,10 @@ public interface Api {
     @GET(Consts.ENDPOINT_GET_TICKET_BOOKING+"/{passenger_id}")
     Call<TicketDetailsResponse> getTicketDetails(@Path("passenger_id") Integer passenger_id);
 
-    @GET(Consts.ENDPOINT_GET_TRIP_HISTORY + "/{paggenger_id}")
+
+    @GET(Consts.ENDPOINT_GET_TRIP_HISTORY+"/{passenger_id}")
     Call<TripHistoryResponse> getTripHistory(@Path("passenger_id") Integer passenger_id);
 
+    @GET(Consts.ENDPOINT_ROUTE_INFO)
+    Call<RouteInfoResponse> getRouteInfo();
 }

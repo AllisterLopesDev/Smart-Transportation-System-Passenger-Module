@@ -16,7 +16,6 @@ public class RegisterPassenger {
 
     private String message;
     private int status;
-    private User user;
     private Passenger passenger;
 
     public Passenger getPassenger() {
@@ -51,13 +50,6 @@ public class RegisterPassenger {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 
     private boolean success;

@@ -3,12 +3,15 @@ package com.example.sts_passenger.sharedpref;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.sts_passenger.apiservices.response.RegisterUser;
+import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 
 
 public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "stsadmin";
+    private static final String SHARED_PREF_PASS_DATA = "stspass";
     SharedPreferences sharedPreferences;
     Context context;
     private SharedPreferences.Editor editor;
@@ -47,7 +50,7 @@ public class SharedPrefManager {
         editor.putString("gender",passenger.getGender());
         editor.putString("category",passenger.getCategory());
         editor.putString("dob",passenger.getDob());
-        editor.putInt("id",passenger.getId());
+        editor.putInt("id",passenger.getPassengerId());
         editor.apply();
     }
 
@@ -76,5 +79,18 @@ public class SharedPrefManager {
         editor.clear();
         editor.apply();
     }
+
+
+    public void savePassSource(Halts halts) {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("id", halts.getId());
+        editor.putString("name", halts.getName());
+        editor.apply();
+    }
+
+/*    public User getPassSource() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
+    }*/
 
 }

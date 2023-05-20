@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
+import com.example.sts_passenger.model.User;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import retrofit2.Call;
@@ -29,6 +31,7 @@ public class User_register_details extends AppCompatActivity {
     TextView tvShowServerMessage;
     SharedPrefManager sharedPrefManager;
 
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ public class User_register_details extends AppCompatActivity {
 
     public void addUserInfo(RegisterPassengerRequest userRequest) {
         Call<RegisterPassenger> userResponseCall = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().addDetails(sharedPrefManager.getUser().getToken(),userRequest);
+        Log.i("TAG", "addUserInfo: token "+sharedPrefManager.getUser().getToken());
         userResponseCall.enqueue(new Callback<RegisterPassenger>() {
             @Override
 
