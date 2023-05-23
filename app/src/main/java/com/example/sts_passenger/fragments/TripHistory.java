@@ -18,6 +18,7 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.TripHistoryAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.TripHistoryResponse;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class TripHistory extends Fragment {
     RecyclerView recyclerView;
     List<com.example.sts_passenger.model.TripHistory> tripHistoryList;
     SharedPrefManager sharedPrefManager;
+    private Session session;
 
 
     @Override
@@ -44,7 +46,8 @@ public class TripHistory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sharedPrefManager = new SharedPrefManager(getContext());
+
+        setSharedPrefManager();
 
         recyclerView = view.findViewById(R.id.recycleView_tripHistory);
         recyclerView.setHasFixedSize(true);
@@ -55,9 +58,10 @@ public class TripHistory extends Fragment {
     }
 
     private void getTripHistory() {
+        Integer passengerId  = session.getPassenger().getPassengerId();
 
 
-        Call<TripHistoryResponse> tripHistoryResponseCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getTripHistory(3);
+        Call<TripHistoryResponse> tripHistoryResponseCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getTripHistory(passengerId);
 
         tripHistoryResponseCall.enqueue(new Callback<TripHistoryResponse>() {
             @Override
@@ -73,5 +77,11 @@ public class TripHistory extends Fragment {
 
             }
         });
+    }
+
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        session = sharedPrefManager.getSavedSessionOnLogin();
     }
 }
