@@ -76,6 +76,7 @@ public interface Api {
 
     @POST(Consts.ENDPOINT_GET_CURRENT_BOOTKING_TICKET)
     Call<TicketDetailsResponse> getCurrentTicket(@Query("passenger-id") Integer passengerId);
+
     @POST(Consts.ENDPOINT_BOOK_INSTANT_TICKET)
     Call<InstantTicketBooking> instantTicket(@Body com.example.sts_passenger.apiservices.request.InstantTicketBooking requestData);
 

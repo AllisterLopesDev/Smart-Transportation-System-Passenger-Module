@@ -25,6 +25,7 @@ import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.result.TicketBooking;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -91,7 +92,17 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body()  != null && response.body().getStatus() == 200){
                         bookingList = response.body().getTicketBookingList();
-                        recyclerView.setAdapter(new ValidTicketAdapter(bookingList,getContext()));
+
+                        // filter booked tickets
+                        List<TicketBooking> filterBookedTickets = new ArrayList<>();
+                        for (TicketBooking bookedTicket : bookingList) {
+                            if (bookedTicket.getTicket().getStatus().equals("Booked")) {
+                                filterBookedTickets.add(bookedTicket);
+                            }
+                        }
+
+                        // add filtered list to recyclerview
+                        recyclerView.setAdapter(new ValidTicketAdapter(filterBookedTickets, getContext()));
                     }
                 }
             }
