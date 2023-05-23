@@ -32,7 +32,6 @@ import retrofit2.Response;
 public class PassSourceStop extends Fragment {
     RecyclerView recyclerView;
     List<RouteInfo> routeInfoList;
-    SharedPrefManager sharedPrefManager;
 
 
     @Override
