@@ -71,4 +71,8 @@ public class Consts {
 
     // request codes
     public static final Integer LOCATION_REQUEST_CODE = 1;
+
+
+    // password hash
+    public static final String MD5 = "MD5";
 }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sts_passenger.PasswordHash;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
@@ -84,9 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 
     // to create the login request
     public com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest(){
+
         com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest = new com.example.sts_passenger.apiservices.request.LoginPassenger();
         loginRequest.setEmail(email.getText().toString());
-        loginRequest.setPassword(password.getText().toString());
+        String encrptPass = PasswordHash.md5(password.getText().toString());
+        loginRequest.setPassword(encrptPass);
 //        loginRequest.setIpaddress(getIpAddress());
         return loginRequest;
     }

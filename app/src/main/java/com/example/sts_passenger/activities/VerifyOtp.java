@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sts_passenger.PasswordHash;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
@@ -35,6 +36,7 @@ public class VerifyOtp extends AppCompatActivity {
     EditText otp_code;
     Button verifyBtn;
     SharedPrefManager sharedPrefManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +134,9 @@ public class VerifyOtp extends AppCompatActivity {
     public com.example.sts_passenger.apiservices.request.RegisterUser createRequest() {
         com.example.sts_passenger.apiservices.request.RegisterUser userRequest = new com.example.sts_passenger.apiservices.request.RegisterUser();
         userRequest.setEmail(getUserEmail());
-        userRequest.setPassword(getUserPassword());
+        String encryptedPassword = PasswordHash.md5(getUserPassword());
+        Log.i("TAG", "createRequest: encrypted " + encryptedPassword);
+        userRequest.setPassword(encryptedPassword);
         userRequest.setIpAddress(getIpAddress());
         return userRequest;
     }
@@ -146,11 +150,14 @@ public class VerifyOtp extends AppCompatActivity {
                     if (response.body() != null && response.body().getStatus() == 200 ){
                         Toast.makeText(VerifyOtp.this, "user registered " + response.body().getMessage(), Toast.LENGTH_LONG).show();
                         sharedPrefManager.saveUser(response.body().getUser());
-
+                        Toast.makeText(VerifyOtp.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), User_register_details.class);
                         startActivity(i);
+                    } else if (response.body().getStatus() == 400) {
+                        Toast.makeText(VerifyOtp.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
                     }
-                }else {
+                }else{
                     Log.i("TAG", "onResponse: NOT SUCCESS");
                 }
             }
