@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.example.sts_passenger.R;
 
 public class TicketFragment extends Fragment {
-    Button btnInstantTicket, btnPreTicket, btnPass;
+    Button btnInstantTicket, btnPreTicket;
 
 
 
@@ -25,9 +25,8 @@ public class TicketFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_ticket, container, false);
 
-        return rootView;
+        return inflater.inflate(R.layout.fragment_ticket, container, false);
     }
 
     @Override
@@ -42,7 +41,6 @@ public class TicketFragment extends Fragment {
     private void initViews(View view) {
         btnInstantTicket = view.findViewById(R.id.btn_instant_ticket);
         btnPreTicket = view.findViewById(R.id.btn_pre_ticket_booking);
-//        btnPass = view.findViewById(R.id.btn_generate_pass);
     }
 
 
@@ -93,7 +91,6 @@ public class TicketFragment extends Fragment {
     private void hideViewsOnFragTransaction() {
         btnInstantTicket.setVisibility(View.GONE);
         btnPreTicket.setVisibility(View.GONE);
-        btnPass.setVisibility(View.GONE);
     }
 
 }
