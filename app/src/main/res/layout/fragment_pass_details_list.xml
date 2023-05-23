@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_margin="8dp"
+            android:id="@+id/materialCardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:elevation="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_pass_source"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="28dp"
+                            android:layout_marginTop="10dp"
+                            android:text="source"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_pass_destination"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="108dp"
+                            android:layout_marginTop="10dp"
+                            android:text="destination"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </LinearLayout>
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_Source"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="28dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="source"-->
+<!--                            android:textSize="21sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_Departure"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="28dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="departure"-->
+<!--                            android:textSize="21sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+<!--                    </LinearLayout>-->
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <!-- Destination and Arrival linear-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_pass_validFrom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="28dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Valid_From"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_pass_validTo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="78dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Valid_To"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_Source"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="28dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="source"-->
+<!--                            android:textSize="21sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_Departure"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="28dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="departure"-->
+<!--                            android:textSize="21sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+<!--                    </LinearLayout>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <!-- Destination and Arrival linear-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_pass_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="28dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Status"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_pass_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="128dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Price"
+                            android:textSize="21sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </LinearLayout>
+                    <!--                    <LinearLayout-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:orientation="vertical">-->
+
+                    <!--                        <TextView-->
+                    <!--                            android:id="@+id/tv_Source"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_marginStart="28dp"-->
+                    <!--                            android:layout_marginTop="10dp"-->
+                    <!--                            android:text="source"-->
+                    <!--                            android:textSize="21sp"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                        <TextView-->
+                    <!--                            android:id="@+id/tv_Departure"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_marginStart="28dp"-->
+                    <!--                            android:layout_marginTop="10dp"-->
+                    <!--                            android:text="departure"-->
+                    <!--                            android:textSize="21sp"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+                    <!--                    </LinearLayout>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="73dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="MissingConstraints">-->
+
+
+
+
+<!--        <TextView-->
+<!--        android:id="@+id/tv_pass_validFrom"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="93dp"-->
+<!--        android:layout_marginEnd="134dp"-->
+<!--        android:text="Valid_from"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/constraintLayout"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pass_source"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="source"-->
+<!--            android:textSize="20sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteY="8dp" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_from"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="From:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/textView_to"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/textView_to"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_to"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="To:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="140dp"-->
+<!--            tools:layout_editor_absoluteY="47dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pass_destination"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="destination"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:layout_editor_absoluteX="170dp"-->
+<!--            tools:layout_editor_absoluteY="46dp" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_validFrom"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Valid_From:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="100dp"-->
+<!--            tools:layout_editor_absoluteY="97dp" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_valid_to"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Valid_To:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="120dp"-->
+<!--            tools:layout_editor_absoluteY="138dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pass_validTo"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="valid_to"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:layout_editor_absoluteX="188dp"-->
+<!--            tools:layout_editor_absoluteY="138dp" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_status"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Status:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="120dp"-->
+<!--            tools:layout_editor_absoluteY="178dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pass_status"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="status"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:layout_editor_absoluteX="184dp"-->
+<!--            tools:layout_editor_absoluteY="178dp" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView_price"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Price:"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="120dp"-->
+<!--            tools:layout_editor_absoluteY="218dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pass_price"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="price"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:layout_editor_absoluteX="185dp"-->
+<!--            tools:layout_editor_absoluteY="218dp" />-->
+
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

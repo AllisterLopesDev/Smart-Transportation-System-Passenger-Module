@@ -2,33 +2,33 @@ package com.example.sts_passenger.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.fragments.HomeFragment;
-import com.example.sts_passenger.fragments.IssueReportingFragment;
+import com.example.sts_passenger.fragments.PassFragment;
 import com.example.sts_passenger.fragments.ProfileFragment;
 import com.example.sts_passenger.fragments.ScheduleFragment;
 import com.example.sts_passenger.fragments.TicketFragment;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import com.example.sts_passenger.model.Session;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerHomePage extends AppCompatActivity {
 
     BottomNavigationView bnView;
+
+    // SharedPrefManager
+    SharedPrefManager sharedPrefManager;
+    private Session savedSession;
 
 
     @Override
@@ -38,6 +38,7 @@ public class PassengerHomePage extends AppCompatActivity {
 
         // initialize views here
         initViews();
+
 
         bnView = findViewById(R.id.bnView);
 
@@ -53,7 +54,7 @@ public class PassengerHomePage extends AppCompatActivity {
                 } else if (id == R.id.schedule) {
                     loadFrag(new ScheduleFragment(),false);
                 } else if (id == R.id.issues) {
-                    loadFrag(new IssueReportingFragment(),false);
+                    loadFrag(new PassFragment(),false);
                 }else {
                     loadFrag(new ProfileFragment(),true);
                 }
@@ -62,6 +63,23 @@ public class PassengerHomePage extends AppCompatActivity {
             }
         });
         bnView.setSelectedItemId(R.id.profile);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // init sharedPrefManager to get saved-session of passenger
+        setSharedPrefManager();
+
+        String sessionToken = savedSession.getToken();
+        Log.i("TAG", "Passenger Home Page -> onStart: user-session-token" + sessionToken);
+    }
+
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(getApplicationContext());
+        savedSession = sharedPrefManager.getSavedSessionOnLogin();
     }
 
     public  void loadFrag(Fragment fragment, Boolean flag){
@@ -73,6 +91,14 @@ public class PassengerHomePage extends AppCompatActivity {
             ft.replace(R.id.container, fragment);
         ft.commit();
     }
+
+
+//    public  void loadActivity() {
+//        Intent i = new Intent(getApplicationContext(), ScheduleFragment.class);
+//        startActivity(i);
+//
+//    }
+
 
     // init views
     private void initViews() {

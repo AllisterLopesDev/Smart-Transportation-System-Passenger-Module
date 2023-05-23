@@ -1,6 +1,5 @@
 package com.example.sts_passenger.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,7 +42,7 @@ public class TicketFragment extends Fragment {
     private void initViews(View view) {
         btnInstantTicket = view.findViewById(R.id.btn_instant_ticket);
         btnPreTicket = view.findViewById(R.id.btn_pre_ticket_booking);
-        btnPass = view.findViewById(R.id.btn_generate_pass);
+//        btnPass = view.findViewById(R.id.btn_generate_pass);
     }
 
 
@@ -66,7 +65,29 @@ public class TicketFragment extends Fragment {
                 hideViewsOnFragTransaction();
             }
         });
+
+
+        // Ticket pre-booking
+
+        btnPreTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // instance of search ticket frag
+                SearchInstantTicketFragment fragment = new SearchInstantTicketFragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout_booking_container, fragment);
+                transaction.commit();
+
+                // hide views
+                hideViewsOnFragTransaction();
+            }
+        });
+
+
     }
+
+
+
 
     // function to hide views on fragment call
     private void hideViewsOnFragTransaction() {

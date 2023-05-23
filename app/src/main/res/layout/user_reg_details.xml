@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.User_register_details">
 
+
     <TextView
+        android:id="@+id/driverText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/driverText"
-        android:text="Additional Details"
-        android:textSize="40sp"
-        android:gravity="center"
         android:layout_marginTop="100dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
+        android:gravity="center"
+        android:text="Additional Details"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/firstName"
@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Contact"
+        android:inputType="number"
         android:id="@+id/contact"
         android:layout_marginLeft="30dp"
         android:background="@drawable/button_border"
@@ -79,28 +80,31 @@
         android:hint="dob"
         android:padding="10dp" />
 
-    <EditText
+
+    <Spinner
         android:id="@+id/gender"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/contact"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address"
+        android:layout_alignBottom="@+id/dob"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="17dp"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="66dp"
         android:background="@drawable/button_border"
-        android:hint="gender"
         android:padding="10dp" />
 
-    <EditText
+    <Spinner
         android:id="@+id/category"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/contact"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dob"
+        android:layout_alignBottom="@+id/adddetailsbtn"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="206dp"
+        android:layout_marginTop="26dp"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="85dp"
         android:background="@drawable/button_border"
-        android:hint="eg. student"
         android:padding="10dp" />
 
     <Button

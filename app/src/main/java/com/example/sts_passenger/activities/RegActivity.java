@@ -46,7 +46,9 @@ public class RegActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 sendOtp(createOtpRequest());
+
             }
         });
 
