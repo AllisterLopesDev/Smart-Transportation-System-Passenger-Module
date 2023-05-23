@@ -45,4 +45,7 @@ dependencies {
 
     /* QR code */
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
+    /* CIRCULAR IMAGE VIEW */
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

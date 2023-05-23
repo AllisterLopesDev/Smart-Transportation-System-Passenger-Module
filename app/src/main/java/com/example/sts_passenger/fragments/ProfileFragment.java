@@ -2,6 +2,7 @@ package com.example.sts_passenger.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,11 +11,11 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,17 +26,38 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
+
+
+    /* image upload */
+    int SELECT_IMAGE_CODE=1;
+    FloatingActionButton addImageBtn;
+    CircleImageView profile_picture;
+    Uri imageSrcUri;
+
+
+
+
     Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
     TextView tv_title,name_text,email_text,contact_text,address_text;
     CardView cardViewProfile;
+
+
     private Context mContext;
     private Session session;
 
@@ -64,6 +86,18 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setSharedPrefManager();
         initView(view); // views initialization
+
+
+        /* upload image btn */
+        addImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"title"),SELECT_IMAGE_CODE);
+            }
+        });
 
 
 
@@ -103,9 +137,6 @@ public class ProfileFragment extends Fragment {
         logoutRequest.setToken(getSessionToken());
         return logoutRequest;
     }
-
-
-
     public void logout(LogoutPassenger logoutRequest){
         Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> logoutResponseCall= Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().logout(logoutRequest);
         logoutResponseCall.enqueue(new Callback<com.example.sts_passenger.apiservices.response.LogoutPassenger>() {
@@ -135,9 +166,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    /*
-     * Custom functions required for this activity
-     * */
+    /* Custom functions required for this activity */
 
     // get current user token from shared pref manager
     public String getSessionToken() {
@@ -154,6 +183,8 @@ public class ProfileFragment extends Fragment {
         email_text = view.findViewById(R.id.email_text);
         contact_text = view.findViewById(R.id.contact_text);
         address_text = view.findViewById(R.id.address_text);
+        profile_picture = view.findViewById(R.id.profile_picture);
+        addImageBtn = view.findViewById(R.id.upload_img);
 
         String name = session.getPassenger().getFirstname()+ " "+ session.getPassenger().getLastname();
         name_text.setText(name);
@@ -167,5 +198,43 @@ public class ProfileFragment extends Fragment {
         sharedPrefManager = new SharedPrefManager(requireContext());
         session = sharedPrefManager.getSavedSessionOnLogin();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==1){
+            imageSrcUri = data.getData();
+            profile_picture.setImageURI(imageSrcUri);
+            Log.i("TAG", "onActivityResult: uploaded image url "+imageSrcUri);
+            uplaodImage(imageSrcUri);
+        }
+    }
+
+
+
+/* upload image function */
+    public void uplaodImage(Uri imageSrcUri){
+        File file = new File(String.valueOf(imageSrcUri));
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+
+        retrofit2.Call<okhttp3.ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().postImage(body, name);
+        req.enqueue(new Callback<ResponseBody>() {
+          @Override
+          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+              Log.i("TAG", "onResponse: image uploaded" );
+          }
+
+         @Override
+          public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+         }
+        });
+    }
+
+
 
 }
