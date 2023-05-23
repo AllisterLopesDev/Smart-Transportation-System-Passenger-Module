@@ -23,6 +23,7 @@ import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.activities.LoginActivity;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import retrofit2.Call;
@@ -36,6 +37,7 @@ public class ProfileFragment extends Fragment {
     TextView tv_title,name_text,email_text,contact_text,address_text;
     CardView cardViewProfile;
     private Context mContext;
+    private Session session;
 
 
     @Override
@@ -61,7 +63,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setSharedPrefManager();
         initView(view); // views initialization
+
+
 
         tripHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +155,18 @@ public class ProfileFragment extends Fragment {
         email_text = view.findViewById(R.id.email_text);
         contact_text = view.findViewById(R.id.contact_text);
         address_text = view.findViewById(R.id.address_text);
+
+        String name = session.getPassenger().getFirstname()+ " "+ session.getPassenger().getLastname();
+        name_text.setText(name);
+        email_text.setText(session.getUser().getEmail());
+        contact_text.setText(session.getPassenger().getContact());
+        address_text.setText(session.getPassenger().getAddress());
+    }
+
+    // SharedPrefManager function
+    public void setSharedPrefManager(){
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        session = sharedPrefManager.getSavedSessionOnLogin();
     }
 
 }
