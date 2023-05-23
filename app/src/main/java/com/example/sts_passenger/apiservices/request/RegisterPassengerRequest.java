@@ -1,5 +1,7 @@
 package com.example.sts_passenger.apiservices.request;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RegisterPassengerRequest {
 
     /*
@@ -21,13 +23,21 @@ public class RegisterPassengerRequest {
     /*
     * To add user passenger details
     * */
+    @SerializedName("firstname")
     private String firstname;
+    @SerializedName("lastname")
     private String lastname;
+    @SerializedName("contact")
     private String contact;
+    @SerializedName("address")
     private String address;
+    @SerializedName("category")
     private String category;
+    @SerializedName("gender")
     private String gender;
+    @SerializedName("dob")
     private String dob;
+    @SerializedName("userid")
     private int userid;
 
     public String getFirstname() {

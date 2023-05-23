@@ -94,6 +94,14 @@
                     android:text="H.no 41, zambaulim moll"
                     android:textSize="16sp" />
 
+                <FrameLayout
+                    android:id="@+id/frameLayout_profile_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </FrameLayout>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -116,18 +124,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <FrameLayout
-            android:id="@+id/frameLayout_profile_container"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
