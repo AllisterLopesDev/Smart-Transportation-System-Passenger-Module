@@ -1,10 +1,12 @@
 package com.example.sts_passenger.fragments;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -221,7 +223,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private String getPathFromUri(Uri uri) {
+    /*private String getPathFromUri(Uri uri) {
         String path = null;
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = requireContext().getContentResolver().query(uri, projection, null, null, null);
@@ -231,25 +233,52 @@ public class ProfileFragment extends Fragment {
             cursor.close();
         }
         return path;
+    }*/
+
+    private String getPathFromUri(Uri uri) {
+        String path = null;
+
+        if (uri != null && "content".equals(uri.getScheme())) {
+            ContentResolver contentResolver = requireContext().getContentResolver();
+            Cursor cursor = contentResolver.query(uri, new String[]{MediaStore.Images.Media.DISPLAY_NAME}, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                String fileName = cursor.getString(0);
+                String fullPath = Environment.getExternalStorageDirectory() + "/" + fileName;
+                path = fullPath.replace("/root", "");
+                cursor.close();
+            }
+        }
+
+        if (path == null) {
+            path = uri.getPath();
+        }
+
+        return path;
     }
 
 
 
-/* upload image function */
+
+    /* upload image function */
     public void uploadImage(File photo){
         // Create a request body with File(photo)
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), photo);
 
         // Create a MultipartBody.Part from the request body
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("photo", photo.getName(), requestBody);
+        Log.i("TAG", "uploadImage: file name" + photo.getName());
 
         // Api call
-        Call<ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().uploadProfilePhoto(filePart);
+        Call<ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().uploadProfilePhoto(filePart, session.getToken(), session.getPassenger().getPassengerId());
+        Log.i("TAG", "uploadImage: enqueing " + filePart + " " + session.getPassenger().getPassengerId());
         req.enqueue(new Callback<ResponseBody>() {
           @Override
           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              if (response.isSuccessful())
+              if (response.isSuccessful()) {
                   Log.i("TAG", "onResponse: image uploaded" );
+                  Log.i("TAG", "onResponse: success file name " + filePart);
+              }
           }
 
          @Override

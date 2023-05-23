@@ -102,6 +102,9 @@ public interface Api {
 
     @Multipart
     @POST(Consts.ENDPOINT_UPLOAD_PROFILE_PIC)
-    Call<ResponseBody> uploadProfilePhoto(@Part MultipartBody.Part photo);
+    Call<ResponseBody> uploadProfilePhoto(
+            @Part MultipartBody.Part photo,
+            @Header("Authorization") String userSessionToken,
+            @Path("passenger_id") Integer passengerId);
 
 }
