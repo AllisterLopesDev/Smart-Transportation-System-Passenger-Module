@@ -133,42 +133,54 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                     Log.i("TAG", "onResponse: getting data");
                     busScheduleResultList = response.body().getResult();
 
-                    // iterate through results
-                    for (BusScheduleResult busScheduleResult : busScheduleResultList) {
-                        // if seats available is greater than 0 show buses
-                        if (busScheduleResult.getScheduleInfo().getSeatsAvailable() > 0) {
-                            // add busScheduleList to filtered List
-                            filteredBusScheduleList.add(busScheduleResult);
-                        }
-                    }
+                    BusScheduleSearch busScheduleSearchResponse = response.body();
+                    int statusCode = busScheduleSearchResponse.getStatus();
+                    Log.i("TAG", "onResponse: response code " + statusCode);
 
-                    // update ui based on filtered list
-                    if (filteredBusScheduleList.isEmpty()) {
-                        Log.i("TAG", "onResponse: if seats are > 0");
+                    // check if status code is 200
+                    if (statusCode == 200) {
+                        // iterate through results
+                        for (BusScheduleResult busScheduleResult : busScheduleResultList) {
+                            // if seats available is greater than 0 show buses
+                            if (busScheduleResult.getScheduleInfo().getSeatsAvailable() > 0) {
+                                // add busScheduleList to filtered List
+                                filteredBusScheduleList.add(busScheduleResult);
+                            }
+                        }
+
+                        // update ui based on filtered list
+                        if (filteredBusScheduleList.isEmpty()) {
+                            Log.i("TAG", "onResponse: if seats are > 0");
+                            // hide recycler view and show no results image
+                            noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
+                            noBusScheduleAvailableImg.setImageResource(no_results);
+                        } else {
+                            // show buses with available seats
+                            noBusScheduleAvailableImg.setVisibility(View.INVISIBLE);
+                            recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(filteredBusScheduleList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
+                                @Override
+                                public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
+                                    Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance + " " +source + " " +destination);
+
+                                    // store data for further processing
+                                    route.setFare(routeFare);
+                                    route.setDistance(routeDistance);
+                                    route.setSource(source);
+                                    route.setDestination(destination);
+                                    scheduleInfo.setId(scheduleInfoId);
+                                    bus.setRegistrationNumber(busRegNo);
+                                    bus.setType(busType);
+
+                                    // check seat availability
+                                    checkSeatAvailability(busId, ticket.getPassengerCount(), scheduleInfoId, scheduleId, date);
+                                }
+                            }));
+                        }
+                    } else if (statusCode == 400) {
+                        Log.i("TAG", "onResponse: no buses available");
                         // hide recycler view and show no results image
                         noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
                         noBusScheduleAvailableImg.setImageResource(no_results);
-                    } else {
-                        // show buses with available seats
-                        noBusScheduleAvailableImg.setVisibility(View.INVISIBLE);
-                        recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(filteredBusScheduleList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
-                            @Override
-                            public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
-                                Log.i("TAG", "onItemClick: store data" + scheduleInfoId + " " + routeFare + " " +routeDistance + " " +source + " " +destination);
-
-                                // store data for further processing
-                                route.setFare(routeFare);
-                                route.setDistance(routeDistance);
-                                route.setSource(source);
-                                route.setDestination(destination);
-                                scheduleInfo.setId(scheduleInfoId);
-                                bus.setRegistrationNumber(busRegNo);
-                                bus.setType(busType);
-
-                                // check seat availability
-                                checkSeatAvailability(busId, ticket.getPassengerCount(), scheduleInfoId, scheduleId, date);
-                            }
-                        }));
                     }
                 }
             }
