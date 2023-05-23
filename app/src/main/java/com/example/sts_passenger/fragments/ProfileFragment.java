@@ -2,15 +2,10 @@ package com.example.sts_passenger.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +14,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sts_passenger.apiservices.Client;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.sts_passenger.Consts;
-import com.example.sts_passenger.activities.LoginActivity;
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.activities.LoginActivity;
+import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
@@ -199,6 +200,8 @@ public class ProfileFragment extends Fragment {
         session = sharedPrefManager.getSavedSessionOnLogin();
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -207,25 +210,46 @@ public class ProfileFragment extends Fragment {
             imageSrcUri = data.getData();
             profile_picture.setImageURI(imageSrcUri);
             Log.i("TAG", "onActivityResult: uploaded image url "+imageSrcUri);
-            uplaodImage(imageSrcUri);
+
+            String imagePath = getPathFromUri(imageSrcUri);
+            if (imagePath != null) {
+                File photo = new File(imagePath);
+                uploadImage(photo);
+            } else {
+                Log.e("TAG", "Failed to get the file path from the URI");
+            }
         }
+    }
+
+    private String getPathFromUri(Uri uri) {
+        String path = null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = requireContext().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            path = cursor.getString(columnIndex);
+            cursor.close();
+        }
+        return path;
     }
 
 
 
 /* upload image function */
-    public void uplaodImage(Uri imageSrcUri){
-        File file = new File(String.valueOf(imageSrcUri));
+    public void uploadImage(File photo){
+        // Create a request body with File(photo)
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), photo);
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+        // Create a MultipartBody.Part from the request body
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("photo", photo.getName(), requestBody);
 
-        retrofit2.Call<okhttp3.ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().postImage(body, name);
+        // Api call
+        Call<ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().uploadProfilePhoto(filePart);
         req.enqueue(new Callback<ResponseBody>() {
           @Override
           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              Log.i("TAG", "onResponse: image uploaded" );
+              if (response.isSuccessful())
+                  Log.i("TAG", "onResponse: image uploaded" );
           }
 
          @Override

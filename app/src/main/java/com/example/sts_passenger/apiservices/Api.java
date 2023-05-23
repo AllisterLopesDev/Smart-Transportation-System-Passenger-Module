@@ -79,7 +79,7 @@ public interface Api {
                                                  @Query("schedule-info-id") Integer scheduleInfoId,
                                                  @Query("schedule-id") Integer scheduleId);
 
-    @POST(Consts.ENDPOINT_GET_CURRENT_BOOTKING_TICKET)
+    @POST(Consts.ENDPOINT_GET_CURRENT_BOOKING_TICKET)
     Call<TicketDetailsResponse> getCurrentTicket(@Query("passenger-id") Integer passengerId);
 
     @POST(Consts.ENDPOINT_BOOK_INSTANT_TICKET)
@@ -101,7 +101,7 @@ public interface Api {
 
 
     @Multipart
-    @POST("/")
-    Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
+    @POST(Consts.ENDPOINT_UPLOAD_PROFILE_PIC)
+    Call<ResponseBody> uploadProfilePhoto(@Part MultipartBody.Part photo);
 
 }

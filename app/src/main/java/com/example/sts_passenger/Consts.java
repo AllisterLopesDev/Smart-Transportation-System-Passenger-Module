@@ -32,12 +32,13 @@ public class Consts {
     public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
+    public static final String ENDPOINT_UPLOAD_PROFILE_PIC = "upload-pic/{passenger_id}";
 
 
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
     public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
-    public static final String ENDPOINT_GET_CURRENT_BOOTKING_TICKET = "current-booked-ticket";
+    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
 
 
     // Endpoints for Bus
