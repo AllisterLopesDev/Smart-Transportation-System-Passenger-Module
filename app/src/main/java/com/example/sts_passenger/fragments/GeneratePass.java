@@ -45,7 +45,7 @@ public class GeneratePass extends Fragment {
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
     private Session savedSession;
-    String selectedDate,endDateOfPass;
+    String selectedDate;
     String totalPassFaretoString;
     TextView tvDate, tvRoute, title,textView2,textView3,textView4,textView5,textView6,tv_pass_type,tv_total_fare;
     Spinner tvNoOfDays;
@@ -139,14 +139,8 @@ public class GeneratePass extends Fragment {
 
         if (routeName == null && routeInfo.getFare() == null){
             tvRoute.setText("click to select route");
-//            tv_total_fare.setText("Select a route");
         }else {
             tvRoute.setText(routeName);
-
-//            fare = Double.parseDouble(routeInfo.getFare());
-//            distance = Double.parseDouble(routeInfo.getDistance());
-//            passPrice = calculateFare(fare, distance);
-//            tv_total_fare.setText(String.valueOf(passPrice));
             Log.i("TAG", "getBundleData: pass price " + passPrice);
         }
 
