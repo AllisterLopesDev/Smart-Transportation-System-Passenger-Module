@@ -21,8 +21,10 @@ import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.RouteInfoResponse;
 import com.example.sts_passenger.model.RouteInfo;
+import com.example.sts_passenger.model.result.TicketBooking;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,6 +61,19 @@ public class PassSourceStop extends Fragment {
             public void onResponse(Call<RouteInfoResponse> call, Response<RouteInfoResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     routeInfoList = response.body().getResult();
+
+
+
+//                    // filter route based on type "shuttle"
+//                    List<RouteInfo> filterRoutes = new ArrayList<>();
+//                    for (RouteInfo route : routeInfoList) {
+//                        if (route.getType().equals("SHUTTLE")) {
+//                            filterRoutes.add(route);
+//                        }
+//                    }
+
+
+
                     recyclerView.setAdapter(new PassSourceAdapter(routeInfoList, getContext(), new PassSourceAdapter.OnPassRouteInfoClickListener() {
                         @Override
                         public void onClickListener(Integer routeId,String haltName, String fare, String distance) {
@@ -89,4 +104,6 @@ public class PassSourceStop extends Fragment {
         transaction.replace(R.id.fragment_container_generatePass,frag);
         transaction.commit();
     }
+
+
 }

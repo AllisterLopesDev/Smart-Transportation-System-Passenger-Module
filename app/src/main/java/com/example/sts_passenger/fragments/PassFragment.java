@@ -99,8 +99,9 @@ public class PassFragment extends Fragment {
         super.onStart();
 
         passengerPassDetails();
-
     }
+
+
     public void passengerPassDetails(){
         int passengerId = savedSession.getPassenger().getPassengerId();
         Log.i("TAG", "passengerPassDetails: passenger-id " + passengerId);

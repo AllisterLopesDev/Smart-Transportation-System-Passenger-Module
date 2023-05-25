@@ -1,6 +1,7 @@
 package com.example.sts_passenger.apiservices;
 
 import com.example.sts_passenger.Consts;
+import com.example.sts_passenger.apiservices.request.PassDetailsRequest;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp;
 import com.example.sts_passenger.apiservices.response.BusScheduleSearch;
@@ -8,6 +9,7 @@ import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.InstantTicketBooking;
 import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
+import com.example.sts_passenger.apiservices.response.PassDetailsResponse;
 import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.apiservices.response.RegisterUser;
@@ -65,6 +67,10 @@ public interface Api {
     //GET PASSENGER PASS DETAILS
     @GET(Consts.ENDPOINT_PASSENGER_PASS_DETAILS)
     Call<PassengerPassDetailsResponse> getPassengerPassDetails(@Path("passenger_id") Integer passengerId);
+
+    //POST PASSENGER PASS DETAILS
+    @POST(Consts.ENDPOINT_ADD_PASS_DETAILS)
+    Call<PassDetailsResponse> addPassengerPassDetails(@Path("passenger_id") Integer passengerId,@Body PassDetailsRequest passDetailsRequest);
 
     // check passenger count
     @POST(Consts.ENDPOINT_SEAT_AVAILABILITY)

@@ -1,10 +1,12 @@
 package com.example.sts_passenger.fragments;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -19,15 +21,32 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.apiservices.Client;
+import com.example.sts_passenger.apiservices.request.PassDetailsRequest;
+import com.example.sts_passenger.apiservices.response.PassDetailsResponse;
 import com.example.sts_passenger.model.CalendarDate;
 import com.example.sts_passenger.model.RouteInfo;
+import com.example.sts_passenger.model.Session;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
-import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GeneratePass extends Fragment {
-    String selectedDate,passNoOfDays;
+
+    // SharedPrefManager
+    SharedPrefManager sharedPrefManager;
+    private Session savedSession;
+    String selectedDate,endDateOfPass;
+    String totalPassFaretoString;
     TextView tvDate, tvRoute, title,textView2,textView3,textView4,textView5,textView6,tv_pass_type,tv_total_fare;
     Spinner tvNoOfDays;
     Button createPassBtn;
@@ -35,12 +54,14 @@ public class GeneratePass extends Fragment {
 
     // route info data
     RouteInfo routeInfo;
-    String routeName, routeFare, routeDistance;
+    String routeName;
 
     CalendarDate calendarDays;
 
-
-
+    // Fare
+    double fare;
+    double distance;
+    double passPrice;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,19 +74,6 @@ public class GeneratePass extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponets(view);
-
-
-//        ----------------------- date---------------------------
-        tvDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getCurrentDate();
-            }
-        });
-
-//        ----------------------- no of days --------------------
-
-        passNoOfDays();
 
 //        ----------------------- source -------------------------
         tvRoute.setOnClickListener(new View.OnClickListener() {
@@ -84,16 +92,41 @@ public class GeneratePass extends Fragment {
         });
         getBundleData();
 
-//        double fare = Double.parseDouble(routeInfo.getFare().trim());
-//        double distance = Double.parseDouble(routeInfo.getDistance().trim());
-//        double passPrice = calculateFare(fare, distance);
-//        tv_total_fare.setText(String.valueOf(passPrice));
-//        Log.i("TAG", "getBundleData: pass price " + passPrice);
+//        ----------------------- date---------------------------
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                getCurrentDate();
+            }
+        });
+
+//        ----------------------- no of days --------------------
+
+        passNoOfDays();
+
+        /* -------------------- calculate total fare --------------------*/
+        tv_total_fare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculateFare(calendarDays.getNoOfDays());
+            }
+        });
+
+
+        /* ------------------- submit button  ------------------------------*/
+
+        createPassBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                addPassDetails(passDetails());
+            }
+        });
 
 
 
     }
-
 
     private void  getBundleData(){
         Bundle data = getArguments();
@@ -102,30 +135,34 @@ public class GeneratePass extends Fragment {
             routeName = data.getString("routeInfoName");
             routeInfo.setFare(data.getString("routeInfoFare"));
             routeInfo.setDistance(data.getString("routeInfoDistance"));
-//            routeFare = data.getString("routeInfoFare");
-//            routeDistance = data.getString("routeInfoDistance");
         }
 
-//        if (routeInfo.getFare() != null) {
-//            double fare = Double.parseDouble(routeInfo.getFare().trim());
-//            double distance = Double.parseDouble(routeInfo.getDistance().trim());
-//            double passPrice = calculateFare(fare, distance);
-//            tv_total_fare.setText(String.valueOf(passPrice));
-//            Log.i("TAG", "getBundleData: pass price " + passPrice);
-//        }
-
-        if (routeName == null){
+        if (routeName == null && routeInfo.getFare() == null){
             tvRoute.setText("click to select route");
+//            tv_total_fare.setText("Select a route");
         }else {
             tvRoute.setText(routeName);
+
+//            fare = Double.parseDouble(routeInfo.getFare());
+//            distance = Double.parseDouble(routeInfo.getDistance());
+//            passPrice = calculateFare(fare, distance);
+//            tv_total_fare.setText(String.valueOf(passPrice));
+            Log.i("TAG", "getBundleData: pass price " + passPrice);
         }
 
 
     }
 
-    private double calculateFare(Double fare, Double distance) {
-        Log.i("TAG", "calculateFare: fare " + routeInfo.getDistance());
-        return fare * distance * 2 * calendarDays.getNoOfDays();
+    private double calculateFare(int noOfDays) {
+        fare = Double.parseDouble(routeInfo.getFare());
+        distance = Double.parseDouble(routeInfo.getDistance());
+        Log.i("TAG", "calculateFare: distance is :  " +distance);
+        double totalPassFare = distance * 2 * noOfDays;
+             setTotalPassFaretoString(String.valueOf(totalPassFare));
+        Log.i("TAG", "calculateFare: total fARE is :  " +totalPassFare);
+        tv_total_fare.setText(getTotalPassFaretoString());
+
+        return totalPassFare;
     }
 
 
@@ -160,7 +197,6 @@ public class GeneratePass extends Fragment {
         textView5 = view.findViewById(R.id.textView5);
         textView6 = view.findViewById(R.id.textView6);
 
-
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -168,9 +204,13 @@ public class GeneratePass extends Fragment {
 
         routeInfo = new RouteInfo();
         calendarDays = new CalendarDate();
+
+        // init sharedPrefManager for passenger session
+        setSharedPrefManager();
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getCurrentDate() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 getContext(),
@@ -178,8 +218,8 @@ public class GeneratePass extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         setSelectedDate(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        tvDate.setText(selectedDate);
-                        Log.i("TAG", "onDateSet: "+selectedDate);
+                        tvDate.setText(getSelectedDate());
+                        Log.i("TAG", "onDateSet: "+getSelectedDate());
                     }
                 },
                 year,
@@ -187,6 +227,7 @@ public class GeneratePass extends Fragment {
                 day
         );
         datePickerDialog.show();
+
     }
 
     // number of days pass shouuld be valid
@@ -217,7 +258,6 @@ public class GeneratePass extends Fragment {
                 }
 
                 /*setPassNoOfDays(adapterView.getItemAtPosition(position).toString());*/
-                Log.i("TAG", "onItemSelected: " + calendarDays.getNoOfDays());
                 Log.i("TAG", "onItemSelected: selected item "+adapterView.getItemAtPosition(position).toString());
             }
             @Override
@@ -228,22 +268,79 @@ public class GeneratePass extends Fragment {
     }
 
 
+
+    // get date after days
+    public String getDateAfterDays(String selectedDate, int noOfDays) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+
+        try {
+            Date date = sdf.parse(selectedDate);
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, noOfDays);
+            return sdf.format(calendar.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        savedSession = sharedPrefManager.getSavedSessionOnLogin();
+    }
+
+
     // getter && setter
-
-
     public String getSelectedDate() {
         return selectedDate;
     }
-
     public void setSelectedDate(String selectedDate) {
         this.selectedDate = selectedDate;
     }
 
-    public String getPassNoOfDays() {
-        return passNoOfDays;
+    public String getTotalPassFaretoString() {
+        return totalPassFaretoString;
     }
 
-    public void setPassNoOfDays(String passNoOfDays) {
-        this.passNoOfDays = passNoOfDays;
+    public void setTotalPassFaretoString(String totalPassFaretoString) {
+        this.totalPassFaretoString = totalPassFaretoString;
+    }
+
+    /* pass data to the database */
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public PassDetailsRequest passDetails(){
+        PassDetailsRequest passData = new PassDetailsRequest();
+        String endDate = getDateAfterDays(getSelectedDate(),calendarDays.getNoOfDays());
+        passData.setValidDate(getSelectedDate());
+        Log.i("TAG", "passDetails: start date - "+getSelectedDate());
+        passData.setValidTill(endDate);
+        Log.i("TAG", "passDetails: end date - "+passData.getValidTill());
+        passData.setRouteInfoId(routeInfo.getId().toString());
+        Log.i("TAG", "passDetails: route - "+routeInfo.getId());
+        passData.setPrice(totalPassFaretoString);
+        Log.i("TAG", "passDetails: total fare - "+totalPassFaretoString);
+        return passData;
+    }
+
+    public void addPassDetails(PassDetailsRequest passData){
+        Call<PassDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().addPassengerPassDetails(savedSession.getPassenger().getPassengerId(),passData);
+        call.enqueue(new Callback<PassDetailsResponse>() {
+            @Override
+            public void onResponse(Call<PassDetailsResponse> call, Response<PassDetailsResponse> response) {
+                if (response.isSuccessful()){
+                    if (response.body() !=null && response.body().getSuccess() == true){
+                        Log.i("TAG", "onResponse: " +response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PassDetailsResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -30,6 +30,7 @@ public class Consts {
     public static final String ENDPOINT_SEAT_AVAILABILITY = "seat-available";
 
     public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
+    public static final String ENDPOINT_ADD_PASS_DETAILS = "passenger/{passenger_id}/passes";
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
 

@@ -2,8 +2,8 @@ package com.example.sts_passenger.model;
 
 public class CalendarDate {
     private String date;
-
     private int noOfDays;
+
 
     public int getNoOfDays() {
         return noOfDays;

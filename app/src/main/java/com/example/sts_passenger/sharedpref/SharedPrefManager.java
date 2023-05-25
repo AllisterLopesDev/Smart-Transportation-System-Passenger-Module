@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.sts_passenger.Consts;
-import com.example.sts_passenger.model.Halts;
+import com.example.sts_passenger.model.PassData;
 import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.User;
@@ -77,13 +77,9 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public void savePassSource(Halts halts) {
-        sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_PASS, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.putInt("id", halts.getId());
-        editor.putString("name", halts.getName());
-        editor.apply();
-    }
+
+
+
 
     public void savePassengerOnLogin(Session session) {
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
@@ -106,7 +102,6 @@ public class SharedPrefManager {
         editor.putBoolean("logged", true);
         editor.apply();
     }
-
 
     public Session getSavedSessionOnLogin() {
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
