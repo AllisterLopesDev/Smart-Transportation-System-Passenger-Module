@@ -10,9 +10,8 @@ public class PassDetailsRequest {
 
     @SerializedName("valid-from") String validDate;
     @SerializedName("valid-to") String validTill;
-    @SerializedName("route-info-id") String routeInfoId;
-    @SerializedName("price") String price;
-    @SerializedName("date") String date;
+    @SerializedName("route-info-id") Integer routeInfoId;
+    @SerializedName("price") Double price;
     private Integer noOfDays;
 
 
@@ -40,27 +39,20 @@ public class PassDetailsRequest {
         this.validTill = validTill;
     }
 
-    public String getRouteInfoId() {
+    public Integer getRouteInfoId() {
         return routeInfoId;
     }
 
-    public void setRouteInfoId(String routeInfoId) {
+    public void setRouteInfoId(Integer routeInfoId) {
         this.routeInfoId = routeInfoId;
     }
 
-    public String getPrice(String totalPassFaretoString) {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 }

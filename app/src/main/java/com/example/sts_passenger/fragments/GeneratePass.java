@@ -309,12 +309,13 @@ public class GeneratePass extends Fragment {
         PassDetailsRequest passData = new PassDetailsRequest();
         String endDate = getDateAfterDays(getSelectedDate(),calendarDays.getNoOfDays());
         passData.setValidDate(getSelectedDate());
-        Log.i("TAG", "passDetails: start date - "+getSelectedDate());
+        passData.setValidDate("2023-06-01");
+        Log.i("TAG", "passDetails: start date - "+passData.getValidDate());
         passData.setValidTill(endDate);
         Log.i("TAG", "passDetails: end date - "+passData.getValidTill());
-        passData.setRouteInfoId(routeInfo.getId().toString());
+        passData.setRouteInfoId(routeInfo.getId());
         Log.i("TAG", "passDetails: route - "+routeInfo.getId());
-        passData.setPrice(totalPassFaretoString);
+        passData.setPrice(Double.valueOf(totalPassFaretoString));
         Log.i("TAG", "passDetails: total fare - "+totalPassFaretoString);
         return passData;
     }
