@@ -1,6 +1,7 @@
 package com.example.sts_passenger.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.activities.PassQrCode;
 import com.example.sts_passenger.adapters.AllPassengerPassDetailsAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
@@ -41,6 +43,7 @@ public class PassFragment extends Fragment {
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
     private Session savedSession;
+    AllPassengerPassDetailsAdapter.OnClickPassDetails onClickPassDetails;
 
 
 
@@ -62,7 +65,7 @@ public class PassFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.passenger_pass_details_recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
 
@@ -73,7 +76,6 @@ public class PassFragment extends Fragment {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout_pass_container, frag);
                 transaction.commit();
-                Toast.makeText(requireContext(), "hello", Toast.LENGTH_LONG).show();
                 hideViewsOnFragTransaction();
             }
         });
@@ -99,6 +101,7 @@ public class PassFragment extends Fragment {
         super.onStart();
 
         passengerPassDetails();
+
     }
 
 
@@ -112,7 +115,14 @@ public class PassFragment extends Fragment {
             public void onResponse(Call<PassengerPassDetailsResponse> call, Response<PassengerPassDetailsResponse> response) {
                 if (response.isSuccessful() && response.body() != null){
                     passDetailsList= response.body().getResult();
-                    recyclerView.setAdapter(new AllPassengerPassDetailsAdapter(passDetailsList,getContext()));
+                    recyclerView.setAdapter(new AllPassengerPassDetailsAdapter(passDetailsList, getContext(), new AllPassengerPassDetailsAdapter.OnClickPassDetails() {
+                        @Override
+                        public void onClickItem(Integer passId) {
+                            Intent i = new Intent(getContext(), PassQrCode.class);
+                            i.putExtra("passId",passId);
+                            startActivity(i);
+                        }
+                    }));
                 }
             }
 

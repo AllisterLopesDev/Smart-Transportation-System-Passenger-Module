@@ -17,8 +17,11 @@
         android:theme="@style/Theme.Stspassenger"
         tools:targetApi="31">
         <activity
+            android:name=".activities.PassQrCode"
+            android:exported="false" />
+        <activity
             android:name=".activities.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,9 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".activities.RegActivity"
             android:exported="false" />

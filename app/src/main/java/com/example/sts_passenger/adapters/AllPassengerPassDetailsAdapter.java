@@ -20,10 +20,12 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
     List<PassDetails> passDetailsList;
 
     Context context;
+    OnClickPassDetails onClickPassDetails;
 
-    public AllPassengerPassDetailsAdapter(List<PassDetails> passDetailsList, Context context) {
+    public AllPassengerPassDetailsAdapter(List<PassDetails> passDetailsList, Context context, OnClickPassDetails onClickPassDetails) {
         this.passDetailsList = passDetailsList;
         this.context = context;
+        this.onClickPassDetails = onClickPassDetails;
     }
 
     @NonNull
@@ -43,6 +45,19 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
         holder.passValidTo.setText(passDetailsList.get(position).getValid_to());
         holder.passStatus.setText(passDetailsList.get(position).getStatus());
         holder.passPrice.setText(String.valueOf(passDetailsList.get(position).getPrice()));
+        holder.tv_setUsage_counter.setText(String.valueOf(passDetailsList.get(position).getUsage_counter()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && onClickPassDetails != null){
+                    PassDetails selectedPass = passDetailsList.get(pos);
+                    Integer passId = selectedPass.getId();
+                    onClickPassDetails.onClickItem(passId);
+                }
+            }
+        });
 
     }
 
@@ -54,7 +69,7 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView passDestination,passId,passPrice,passSource,passStatus,passValidFrom,passValidTo;
+        TextView passDestination,passId,passPrice,passSource,passStatus,passValidFrom,passValidTo,tv_setUsage_counter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,7 +80,12 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
             passValidTo = itemView.findViewById(R.id.tv_pass_validTo);
             passStatus = itemView.findViewById(R.id.tv_pass_status);
             passPrice = itemView.findViewById(R.id.tv_pass_price);
+            tv_setUsage_counter = itemView.findViewById(R.id.tv_setUsage_counter);
 
         }
+    }
+
+    public interface OnClickPassDetails{
+        void onClickItem(Integer passId);
     }
 }
