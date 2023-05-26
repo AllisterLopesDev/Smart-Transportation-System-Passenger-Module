@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
@@ -309,7 +310,6 @@ public class GeneratePass extends Fragment {
         PassDetailsRequest passData = new PassDetailsRequest();
         String endDate = getDateAfterDays(getSelectedDate(),calendarDays.getNoOfDays());
         passData.setValidDate(getSelectedDate());
-        passData.setValidDate("2023-06-01");
         Log.i("TAG", "passDetails: start date - "+passData.getValidDate());
         passData.setValidTill(endDate);
         Log.i("TAG", "passDetails: end date - "+passData.getValidTill());
@@ -326,9 +326,17 @@ public class GeneratePass extends Fragment {
             @Override
             public void onResponse(Call<PassDetailsResponse> call, Response<PassDetailsResponse> response) {
                 if (response.isSuccessful()){
-                    if (response.body() !=null && response.body().getSuccess() == true){
+                    if (response.body() !=null || response.body().getSuccess() == true){
                         Log.i("TAG", "onResponse: " +response.body());
+                        PassFragment frag = new PassFragment();
+                        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                        ft.replace(R.id.fragment_container_generatePass, frag);
+                        ft.commit();
+                        Toast.makeText(requireContext(), "Pass generated successfully", Toast.LENGTH_LONG).show();
+                        hideViewsOnFragTransaction();
                     }
+                }else{
+                    Toast.makeText(getContext(), "Pass already exist with similar route", Toast.LENGTH_LONG).show();
                 }
             }
 
