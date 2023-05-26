@@ -20,10 +20,12 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
 
     List<BusScheduleResult> busScheduleSearchList;
     Context context;
+    OnClickScheduleDetails onClickScheduleDetails;
 
-    public AllAvailableBusScheduleAdapter(List<BusScheduleResult> busScheduleSearchList, Context context) {
+    public AllAvailableBusScheduleAdapter(List<BusScheduleResult> busScheduleSearchList, Context context, OnClickScheduleDetails onClickScheduleDetails) {
         this.busScheduleSearchList = busScheduleSearchList;
         this.context = context;
+        this.onClickScheduleDetails = onClickScheduleDetails;
     }
 
     @NonNull
@@ -40,8 +42,27 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
         holder.busNo.setText(busScheduleSearchList.get(position).getBus().getRegistrationNumber());
         holder.source.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDepartureStand());
         holder.destination.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrivalStand());
-        holder.arrival.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrival());
-        holder.departure.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDeparture());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && onClickScheduleDetails != null){
+                    BusScheduleResult selectedSchedule = busScheduleSearchList.get(pos);
+                    String busNo= selectedSchedule.getBus().getRegistrationNumber();
+                    String busType = selectedSchedule.getBus().getType();
+                    String arrivalStand = selectedSchedule.getScheduleInfo().getSchedule().getArrivalStand();
+                    String departureStand = selectedSchedule.getScheduleInfo().getSchedule().getDepartureStand();
+                    String arrivalTime= selectedSchedule.getScheduleInfo().getSchedule().getArrival();
+                    String departureTime=selectedSchedule.getScheduleInfo().getSchedule().getDeparture();
+                    String duration = selectedSchedule.getScheduleInfo().getSchedule().getDuration();
+                    Integer seatAvailable =selectedSchedule.getScheduleInfo().getSeatsAvailable();
+
+                    onClickScheduleDetails.onClickItem(busNo, busType,arrivalStand,departureStand,arrivalTime,departureTime,duration,seatAvailable);
+
+                }
+            }
+        });
 
     }
 
@@ -68,7 +89,16 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
             arrival=itemView.findViewById(R.id.tv_Arrival);
             departure=itemView.findViewById(R.id.tv_Departure);
         }
+    }
 
-
+    public interface OnClickScheduleDetails{
+        void onClickItem(String busNo,
+                         String busType,
+                         String arrivalStand,
+                         String departureStand,
+                         String arrivalTime,
+                         String departureTime,
+                         String duration,
+                         Integer seatAvailable);
     }
 }

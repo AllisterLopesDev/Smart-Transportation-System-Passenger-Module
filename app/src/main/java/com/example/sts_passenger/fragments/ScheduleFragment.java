@@ -1,5 +1,6 @@
 package com.example.sts_passenger.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.activities.ScheduleInfo;
 import com.example.sts_passenger.adapters.AllAvailableBusScheduleAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.BusScheduleSearch;
@@ -33,8 +35,8 @@ public class ScheduleFragment extends Fragment {
 
     TextView tvDatePicker;
     RecyclerView recyclerView;
-
     List<BusScheduleResult> busScheduleSearchDetails;
+    AllAvailableBusScheduleAdapter.OnClickScheduleDetails onClickScheduleDetails;
 
     // for current date picker
     CalendarDate queryParamsDate;
@@ -77,25 +79,14 @@ public class ScheduleFragment extends Fragment {
         tvDatePicker.setText(currentDate(year, month, day));
 
         getAllBusSchedule();
-    }
 
-//    private void initViews() {
-//        // date picker textview
-//        tvDatePicker = findViewById(R.id.textView_search_date_picker);
-//
-//        // recycler view init
-//        recyclerView = findViewById(R.id.rv_busDetails);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//
-//        // init the year, month and day variables
-//        Calendar calendar = Calendar.getInstance();
-//        year = calendar.get(Calendar.YEAR);
-//        month = calendar.get(Calendar.MONTH);
-//        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        // set textView with date
-//        tvDatePicker.setText(currentDate(year, month, day));
-//    }
+        onClickScheduleDetails = new AllAvailableBusScheduleAdapter.OnClickScheduleDetails() {
+            @Override
+            public void onClickItem(String busNo, String busType, String arrivalStand, String departureStand, String arrivalTime, String departureTime, String duration, Integer seatAvailable) {
+
+            }
+        };
+    }
 
 
     public void getAllBusSchedule(){
@@ -105,7 +96,22 @@ public class ScheduleFragment extends Fragment {
             public void onResponse(Call<BusScheduleSearch> call, Response<BusScheduleSearch> response) {
                 if (response.isSuccessful() && response.body() != null){
                     busScheduleSearchDetails = response.body().getResult();
-                    recyclerView.setAdapter(new AllAvailableBusScheduleAdapter(busScheduleSearchDetails, getContext()));
+                    recyclerView.setAdapter(new AllAvailableBusScheduleAdapter(busScheduleSearchDetails, getContext(), new AllAvailableBusScheduleAdapter.OnClickScheduleDetails() {
+                        @Override
+                        public void onClickItem(String busNo, String busType, String arrivalStand, String departureStand, String arrivalTime, String departureTime, String duration, Integer seatAvailable) {
+                            // pass data to the activity
+                            Intent i = new Intent(getContext(), ScheduleInfo.class);
+                            i.putExtra("busNo",busNo);
+                            i.putExtra("busType",busType);
+                            i.putExtra("seatCount",seatAvailable);
+                            i.putExtra("arrStand",arrivalStand);
+                            i.putExtra("deptStand",departureStand);
+                            i.putExtra("arrTime",arrivalTime);
+                            i.putExtra("deptTime",departureTime);
+                            i.putExtra("duration",duration);
+                            startActivity(i);
+                        }
+                    }));
                 }
             }
 

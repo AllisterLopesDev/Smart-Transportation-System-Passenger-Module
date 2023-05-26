@@ -46,7 +46,5 @@ dependencies {
     /* QR code */
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 
-/* Horizontal calender view */
-    implementation 'com.github.applikeysolutions:horizontal-calendar:1.2.0'
 
 }
