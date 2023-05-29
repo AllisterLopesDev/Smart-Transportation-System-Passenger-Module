@@ -85,9 +85,6 @@ public class GeneratePass extends Fragment {
                 transaction.replace(R.id.fragment_container_generatePass,frag);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
-                Log.i("TAG", "onClick: Driver Search Fragment opened" );
-
                 hideViewsOnFragTransaction();
             }
         });

@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class PassDetails {
 
+    @SerializedName("usage-counter")
+    private Integer usage_counter;
+
     @SerializedName("destination")
     private String destination;
 
@@ -11,7 +14,7 @@ public class PassDetails {
     private Integer id;
 
     @SerializedName("price")
-    private Integer price;
+    private Double price;
 
     @SerializedName("source")
     private String source;
@@ -41,11 +44,11 @@ public class PassDetails {
         this.id = id;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -79,5 +82,13 @@ public class PassDetails {
 
     public void setValid_to(String valid_to) {
         this.valid_to = valid_to;
+    }
+
+    public Integer getUsage_counter() {
+        return usage_counter;
+    }
+
+    public void setUsage_counter(Integer usage_counter) {
+        this.usage_counter = usage_counter;
     }
 }
