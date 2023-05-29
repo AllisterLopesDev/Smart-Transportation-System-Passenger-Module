@@ -167,11 +167,9 @@ public class GeneratePass extends Fragment {
         tvNoOfDays.setVisibility(View.GONE);
         createPassBtn.setVisibility(View.GONE);
         tv_total_fare.setVisibility(View.GONE);
-        tv_pass_type.setVisibility(View.GONE);
         textView2.setVisibility(View.GONE);
         textView3.setVisibility(View.GONE);
         textView4.setVisibility(View.GONE);
-        textView5.setVisibility(View.GONE);
         textView6.setVisibility(View.GONE);
     }
     public void initComponets(View view) {
@@ -180,13 +178,11 @@ public class GeneratePass extends Fragment {
         tvRoute = view.findViewById(R.id.pass_route_id);
         createPassBtn = view.findViewById(R.id.create_pass_btn);
         title = view.findViewById(R.id.generate_pass_title);
-        tv_pass_type = view.findViewById(R.id.tv_pass_type);
         tv_total_fare = view.findViewById(R.id.tv_total_fare);
 
         textView2 = view.findViewById(R.id.textView2);
         textView3 = view.findViewById(R.id.textView3);
         textView4 = view.findViewById(R.id.textView4);
-        textView5 = view.findViewById(R.id.textView5);
         textView6 = view.findViewById(R.id.textView6);
 
         Calendar calendar = Calendar.getInstance();

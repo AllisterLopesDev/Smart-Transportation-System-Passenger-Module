@@ -41,7 +41,6 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
 
         holder.passDestination.setText(passDetailsList.get(position).getDestination());
         holder.passSource.setText(passDetailsList.get(position).getSource());
-        holder.passValidFrom.setText(passDetailsList.get(position).getValid_from());
         holder.passValidTo.setText(passDetailsList.get(position).getValid_to());
         holder.passStatus.setText(passDetailsList.get(position).getStatus());
         holder.passPrice.setText(String.valueOf(passDetailsList.get(position).getPrice()));
@@ -69,14 +68,13 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView passDestination,passId,passPrice,passSource,passStatus,passValidFrom,passValidTo,tv_setUsage_counter;
+        TextView passDestination,passId,passPrice,passSource,passStatus,passValidTo,tv_setUsage_counter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             passDestination= itemView.findViewById(R.id.tv_pass_destination);
             passSource = itemView.findViewById(R.id.tv_pass_source);
-//            passValidFrom = itemView.findViewById(R.id.tv_pass_validFrom);
             passValidTo = itemView.findViewById(R.id.tv_pass_validTo);
             passStatus = itemView.findViewById(R.id.tv_pass_status);
             passPrice = itemView.findViewById(R.id.tv_pass_price);
