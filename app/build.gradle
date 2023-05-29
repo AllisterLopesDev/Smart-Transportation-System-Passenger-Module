@@ -45,4 +45,9 @@ dependencies {
 
     /* QR code */
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
+    /* MAPS */
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'org.osmdroid:osmdroid-android:6.0.2'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }

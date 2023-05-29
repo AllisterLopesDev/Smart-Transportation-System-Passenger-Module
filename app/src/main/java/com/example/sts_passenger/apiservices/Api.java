@@ -7,6 +7,8 @@ import com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp;
 import com.example.sts_passenger.apiservices.response.BusScheduleSearch;
 import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.InstantTicketBooking;
+import com.example.sts_passenger.apiservices.response.LiveLocationResponse;
+import com.example.sts_passenger.model.LiveLocation;
 import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.apiservices.response.PassDetailsResponse;
@@ -97,4 +99,7 @@ public interface Api {
 
     @GET(Consts.ENDPOINT_ROUTE_INFO)
     Call<RouteInfoResponse> getRouteInfo();
+
+    @GET(Consts.ENDPOINT_BUS_LIVE_LOCATION)
+    Call<LiveLocationResponse> getBusLiveLocation();
 }

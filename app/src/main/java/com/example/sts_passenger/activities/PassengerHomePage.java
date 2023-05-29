@@ -48,7 +48,7 @@ public class PassengerHomePage extends AppCompatActivity {
                 int id =  item.getItemId();
 
                 if (id == R.id.home){
-                    loadFrag(new HomeFragment(), false);
+                    loadFrag(new HomeFragment(),false);
                 } else if (id == R.id.ticket) {
                     loadFrag(new TicketFragment(),false);
                 } else if (id == R.id.schedule) {
@@ -93,11 +93,11 @@ public class PassengerHomePage extends AppCompatActivity {
     }
 
 
-//    public  void loadActivity() {
-//        Intent i = new Intent(getApplicationContext(), ScheduleFragment.class);
-//        startActivity(i);
-//
-//    }
+    public  void loadActivity() {
+        Intent i = new Intent(getApplicationContext(), Home.class);
+        startActivity(i);
+
+    }
 
 
     // init views

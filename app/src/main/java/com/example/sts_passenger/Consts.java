@@ -13,6 +13,8 @@ public class Consts {
     public static final String BASE_URL_PASSENGER_AUTH = "http://"+IP_ADDRESS+"/user/";
     public static final String BASE_URL_BOOKING = "http://"+IP_ADDRESS+"/booking/";
     public static final String BASE_URL_SCHEDULE = "http://"+IP_ADDRESS+"/schedule/";
+    public static final String BASE_URL_LOCATION = "http://"+IP_ADDRESS+"/location/";
+
 
 
 
@@ -43,8 +45,11 @@ public class Consts {
 
     // Endpoints for Bus
     public static final String ENDPOINT_SEARCH = "search";
-    public static final String ENDPOINT_SEARCH_BUS = "search";
+    // ENDPOINT FOR BUS LIVE LOCATION
+    public static final String ENDPOINT_BUS_LIVE_LOCATION = "live_bus_locations";
     public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings";
+
+
 
     // Shared Preferences
     public static final String SHARED_PREF_AUTH = "stsPassengerAuth";

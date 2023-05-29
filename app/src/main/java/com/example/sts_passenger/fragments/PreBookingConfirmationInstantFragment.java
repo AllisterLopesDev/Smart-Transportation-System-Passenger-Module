@@ -26,8 +26,10 @@ import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Route;
 import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
+import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.Ticket;
 import com.example.sts_passenger.model.result.TicketBooking;
+import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +41,9 @@ import retrofit2.Response;
 
 
 public class PreBookingConfirmationInstantFragment extends Fragment {
+    // SharedPrefManager
+    SharedPrefManager sharedPrefManager;
+    private Session savedSession;
 
     // views defining
     TextView tvBusRegistrationNumber, tvBusType, tvSource, tvDestination, tvPassengerCount, tvTicketAmount;
@@ -114,6 +119,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         bus = new Bus();
 
         getBundleData();
+        setSharedPrefManager();
 
         // show data on views
         tvBusRegistrationNumber.setText(bus.getRegistrationNumber());
@@ -139,7 +145,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         instantTicketRequest.setPassengerCount(passengerCount);
         instantTicketRequest.setSourceId(sourceId);
         instantTicketRequest.setDestinationId(destinationId);
-        instantTicketRequest.setPassengerId(passengerId);
+        instantTicketRequest.setPassengerId(savedSession.getPassenger().getPassengerId());
         instantTicketRequest.setBusScheduleId(scheduleInfoId);
 
         return instantTicketRequest;
@@ -282,5 +288,12 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout_booking_container, fragment);
         transaction.commit();
+    }
+
+
+    // SharedPrefManager function
+    public void setSharedPrefManager() {
+        sharedPrefManager = new SharedPrefManager(requireContext());
+        savedSession = sharedPrefManager.getSavedSessionOnLogin();
     }
 }

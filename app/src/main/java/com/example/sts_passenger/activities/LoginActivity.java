@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.sts_passenger.PasswordHash;
 import com.example.sts_passenger.apiservices.Client;
@@ -29,9 +33,10 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView text;
+    TextView text,signup;
     EditText email, password;
-    Button loginBtn, signup;
+    Button loginBtn;
+
     TextView tvIpAddress;
 
     SharedPrefManager sharedPrefManager;
@@ -49,10 +54,27 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.adminPassword);
         loginBtn = findViewById(R.id.adminLoginBtn);
         signup = findViewById(R.id.signup);
+        ToggleButton toggleButton = findViewById(R.id.toggleButton);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Show password
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    // Hide password
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
 
+                // Move the cursor to the end of the text
+                password.setSelection(password.getText().length());
+            }
+        });
+
+
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
-        tvIpAddress = findViewById(R.id.tv_ip);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
