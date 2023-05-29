@@ -84,7 +84,32 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addUserInfo(createRequest());
+
+                String Fname = fname.getText().toString().trim();
+                String Lname = lname.getText().toString().trim();
+                String Address = address.getText().toString().trim();
+                String Contact = contact.toString().trim();
+
+                if (Fname.isEmpty()) {
+                    fname.setError("Required");
+                } else if (Fname.length() <= 3) {
+                    fname.setError("min 3 letter required");
+                } else if (Lname.isEmpty()) {
+                    lname.setError("Required");
+                }else if (Lname.length() <= 3) {
+                    lname.setError("min 3 letter required");
+                } else if (Address.isEmpty()){
+                    address.setError("Input is required");
+                }else if (Contact.isEmpty()){
+                    contact.setError("Input is required");
+                }else if (Contact.length() <= 10) {
+                    lname.setError("min 10 letter required");
+                }else {
+                    addUserInfo(createRequest());
+                }
+
+
+
             }
         });
     }

@@ -61,7 +61,7 @@ public class AllPassengerPassDetailsAdapter extends RecyclerView.Adapter<AllPass
 
             passDestination= itemView.findViewById(R.id.tv_pass_destination);
             passSource = itemView.findViewById(R.id.tv_pass_source);
-            passValidFrom = itemView.findViewById(R.id.tv_pass_validFrom);
+//            passValidFrom = itemView.findViewById(R.id.tv_pass_validFrom);
             passValidTo = itemView.findViewById(R.id.tv_pass_validTo);
             passStatus = itemView.findViewById(R.id.tv_pass_status);
             passPrice = itemView.findViewById(R.id.tv_pass_price);

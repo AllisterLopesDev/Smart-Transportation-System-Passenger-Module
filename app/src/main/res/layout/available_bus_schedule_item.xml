@@ -7,11 +7,11 @@
     android:layout_margin="8dp">
 
     <com.google.android.material.card.MaterialCardView
-        app:cardCornerRadius="2dp"
-        app:cardBackgroundColor="#D0F1F1F1"
         android:id="@+id/cardView_bus_schedule"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#D0F1F1F1"
+        app:cardCornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@drawable/button_border"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -130,10 +131,10 @@
 
             <TextView
                 android:id="@+id/textView_fare"
-                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="25 Rs"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -176,9 +177,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="56dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
                 android:text="15 May 2023"
                 android:textColor="#EDAEAEAE"
-                android:layout_marginBottom="8dp"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

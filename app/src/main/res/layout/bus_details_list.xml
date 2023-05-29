@@ -108,6 +108,7 @@
         app:cardCornerRadius="2dp"
         app:cardBackgroundColor="#D0F1F1F1"
         android:id="@+id/cardView_bus_schedule"
+            android:background="@drawable/button_border"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,6 +125,24 @@
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="100dp"
+                        android:background="@color/purple_500"
+                        />
+
+                </LinearLayout>
+
+
+
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
@@ -132,11 +151,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+
+
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:contentDescription="bus_icon"
                         android:padding="8dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/bus_available_card_icon" />
                 </LinearLayout>
 

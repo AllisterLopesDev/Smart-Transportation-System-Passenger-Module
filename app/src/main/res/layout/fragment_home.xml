@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
     tools:context=".fragments.HomeFragment"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/recycleView_ticketList">
-
     </androidx.recyclerview.widget.RecyclerView>
 
 

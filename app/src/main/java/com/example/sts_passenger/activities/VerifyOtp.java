@@ -68,7 +68,7 @@ public class VerifyOtp extends AppCompatActivity {
     }
 
     public  void initViews(){
-        tv1  = findViewById(R.id.email);
+        tv1  = findViewById(R.id.email1);
         otp_code = findViewById(R.id.otp);
         verifyBtn = findViewById(R.id.verifybtn);
     }

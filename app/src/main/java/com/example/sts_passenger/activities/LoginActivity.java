@@ -55,18 +55,16 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.adminLoginBtn);
         signup = findViewById(R.id.signup);
         ToggleButton toggleButton = findViewById(R.id.toggleButton);
+
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // Show password
                     password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-                    // Hide password
                     password.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-
-                // Move the cursor to the end of the text
                 password.setSelection(password.getText().length());
             }
         });
@@ -79,7 +77,21 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(loginRequest());
+                String Email = email.getText().toString().trim();
+                String Password = password.getText().toString().trim();
+
+                if (Email.isEmpty()) {
+                    email.setError("Email is required");
+                } else if (!isValidEmail(Email)) {
+                    email.setError("Invalid email address");
+                } else if (Password.isEmpty()){
+                    password.setError("Input is required");
+                }else {
+                    login(loginRequest());
+                }
+
+
+
             }
         });
 
@@ -170,5 +182,11 @@ public class LoginActivity extends AppCompatActivity {
 //                e.printStackTrace();
         }
         return ipAddress;
+    }
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return email.matches(emailRegex);
     }
 }

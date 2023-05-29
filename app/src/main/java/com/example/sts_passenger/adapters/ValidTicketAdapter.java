@@ -53,7 +53,7 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
     TextView tv_title,tv_busRegNo,tv_busType,tv_source, tv_destination;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-        tv_title = itemView.findViewById(R.id.tv_ticket_title);
+//        tv_title = itemView.findViewById(R.id.tv_ticket_title);
         tv_busRegNo = itemView.findViewById(R.id.bus_regNo);
         tv_busType = itemView.findViewById(R.id.bus_type);
         tv_source = itemView.findViewById(R.id.source);

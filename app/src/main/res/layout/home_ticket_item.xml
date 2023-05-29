@@ -1,136 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <!--card 1-->
+    <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
+        android:id="@+id/cardView_ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/button_border"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <!--card 1-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_ticket"
-            android:layout_width="370dp"
-            android:layout_height="150dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="20dp">
-            <!--     vertical top to bottom   -->
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/bus_regNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"
+                android:text="GA011233"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bus_type"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:text="GA011233"/>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="13dp"
+                android:layout_height="12dp"
+                android:src="@drawable/location_pointer" />
+
+            <View
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="@android:color/darker_gray"
+                />
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/location_pointer" />
+
+
+        </LinearLayout>
+
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_ticket_title"
-                    android:text="Todays Ticket Info"
-                    android:textAlignment="center"
-                    android:layout_marginTop="5dp"/>
-
-                <!--   horizontal left to right   -->
-                <LinearLayout
+                    android:id="@+id/source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:text="margao"
+                    android:textSize="20sp" />
 
-                    <!--                        LEFT SIDE   -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="20dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bus no. : "
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/bus_regNo"
-                                android:text="GA 09 M 12345 "
-                                android:layout_marginTop="5dp"/>
-                        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_height="2dp"
+                    android:background="@drawable/dotted_line" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Source. : "
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/source"
-                                android:text="margao"
-                                android:layout_marginTop="5dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/destination"
+                    android:text="Panjim"/>
 
-
-
-                    <!--                        RIGHT SIDE -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="20dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bus Type. : "
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/bus_type"
-                                android:text="LOCAL "
-                                android:layout_marginTop="5dp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="destination. : "
-                                android:layout_marginTop="5dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/destination"
-                                android:text="panjim"
-                                android:layout_marginTop="5dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
 
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/qr_code" />
+
+            </LinearLayout>
 
 
-    </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>

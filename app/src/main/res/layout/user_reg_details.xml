@@ -12,12 +12,22 @@
         android:id="@+id/driverText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
         android:gravity="center"
-        android:text="Additional Details"
+        android:text="Required Details"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/driverText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="29dp"
+        android:background="@android:color/darker_gray" />
 
     <EditText
         android:id="@+id/firstName"
@@ -25,9 +35,9 @@
         android:layout_height="50dp"
         android:layout_below="@id/driverText"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="76dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:hint="First Name"
         android:padding="10dp" />
 
@@ -37,7 +47,7 @@
         android:hint="Last Name"
         android:id="@+id/lastName"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/firstName"
@@ -50,7 +60,7 @@
         android:inputType="number"
         android:id="@+id/contact"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/lastName"
@@ -62,7 +72,7 @@
         android:hint="Address"
         android:id="@+id/address"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/contact"
@@ -76,7 +86,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="134dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:hint="dob"
         android:padding="10dp" />
 
@@ -91,7 +101,7 @@
         android:layout_marginTop="17dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="66dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:padding="10dp" />
 
     <Spinner
@@ -104,7 +114,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="85dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/bg_edittext"
         android:padding="10dp" />
 
     <Button
@@ -117,7 +127,7 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/button_border"
         android:shadowRadius="@integer/material_motion_duration_medium_2"
-        android:text="Register"
+        android:text="Sign in"
         android:textSize="35sp"
         android:textStyle="bold" />
 </RelativeLayout>
