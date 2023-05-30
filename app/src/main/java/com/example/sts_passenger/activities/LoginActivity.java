@@ -1,6 +1,7 @@
 package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView text,signup;
     EditText email, password;
-    Button loginBtn;
+    AppCompatButton loginBtn;
+
 
     TextView tvIpAddress;
 
