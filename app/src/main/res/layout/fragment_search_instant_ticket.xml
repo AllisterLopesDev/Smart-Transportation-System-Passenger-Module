@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="50dp"
     android:orientation="vertical">
@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:layout_margin="20dp"
         android:id="@+id/cardView_ticket"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_border"
         app:cardCornerRadius="20dp"
@@ -37,7 +37,6 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="33dp"
                     android:layout_height="32dp"
-
                     android:src="@drawable/location_pointer" />
 
                 <View
@@ -123,7 +122,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textView_show_current_date"
-            android:text="12-12-2023"/>
+            android:text="12-12-2023"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:padding="5dp"/>
     </LinearLayout>
 
             <LinearLayout
@@ -142,12 +144,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/imgBtn_decrement_passenger_counter"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:background="@drawable/rounded_corner_btn"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/decrement_counter" />
 
                     <TextView
@@ -156,33 +162,42 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textSize="24sp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:textStyle="bold" />
 
                     <ImageButton
                         android:id="@+id/imgBtn_increment_passenger_counter"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:background="@drawable/rounded_corner_btn"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/increment_counter" />
+
                     <TextView
                         android:id="@+id/textView_passenger_counter_desc"
                         android:layout_width="wrap_content"
+                        android:padding="8dp"
                         android:layout_height="wrap_content"
-                        android:text="Passenger Count"
-                        android:background="@drawable/bg_edittext"/>
+                        android:text="Passenger"
+                        android:textStyle=""
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:background="@drawable/rounded_corner_btn"/>
 
                 </LinearLayout>
 
 
             </LinearLayout>
 
-        <Button
-            android:layout_marginLeft="130dp"
-            android:id="@+id/button_search_buses_available"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="search Bus"/>
+    <Button
+        android:id="@+id/button_search_buses_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:text="search Bus" />
 
-    
 
 </LinearLayout>
 
