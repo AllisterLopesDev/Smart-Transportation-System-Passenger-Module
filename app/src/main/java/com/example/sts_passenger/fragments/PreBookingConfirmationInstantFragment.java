@@ -271,18 +271,18 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
     private void setBundleDateToTicketConfirmationFrag(TicketBooking instantTicket) {
         InstantTicketFragment fragment = new InstantTicketFragment();
 
-        // add data to bundle args
+        /*// add data to bundle args
         Bundle args = new Bundle();
         args.putString("busType", bus.getBusType());
         args.putString("busRegNo", bus.getRegistrationNumber());
         args.putString("ticketDestination", ticket.getDestination());
         args.putString("ticketSource", ticket.getSource());
         args.putInt("passengerCount", ticket.getPassengerCount());
-        args.putInt("ticketAmount", ticket.getFareAmount());
+        args.putInt("ticketAmount", instantTicket.getTicket().getFareAmount());
         args.putInt("ticketId", ticket.getId());
         args.putString("ticketDate", ticket.getDate());
         // set args to frag
-        fragment.setArguments(args);
+        fragment.setArguments(args);*/
 
         // transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

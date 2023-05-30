@@ -40,8 +40,8 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
         holder.busNo.setText(busScheduleSearchList.get(position).getBus().getRegistrationNumber());
         holder.source.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDepartureStand());
         holder.destination.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrivalStand());
-        holder.arrival.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrival());
-        holder.departure.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDeparture());
+//        holder.arrival.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrival());
+//        holder.departure.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDeparture());
 
     }
 
@@ -65,8 +65,8 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
             busNo=itemView.findViewById(R.id.tv_Bus_no);
             source=itemView.findViewById(R.id.tv_Source);
             destination=itemView.findViewById(R.id.tv_Destination);
-            arrival=itemView.findViewById(R.id.tv_Arrival);
-            departure=itemView.findViewById(R.id.tv_Departure);
+//            arrival=itemView.findViewById(R.id.tv_Arrival);
+//            departure=itemView.findViewById(R.id.tv_Departure);
         }
 
 

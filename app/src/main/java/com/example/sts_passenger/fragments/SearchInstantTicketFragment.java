@@ -317,8 +317,10 @@ public class SearchInstantTicketFragment extends Fragment {
 
             Log.i("TAG", "setDestinationData: " + destinationBusStop.getName());
         }
+            tvDestination.setText(destinationBusStop.getName());
 
-        tvDestination.setText(destinationBusStop.getName());
+
+
     }
 
 

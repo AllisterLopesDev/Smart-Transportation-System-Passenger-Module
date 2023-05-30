@@ -16,6 +16,7 @@
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
         <LinearLayout
+            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -59,13 +60,12 @@
                 android:src="@drawable/location_pointer" />
 
             <View
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
                 android:layout_width="1dp"
                 android:layout_height="30dp"
-                android:background="@android:color/darker_gray"
-                />
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@android:color/darker_gray" />
             <ImageView
                 android:layout_width="13dp"
                 android:layout_height="12dp"
