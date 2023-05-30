@@ -110,7 +110,7 @@ public class DestinationBusStopsFragment extends Fragment {
         fragment.setArguments(args);
 
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();  // call getParentFragmentManager when calling fragment from another fragment
-        transaction.replace(R.id.frameLayout_booking_container, fragment);
+        transaction.replace(R.id.ticketContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

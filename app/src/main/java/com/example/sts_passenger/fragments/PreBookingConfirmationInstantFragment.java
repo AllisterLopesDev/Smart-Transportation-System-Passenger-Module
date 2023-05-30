@@ -264,7 +264,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
 
         // transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_booking_container, fragment);
+        transaction.replace(R.id.ticketContainer, fragment);
         transaction.commit();
     }
 
@@ -286,7 +286,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
 
         // transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_booking_container, fragment);
+        transaction.replace(R.id.ticketContainer, fragment);
         transaction.commit();
     }
 

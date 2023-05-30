@@ -94,7 +94,7 @@ public class PassengerHomePage extends AppCompatActivity {
 
 
     public  void loadActivity() {
-        Intent i = new Intent(getApplicationContext(), Home.class);
+        Intent i = new Intent(getApplicationContext(), TicketActivity.class);
         startActivity(i);
 
     }
