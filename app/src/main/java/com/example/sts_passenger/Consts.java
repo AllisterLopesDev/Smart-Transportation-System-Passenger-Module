@@ -72,6 +72,7 @@ public class Consts {
 
     // request codes
     public static final Integer LOCATION_REQUEST_CODE = 1;
+    public static final int PERMISSION_REQUEST_CODE = 123;
 
 
     // password hash

@@ -23,7 +23,6 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.model.CalendarDate;
 import com.example.sts_passenger.model.RouteInfo;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 public class GeneratePass extends Fragment {

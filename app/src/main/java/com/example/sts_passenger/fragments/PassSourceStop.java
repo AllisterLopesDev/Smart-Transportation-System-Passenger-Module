@@ -18,7 +18,6 @@ import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.PassSourceAdapter;
 import com.example.sts_passenger.apiservices.Client;
-import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.RouteInfoResponse;
 import com.example.sts_passenger.model.RouteInfo;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;

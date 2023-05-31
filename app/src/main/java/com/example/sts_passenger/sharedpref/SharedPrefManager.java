@@ -2,12 +2,15 @@ package com.example.sts_passenger.sharedpref;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.User;
+
+import java.io.File;
 
 
 public class SharedPrefManager {
@@ -135,6 +138,23 @@ public class SharedPrefManager {
         // pass Session in return with user, passenger and token in constructor
         return new Session(user, passenger, token);
 
+    }
+
+    public void savePassengerPhoto(File file) {
+        sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
+
+        // editor to insert data
+        editor = sharedPreferences.edit();
+        editor.putString("photoFilePath", file.getAbsolutePath());
+        editor.apply();
+
+        Log.i("TAG", "savePassengerPhoto: file path " + file.getAbsolutePath());
+    }
+
+    public String getSavedPassengerPhoto() {
+        sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString("photoFilePath", null);
     }
 
 /*    public User getPassSource() {
