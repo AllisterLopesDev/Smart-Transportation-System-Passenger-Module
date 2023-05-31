@@ -6,39 +6,48 @@
     android:layout_height="wrap_content">
 
 
-
-        <androidx.cardview.widget.CardView
-            android:layout_margin="8dp"
-            android:id="@+id/materialCardView"
-            android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="76dp"
+        android:elevation="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:elevation="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@drawable/pass_background">
 
 
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shuttle Pass"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tv_pass_status"
-                    android:text="pass id"/>
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="pass id" />
+
+                <TextView
                     android:id="@+id/tv_setUsage_counter"
-                    android:text="pass id"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pass id" />
 
 
                 <LinearLayout
@@ -46,56 +55,61 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_pass_source"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="source"
                             android:textSize="13dp"
-                            android:id="@+id/tv_pass_source"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="To"/>
+                            android:text="To" />
+
                         <TextView
-                        android:layout_width="wrap_content"
                             android:id="@+id/tv_pass_destination"
-                        android:layout_height="wrap_content"
-                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="destination"
                             android:textSize="13dp"
-                        android:text="destination"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 
-
                     <LinearLayout
-                        android:layout_marginLeft="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:orientation="vertical">
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
                             android:id="@+id/tv_pass_price"
-                            android:text="$200"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$200"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:text="Valid Till"/>
+                            android:text="Valid Till"
+                            android:textSize="15sp" />
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
                             android:id="@+id/tv_pass_validTo"
-                            android:text="10-12-2023"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10-12-2023"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -103,10 +117,8 @@
 
             </LinearLayout>
 
-
-
-
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 

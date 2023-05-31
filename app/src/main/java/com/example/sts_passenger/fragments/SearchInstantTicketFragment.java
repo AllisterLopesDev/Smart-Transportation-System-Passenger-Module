@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -48,7 +49,7 @@ public class SearchInstantTicketFragment extends Fragment {
     TextView tvSource, tvDestination, tvShowCurrentDate, tvPassengerCount;
 
     // ButtonViews
-    Button btnSearchBusSchedules;
+    AppCompatButton btnSearchBusSchedules;
 
     // ImageButton views for counter
     ImageButton imgBtnIncrementPassengerCount, imgBtnDecrementPassengerCount;

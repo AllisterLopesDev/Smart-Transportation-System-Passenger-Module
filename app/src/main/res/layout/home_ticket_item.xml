@@ -12,70 +12,71 @@
         android:id="@+id/cardView_ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
+
         <LinearLayout
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="73dp"
+            android:layout_margin="10dp"
+            android:background="@color/sts_theme_color"
             android:orientation="horizontal">
 
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/bus_regNo"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="20sp"
-                android:text="GA011233"/>
-            <TextView
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bus_regNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="GA011233"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/bus_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="GA011233"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/bus_type"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:text="GA011233"/>
-        </LinearLayout>
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/location_pointer" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@android:color/darker_gray" />
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/location_pointer" />
 
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_width="13dp"
-                android:layout_height="12dp"
-                android:src="@drawable/location_pointer" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="15dp"
-                android:background="@android:color/darker_gray" />
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/location_pointer" />
-
-
-        </LinearLayout>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -92,18 +93,17 @@
 
                 <View
                     android:layout_width="match_parent"
+                    android:layout_height="2dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp"
-                    android:layout_height="2dp"
                     android:background="@drawable/dotted_line" />
 
                 <TextView
+                    android:id="@+id/destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:id="@+id/destination"
-                    android:text="Panjim"/>
-
+                    android:text="Panjim"
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -118,10 +118,9 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp" />
 
             </LinearLayout>
-
 
 
         </LinearLayout>

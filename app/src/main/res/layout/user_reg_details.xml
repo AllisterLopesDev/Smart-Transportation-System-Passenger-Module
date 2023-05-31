@@ -117,7 +117,8 @@
         android:background="@drawable/bg_edittext"
         android:padding="10dp" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/adddetailsbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

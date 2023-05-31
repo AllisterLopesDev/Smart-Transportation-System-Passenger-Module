@@ -1,8 +1,11 @@
 package com.example.sts_passenger.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
@@ -14,6 +17,8 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +55,11 @@ import retrofit2.Response;
 
 //public class HomeFragment extends Fragment implements LocationListener {
 public class HomeFragment extends Fragment{
-
+// get current location of device
+private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private LocationManager locationManager;
     private MapView map;
+
     IMapController mapController;
 
     RecyclerView recyclerView;
@@ -60,6 +68,10 @@ public class HomeFragment extends Fragment{
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
     private Session savedSession;
+
+
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,14 +92,42 @@ public class HomeFragment extends Fragment{
 
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getContext()));
 
+        // Initialize location manager
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        // Check if location permission is granted
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        } else {
+            // Permission is granted, get current location
+            getCurrentLocation();
+        }
+
+
         map = rootView.findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK); // render
         map.setBuiltInZoomControls(true); // zoomable
-        GeoPoint startPoint = new GeoPoint(15.18365, 74.09815);
+        GeoPoint startPoint = new GeoPoint(15.321083, 74.021654);
         mapController = map.getController();
         mapController.setZoom(18.0);
         mapController.setCenter(startPoint);
-        getBusLiveLoc();
+        handler = new Handler(Looper.getMainLooper());
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                getBusLiveLoc();
+                handler.postDelayed(this, 10000); // Call the function every 30 seconds
+            }
+        };
+
+
+
+
+
 
         ArrayList<OverlayItem> items = new ArrayList<>();
         ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getContext(),
@@ -105,8 +145,15 @@ public class HomeFragment extends Fragment{
 
         mOverlay.setFocusItemsOnTap(true);
         map.getOverlays().add(mOverlay);
-
+       handler.post(runnable);
         return rootView;
+
+}
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        handler.removeCallbacks(runnable); // Remove the callback when the view is destroyed
     }
 
     @Override
@@ -133,6 +180,7 @@ public class HomeFragment extends Fragment{
         if (requestCode == 100) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    getCurrentLocation();
                 }
             }
         }
@@ -223,6 +271,32 @@ public class HomeFragment extends Fragment{
             }
         });
     }
+
+    // Get the current location of the device
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    // Handle the updated location here
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    // Do something with latitude and longitude
+                }
+
+                @Override
+                public void onProviderDisabled(@NonNull String provider) {}
+
+                @Override
+                public void onProviderEnabled(@NonNull String provider) {}
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+            });
+        }
+    }
+
 }
 
 

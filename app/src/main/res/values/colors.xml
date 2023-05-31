@@ -12,4 +12,11 @@
     <color name="button_end_color">#EC407A</color>
     <color name="button_text_color">#FFFFFF</color>
     <color name="divider_color">#CCCCCC</color>
+
+
+
+    <color name="sts_theme_color">#FF9800</color>
+
+
+
 </resources>

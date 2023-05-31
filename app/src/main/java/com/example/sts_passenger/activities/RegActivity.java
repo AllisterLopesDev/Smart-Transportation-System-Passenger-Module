@@ -1,6 +1,7 @@
 package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class RegActivity extends AppCompatActivity {
 
 
     EditText email, password;
-    Button regBtn;
+    AppCompatButton regBtn;
     TextView tv_ip;
 
     String userEmail,userPassword;

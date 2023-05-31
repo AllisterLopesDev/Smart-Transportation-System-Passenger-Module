@@ -1,6 +1,7 @@
 package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 public class User_register_details extends AppCompatActivity {
 
     EditText fname, lname,address,contact,tv_dob;
-    Button buttonRegister;
+    AppCompatButton buttonRegister;
     Spinner spinner_gender,spinner_category;
     private int year, month, day;
     String genderData,categoryData,dobData;

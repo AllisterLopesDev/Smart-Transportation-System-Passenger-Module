@@ -49,7 +49,8 @@
         android:inputType="textPassword"
         android:padding="10dp" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +60,8 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/button_border"
         android:shadowRadius="@integer/material_motion_duration_medium_2"
-        android:text="verify E-mail"
+        android:text="verify email"
+        android:textColor="@color/white"
         android:textSize="35sp"
         android:textStyle="bold" />
 
