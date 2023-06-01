@@ -157,9 +157,4 @@ public class SharedPrefManager {
         return sharedPreferences.getString("photoFilePath", null);
     }
 
-/*    public User getPassSource() {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
-    }*/
-
-
 }

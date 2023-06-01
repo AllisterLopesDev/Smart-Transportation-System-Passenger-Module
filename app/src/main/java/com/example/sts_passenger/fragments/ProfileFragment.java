@@ -69,7 +69,6 @@ public class ProfileFragment extends Fragment {
     int SELECT_IMAGE_CODE=1;
     FloatingActionButton addImageBtn;
     CircleImageView profile_picture;
-    Uri imageSrcUri;
     // Getting photo File
     File savedPhotoFile;
 
@@ -150,42 +149,14 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-
-        String profilePhotoFilePath = sharedPrefManager.getSavedPassengerPhoto();
-        if (profilePhotoFilePath != null) {
-            savedPhotoFile = new File(profilePhotoFilePath);
-            if (savedPhotoFile.exists()) {
-                Uri imageUri = FileProvider.getUriForFile(getActivity(), "com.example.sts_passenger.fileprovider", savedPhotoFile);
-                // Grant URI permission if targeting API 24 or higher
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    getActivity().grantUriPermission(getActivity().getPackageName(), imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                }
-                // set image view
-                profile_picture.setImageURI(imageUri);
-            } else {
-                profile_picture.setImageResource(R.drawable.profile);
-            }
-        } else {
-            profile_picture.setImageResource(R.drawable.profile);
-        }
-    }*/
-
     @Override
     public void onStart() {
         super.onStart();
 
-        String profilePhotoFilePath = sharedPrefManager.getSavedPassengerPhoto();
-        if (profilePhotoFilePath != null) {
-            File savedPhotoFile = new File(profilePhotoFilePath);
-            if (isImageFileValid(savedPhotoFile)) {
-                Uri imageUri = Uri.fromFile(savedPhotoFile);
-                profile_picture.setImageURI(imageUri);
-            } else {
-                profile_picture.setImageResource(R.drawable.profile);
-            }
+
+        if (isImageFileValid(savedPhotoFile)) {
+            Uri imageUri = Uri.fromFile(savedPhotoFile);
+            profile_picture.setImageURI(imageUri);
         } else {
             profile_picture.setImageResource(R.drawable.profile);
         }
@@ -216,6 +187,7 @@ public class ProfileFragment extends Fragment {
         logoutRequest.setToken(getSessionToken());
         return logoutRequest;
     }
+
     public void logout(LogoutPassenger logoutRequest){
         Call<com.example.sts_passenger.apiservices.response.LogoutPassenger> logoutResponseCall= Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().logout(logoutRequest);
         logoutResponseCall.enqueue(new Callback<com.example.sts_passenger.apiservices.response.LogoutPassenger>() {
@@ -270,9 +242,6 @@ public class ProfileFragment extends Fragment {
         email_text.setText(session.getUser().getEmail());
         contact_text.setText(session.getPassenger().getContact());
         address_text.setText(session.getPassenger().getAddress());
-
-
-
     }
 
     // SharedPrefManager function
@@ -309,6 +278,7 @@ public class ProfileFragment extends Fragment {
 
 
 
+    // Required to get the image path to upload the image
     private String getPathFromUri(Uri uri) {
         String path = null;
 
@@ -387,16 +357,6 @@ public class ProfileFragment extends Fragment {
               if (response.isSuccessful()) {
                   Log.i("TAG", "onResponse: image uploaded" );
                   Log.i("TAG", "onResponse: success file name " + photo);
-
-                  boolean success = saveFile(response.body(), file);
-
-                  if (success) {
-                      Log.i("TAG", "onResponse: Image saved successfully");
-
-                      // Store the file path in SharedPreferences
-                      sharedPrefManager.savePassengerPhoto(file);
-                  }
-
               }
           }
 
@@ -405,21 +365,6 @@ public class ProfileFragment extends Fragment {
              Log.i("TAG", "onFailure: " + t.getLocalizedMessage());
          }
         });
-    }
-
-    // saveFile Boolean function
-    private boolean saveFile(ResponseBody responseBody, File file) {
-        try {
-            BufferedSink sink = Okio.buffer(Okio.sink(file));
-            sink.writeAll(responseBody.source());
-            sink.close();
-
-            return true;  // File saved successfully
-        } catch (IOException e) {
-            e.printStackTrace();
-
-            return false; // Failed to save the file
-        }
     }
 
 
