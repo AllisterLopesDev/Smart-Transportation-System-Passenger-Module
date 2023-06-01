@@ -12,15 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        />
+        >
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/ticketBView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/ticket_items" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/ticketBView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        app:menu="@menu/ticket_items"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/sts_background"
+            android:layout_marginTop="50dp"/>
+    </FrameLayout>
+
 
 </RelativeLayout>

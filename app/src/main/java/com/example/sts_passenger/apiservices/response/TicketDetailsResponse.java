@@ -1,6 +1,7 @@
 package com.example.sts_passenger.apiservices.response;
 
 import com.example.sts_passenger.model.result.TicketBooking;
+import com.example.sts_passenger.model.result.TicketResult;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -10,9 +11,18 @@ public class TicketDetailsResponse {
 
 
     @SerializedName("bookings") List<TicketBooking> ticketBookingList;
+    @SerializedName("results") List<TicketResult> ticketResultList;
     @SerializedName("passenger_id") Integer passenger_id;
     @SerializedName("status") Integer status;
     @SerializedName("success") Boolean success;
+
+    public List<TicketResult> getTicketResultList() {
+        return ticketResultList;
+    }
+
+    public void setTicketResultList(List<TicketResult> ticketResultList) {
+        this.ticketResultList = ticketResultList;
+    }
 
     public List<TicketBooking> getTicketBookingList() {
         return ticketBookingList;

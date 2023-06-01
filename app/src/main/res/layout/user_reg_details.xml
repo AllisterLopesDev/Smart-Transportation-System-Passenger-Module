@@ -7,13 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.User_register_details">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/sts_background"/>
+
 
     <TextView
         android:id="@+id/driverText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="130dp"
         android:gravity="center"
         android:text="Required Details"
         android:textColor="@color/black"
@@ -35,7 +40,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/driverText"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/bg_edittext"
         android:hint="First Name"
@@ -124,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/address"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="171dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/button_border"
         android:shadowRadius="@integer/material_motion_duration_medium_2"

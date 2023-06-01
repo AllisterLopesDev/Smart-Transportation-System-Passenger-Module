@@ -40,13 +40,13 @@ public class Consts {
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
     public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
-    public static final String ENDPOINT_GET_CURRENT_BOOTKING_TICKET = "current-booked-ticket";
+    public static final String ENDPOINT_GET_CURRENT_BOOTKING_TICKET = "current-ticket/passenger";
 
 
     // Endpoints for Bus
     public static final String ENDPOINT_SEARCH = "search";
     // ENDPOINT FOR BUS LIVE LOCATION
-    public static final String ENDPOINT_BUS_LIVE_LOCATION = "live_bus_locations";
+    public static final String ENDPOINT_BUS_LIVE_LOCATION = "locations";
     public static final String ENDPOINT_GET_TRIP_HISTORY = "passenger-ticket-bookings";
 
 

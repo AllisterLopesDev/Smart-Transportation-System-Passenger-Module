@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.assets.QRCodeGenerator;
 import com.example.sts_passenger.model.result.TicketBooking;
+import com.example.sts_passenger.model.result.TicketResult;
 
 import java.util.List;
 
 public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.ViewHolder> {
-    List<TicketBooking> bookings;
+    List<TicketResult> ticketResultList;
     Context context;
 
-    public ValidTicketAdapter(List<TicketBooking> bookings, Context context) {
-        this.bookings = bookings;
+    public ValidTicketAdapter(List<TicketResult> bookings, Context context) {
+        this.ticketResultList = bookings;
         this.context = context;
     }
 
@@ -35,21 +36,21 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_busRegNo.setText(bookings.get(position).getBus().getRegistrationNumber());
-        holder.tv_busType.setText(bookings.get(position).getBus().getType());
-        holder.tv_source.setText(bookings.get(position).getTicket().getSource());
-        holder.tv_destination.setText(bookings.get(position).getTicket().getDestination());
-        String data = String.valueOf(bookings.get(position).getTicket().getId());
+        holder.tv_busRegNo.setText(ticketResultList.get(position).getBus().getRegistrationNumber());
+        holder.tv_busType.setText(ticketResultList.get(position).getBus().getType());
+        holder.tv_source.setText(ticketResultList.get(position).getTicket().getSource());
+        holder.tv_destination.setText(ticketResultList.get(position).getTicket().getDestination());
+        String data = String.valueOf(ticketResultList.get(position).getTicket().getId());
 
         QRCodeGenerator.generateQRCode(data, holder.imageViewQR);
     }
 
     @Override
     public int getItemCount() {
-        if (bookings == null) {
+        if (ticketResultList == null) {
             return 0;
         }
-        return bookings.size();
+        return ticketResultList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

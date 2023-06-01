@@ -33,6 +33,7 @@ import com.example.sts_passenger.model.LiveLocation;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.result.TicketBooking;
+import com.example.sts_passenger.model.result.TicketResult;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
 import org.osmdroid.api.IMapController;
@@ -63,7 +64,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     IMapController mapController;
 
     RecyclerView recyclerView;
-    List<TicketBooking> bookingList;
+    List<TicketResult> ticketResultList;
 
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
@@ -128,7 +129,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
 
 
 
-
+//        getBusLiveLoc();
         ArrayList<OverlayItem> items = new ArrayList<>();
         ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getContext(),
                 items, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
@@ -243,24 +244,24 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     private void getTicketDetails() {
         int passengerId = savedSession.getPassenger().getPassengerId();
         Log.i("TAG", "getTicketDetails: passenger-id " + passengerId);
-        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getAllTicketDetails(savedSession.getPassenger().getPassengerId());
+        Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getCurrentTicket(savedSession.getPassenger().getPassengerId());
         call.enqueue(new Callback<TicketDetailsResponse>() {
             @Override
             public void onResponse(Call<TicketDetailsResponse> call, Response<TicketDetailsResponse> response) {
                 if (response.isSuccessful()){
                     if (response.body()  != null && response.body().getStatus() == 200){
-                        bookingList = response.body().getTicketBookingList();
+                        ticketResultList = response.body().getTicketResultList();
 
-                        // filter booked tickets
-                        List<TicketBooking> filterBookedTickets = new ArrayList<>();
-                        for (TicketBooking bookedTicket : bookingList) {
+//                         filter booked tickets
+                        List<TicketResult> filterBookedTickets = new ArrayList<>();
+                        for (TicketResult bookedTicket : ticketResultList) {
                             if (bookedTicket.getTicket().getStatus().equals("Booked")) {
                                 filterBookedTickets.add(bookedTicket);
                             }
                         }
 
                         // add filtered list to recyclerview
-                        recyclerView.setAdapter(new ValidTicketAdapter(filterBookedTickets, getContext()));
+                        recyclerView.setAdapter(new ValidTicketAdapter(ticketResultList, getContext()));
                     }
                 }
             }
