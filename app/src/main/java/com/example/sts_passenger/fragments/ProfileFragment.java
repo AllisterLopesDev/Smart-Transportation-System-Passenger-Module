@@ -34,7 +34,7 @@ public class ProfileFragment extends Fragment {
 
     Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
-    TextView tv_title,name_text,email_text,contact_text,address_text;
+    TextView tv_title,name_text,email_text,contact_text,address_text,gender_text,category_text;
     CardView cardViewProfile;
     private Context mContext;
     private Session session;
@@ -92,8 +92,8 @@ public class ProfileFragment extends Fragment {
     private void hideViewsOnFragTransaction() {
         tripHistory.setVisibility(View.GONE);
         logout.setVisibility(View.GONE);
-        cardViewProfile.setVisibility(View.GONE);
-        tv_title.setVisibility(View.GONE);
+//        cardViewProfile.setVisibility(View.GONE);
+//        tv_title.setVisibility(View.GONE);
 
     }
 
@@ -148,18 +148,22 @@ public class ProfileFragment extends Fragment {
     public void initView(View view){
         logout = view.findViewById(R.id.logout);
         tripHistory = view.findViewById(R.id.tripHistory);
-        cardViewProfile = view.findViewById(R.id.cardView_profile);
-        tv_title = view.findViewById(R.id.sts_title);
+//        cardViewProfile = view.findViewById(R.id.cardView_profile);
+//        tv_title = view.findViewById(R.id.sts_title);
         name_text = view.findViewById(R.id.name_text);
         email_text = view.findViewById(R.id.email_text);
         contact_text = view.findViewById(R.id.contact_text);
         address_text = view.findViewById(R.id.address_text);
+        gender_text = view.findViewById(R.id.genger_text);
+        category_text = view.findViewById(R.id.category_text);
 
         String name = session.getPassenger().getFirstname()+ " "+ session.getPassenger().getLastname();
         name_text.setText(name);
         email_text.setText(session.getUser().getEmail());
         contact_text.setText(session.getPassenger().getContact());
         address_text.setText(session.getPassenger().getAddress());
+        gender_text.setText(session.getPassenger().getGender());
+        category_text.setText(session.getPassenger().getCategory());
     }
 
     // SharedPrefManager function
