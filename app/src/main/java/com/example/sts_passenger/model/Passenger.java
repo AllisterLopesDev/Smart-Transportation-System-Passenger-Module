@@ -19,6 +19,7 @@ public class Passenger {
     @SerializedName("gender")
     private String gender;
 
+//    "userid": 7
 
     @SerializedName("id")
     private Integer passengerId;

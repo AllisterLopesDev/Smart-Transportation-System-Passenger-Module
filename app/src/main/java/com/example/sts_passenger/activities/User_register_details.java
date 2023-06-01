@@ -108,9 +108,6 @@ public class User_register_details extends AppCompatActivity {
                 }else {
                     addUserInfo(createRequest());
                 }
-
-
-
             }
         });
     }
@@ -121,10 +118,13 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setLastname(lname.getText().toString());
         userRequest.setAddress(address.getText().toString());
         userRequest.setGender(getGenderData());
+        Log.i("TAG", "createRequest: gender "+getGenderData());
         userRequest.setContact(contact.getText().toString());
         userRequest.setCategory(getCategoryData());
+        Log.i("TAG", "createRequest: gender "+getCategoryData());
         userRequest.setDob(tv_dob.getText().toString());
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
+
         return userRequest;
     }
 
@@ -136,10 +136,10 @@ public class User_register_details extends AppCompatActivity {
             public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().getStatus() == 200) {
-                        sharedPrefManager.savePassengerData(response.body().getPassenger());
+//                        sharedPrefManager.savePassengerData(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 //                        tvShowServerMessage.setText(response.body().getMessage());
-                        Intent i = new Intent(getApplicationContext(), PassengerHomePage.class);
+                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(i);
                     } else {
                         Toast.makeText(User_register_details.this, "request failed", Toast.LENGTH_SHORT).show();
@@ -158,10 +158,10 @@ public class User_register_details extends AppCompatActivity {
 
     // gender data
     public void gender(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
+        ArrayAdapter<CharSequence> adapterGender = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.gender, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_gender.setAdapter(adapter);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_gender.setAdapter(adapterGender);
 
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -178,10 +178,10 @@ public class User_register_details extends AppCompatActivity {
 
     //category data
     public void category(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.category, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_category.setAdapter(adapter);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_category.setAdapter(adapterCategory);
 
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

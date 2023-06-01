@@ -39,6 +39,14 @@ public class RegisterPassengerRequest {
     private String dob;
     @SerializedName("userid")
     private int userid;
+//     "firstname":"Pearl",
+//    "lastname":"Rodrigues",
+//    "contact":"9325611223",
+//    "address":"Bacbhatt-Raia",
+//    "category":"student",
+//    "gender":"female",
+//    "dob":"2000-11-12",
+//    "userid": 7
 
     public String getFirstname() {
         return firstname;
