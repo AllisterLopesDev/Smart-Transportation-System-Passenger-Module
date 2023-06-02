@@ -13,6 +13,8 @@
         android:background="@drawable/sts_background"/>
 
     <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,7 +23,6 @@
             android:id="@+id/driverText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="130dp"
             android:gravity="center"
             android:text="Required Details"
@@ -32,8 +33,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/driverText"
-            android:layout_alignParentStart="true"
             android:layout_marginStart="3dp"
             android:layout_marginTop="29dp"
             android:background="@android:color/darker_gray" />
@@ -42,7 +41,6 @@
             android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/driverText"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="12dp"
             android:layout_marginRight="30dp"
@@ -59,7 +57,6 @@
             android:background="@drawable/bg_edittext"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/firstName"
             android:padding="10dp"/>
 
         <EditText
@@ -72,7 +69,6 @@
             android:background="@drawable/bg_edittext"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/lastName"
             android:padding="10dp"/>
 
         <EditText
@@ -84,28 +80,38 @@
             android:background="@drawable/bg_edittext"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/contact"
             android:padding="10dp"/>
 
-        <EditText
-            android:id="@+id/dob"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/contact"
-            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/bg_edittext"
-            android:hint="dob"
-            android:padding="10dp" />
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_dob"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="date of birth"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/img_datePicker"
+                android:layout_marginStart="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ticket"/>
+
+        </LinearLayout>
 
 
         <Spinner
             android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/address"
-            android:layout_alignBottom="@+id/dob"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
@@ -116,7 +122,6 @@
             android:id="@+id/category"
             android:layout_width="349dp"
             android:layout_height="45dp"
-            android:layout_below="@+id/dob"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"

@@ -10,9 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +35,9 @@ import retrofit2.Response;
 
 public class User_register_details extends AppCompatActivity {
 
-    EditText fname, lname,address,contact,tv_dob;
+    EditText fname, lname,address,contact, etDateOfBirth;
     AppCompatButton buttonRegister;
+    ImageView imgDatePicker;
     Spinner spinner_gender, spinner_category;
     private int year, month, day;
     String genderData,categoryData,dobData;
@@ -59,13 +60,25 @@ public class User_register_details extends AppCompatActivity {
         spinner_category = findViewById(R.id.category);
         contact = findViewById(R.id.contact);
         spinner_gender = findViewById(R.id.gender);
-        tv_dob = findViewById(R.id.dob);
+        etDateOfBirth = findViewById(R.id.et_dob);
 
+        /*
+        * DatePicker for date of birth
+        * */
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         calendarDays = new CalendarDate();
+
+        // DatePicker button
+        imgDatePicker = findViewById(R.id.img_datePicker);
+        imgDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentDate();
+            }
+        });
 
 
         buttonRegister = findViewById(R.id.adddetailsbtn);
@@ -131,7 +144,7 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setCategory(getCategoryData());
 
         Log.i("TAG", "createRequest: gender "+getCategoryData());
-        userRequest.setDob(tv_dob.getText().toString());
+        userRequest.setDob(etDateOfBirth.getText().toString());
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
 
         return userRequest;
@@ -213,12 +226,12 @@ public class User_register_details extends AppCompatActivity {
 
     public void getCurrentDate() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                getApplicationContext(),
+                User_register_details.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         setDobData(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        tv_dob.setText(getDobData());
+                        etDateOfBirth.setText(getDobData());
                         Log.i("TAG", "onDateSet: "+genderData);
                     }
                 },
