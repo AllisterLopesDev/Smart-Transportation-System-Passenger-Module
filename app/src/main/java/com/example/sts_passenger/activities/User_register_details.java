@@ -37,7 +37,7 @@ public class User_register_details extends AppCompatActivity {
 
     EditText fname, lname,address,contact,tv_dob;
     AppCompatButton buttonRegister;
-    Spinner spinner_gender,spinner_category;
+    Spinner spinner_gender, spinner_category;
     private int year, month, day;
     String genderData,categoryData,dobData;
     CalendarDate calendarDays;
@@ -68,6 +68,8 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister = findViewById(R.id.adddetailsbtn);
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
+
+        passenger = new Passenger();
 
         // ############### gender spinner call #############
         gender();
@@ -118,11 +120,13 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setFirstname(fname.getText().toString());
         userRequest.setLastname(lname.getText().toString());
         userRequest.setAddress(address.getText().toString());
+
         userRequest.setGender(passenger.getGender());
         Log.i("TAG", "createRequest: gender "+passenger.getGender());
         userRequest.setContact(contact.getText().toString());
         userRequest.setCategory(passenger.getCategory());
         Log.i("TAG", "createRequest: gender "+passenger.getCategory());
+
         userRequest.setDob(tv_dob.getText().toString());
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
 
@@ -167,8 +171,10 @@ public class User_register_details extends AppCompatActivity {
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
                 passenger.setGender(adapterView.getItemAtPosition(position).toString());
                 Log.i("TAG", "onItemSelected: selected gender : "+passenger.getGender());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -184,11 +190,13 @@ public class User_register_details extends AppCompatActivity {
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_category.setAdapter(adapterCategory);
 
-        spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
                 passenger.setCategory(adapterView.getItemAtPosition(position).toString());
                 Log.i("TAG", "onItemSelected: selected gender : "+passenger.getCategory());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
