@@ -72,6 +72,7 @@ public class User_register_details extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
+        // passenger records for registration
         passenger = new Passenger();
 
         // ############### gender spinner call #############
