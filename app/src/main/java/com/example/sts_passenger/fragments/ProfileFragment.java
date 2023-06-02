@@ -37,6 +37,7 @@ public class ProfileFragment extends Fragment {
     TextView tv_title,name_text,email_text,contact_text,address_text,gender_text,category_text;
     CardView cardViewProfile;
     private Context mContext;
+    LinearLayout layout3;
     private Session session;
 
 
@@ -94,6 +95,7 @@ public class ProfileFragment extends Fragment {
         logout.setVisibility(View.GONE);
 //        cardViewProfile.setVisibility(View.GONE);
 //        tv_title.setVisibility(View.GONE);
+        layout3.setVisibility(View.GONE);
 
     }
 
@@ -156,6 +158,7 @@ public class ProfileFragment extends Fragment {
         address_text = view.findViewById(R.id.address_text);
         gender_text = view.findViewById(R.id.genger_text);
         category_text = view.findViewById(R.id.category_text);
+        layout3 = view.findViewById(R.id.linearLayout3);
 
         String name = session.getPassenger().getFirstname()+ " "+ session.getPassenger().getLastname();
         name_text.setText(name);

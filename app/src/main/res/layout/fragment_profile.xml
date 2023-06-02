@@ -3,22 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/flProfileLayout"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="SMART TRANSPORTATION SYSTEM"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="#673AB7"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="30sp"-->
-<!--        android:id="@+id/sts_title"/>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/constraintprofileLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -192,13 +184,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/frameLayout_profile_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-
-            </FrameLayout>
 
         </LinearLayout>
 
@@ -235,5 +221,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <FrameLayout
+        android:id="@+id/frameLayout_profile_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </FrameLayout>
 </FrameLayout>

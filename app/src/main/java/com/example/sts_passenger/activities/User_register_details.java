@@ -23,6 +23,7 @@ import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.model.CalendarDate;
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
@@ -40,7 +41,7 @@ public class User_register_details extends AppCompatActivity {
     private int year, month, day;
     String genderData,categoryData,dobData;
     CalendarDate calendarDays;
-    TextView tvShowServerMessage;
+    Passenger passenger;
     SharedPrefManager sharedPrefManager;
 
     User user;
@@ -103,7 +104,7 @@ public class User_register_details extends AppCompatActivity {
                     address.setError("Input is required");
                 }else if (Contact.isEmpty()){
                     contact.setError("Input is required");
-                }else if (Contact.length() <= 10) {
+                }else if (Contact.length() < 10 && Contact.length() > 10) {
                     lname.setError("min 10 letter required");
                 }else {
                     addUserInfo(createRequest());
@@ -117,11 +118,11 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setFirstname(fname.getText().toString());
         userRequest.setLastname(lname.getText().toString());
         userRequest.setAddress(address.getText().toString());
-        userRequest.setGender(getGenderData());
-        Log.i("TAG", "createRequest: gender "+getGenderData());
+        userRequest.setGender(passenger.getGender());
+        Log.i("TAG", "createRequest: gender "+passenger.getGender());
         userRequest.setContact(contact.getText().toString());
-        userRequest.setCategory(getCategoryData());
-        Log.i("TAG", "createRequest: gender "+getCategoryData());
+        userRequest.setCategory(passenger.getCategory());
+        Log.i("TAG", "createRequest: gender "+passenger.getCategory());
         userRequest.setDob(tv_dob.getText().toString());
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
 
@@ -166,8 +167,8 @@ public class User_register_details extends AppCompatActivity {
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                setGenderData(adapterView.getItemAtPosition(position).toString());
-                Log.i("TAG", "onItemSelected: selected gender : "+getGenderData());
+                passenger.setGender(adapterView.getItemAtPosition(position).toString());
+                Log.i("TAG", "onItemSelected: selected gender : "+passenger.getGender());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -186,8 +187,8 @@ public class User_register_details extends AppCompatActivity {
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                setCategoryData(adapterView.getItemAtPosition(position).toString());
-                Log.i("TAG", "onItemSelected: selected gender : "+getCategoryData());
+                passenger.setCategory(adapterView.getItemAtPosition(position).toString());
+                Log.i("TAG", "onItemSelected: selected gender : "+passenger.getCategory());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -204,8 +205,8 @@ public class User_register_details extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        setDobData(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        tv_dob.setText(getDobData());
+                        passenger.setDob(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        tv_dob.setText(passenger.getDob());
                         Log.i("TAG", "onDateSet: "+genderData);
                     }
                 },
@@ -214,33 +215,5 @@ public class User_register_details extends AppCompatActivity {
                 day
         );
         datePickerDialog.show();
-    }
-
-
-    // --------------------------- getter & setter ------------------------
-
-
-    public String getGenderData() {
-        return genderData;
-    }
-
-    public void setGenderData(String genderData) {
-        this.genderData = genderData;
-    }
-
-    public String getCategoryData() {
-        return categoryData;
-    }
-
-    public void setCategoryData(String categoryData) {
-        this.categoryData = categoryData;
-    }
-
-    public String getDobData() {
-        return dobData;
-    }
-
-    public void setDobData(String dobData) {
-        this.dobData = dobData;
     }
 }
