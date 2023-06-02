@@ -23,6 +23,7 @@ import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.model.CalendarDate;
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.User;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 
@@ -36,12 +37,15 @@ public class User_register_details extends AppCompatActivity {
 
     EditText fname, lname,address,contact,tv_dob;
     AppCompatButton buttonRegister;
-    Spinner spinner_gender,spinner_category;
+    Spinner spinner_gender, spinner_category;
     private int year, month, day;
     String genderData,categoryData,dobData;
     CalendarDate calendarDays;
     TextView tvShowServerMessage;
     SharedPrefManager sharedPrefManager;
+
+    // store passenger data instance
+    Passenger passenger;
 
     User user;
     @Override
@@ -67,6 +71,8 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister = findViewById(R.id.adddetailsbtn);
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
+
+        passenger = new Passenger();
 
         // ############### gender spinner call #############
         gender();
@@ -118,9 +124,11 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setLastname(lname.getText().toString());
         userRequest.setAddress(address.getText().toString());
         userRequest.setGender(getGenderData());
+
         Log.i("TAG", "createRequest: gender "+getGenderData());
         userRequest.setContact(contact.getText().toString());
         userRequest.setCategory(getCategoryData());
+
         Log.i("TAG", "createRequest: gender "+getCategoryData());
         userRequest.setDob(tv_dob.getText().toString());
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
@@ -168,6 +176,8 @@ public class User_register_details extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 setGenderData(adapterView.getItemAtPosition(position).toString());
                 Log.i("TAG", "onItemSelected: selected gender : "+getGenderData());
+                passenger.setGender(adapterView.getItemAtPosition(position).toString());
+                Toast.makeText(User_register_details.this, passenger.getGender(), Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -183,11 +193,13 @@ public class User_register_details extends AppCompatActivity {
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_category.setAdapter(adapterCategory);
 
-        spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 setCategoryData(adapterView.getItemAtPosition(position).toString());
+                passenger.setCategory(adapterView.getItemAtPosition(position).toString());
                 Log.i("TAG", "onItemSelected: selected gender : "+getCategoryData());
+                Toast.makeText(User_register_details.this, passenger.getCategory(), Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

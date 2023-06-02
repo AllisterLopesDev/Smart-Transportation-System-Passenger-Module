@@ -5,22 +5,6 @@ import com.google.gson.annotations.SerializedName;
 public class RegisterPassengerRequest {
 
     /*
-    * User passenger registration and verification
-    * {
-    "firstname":"ali",
-    "lastname":"lop",
-    "contact":"8668173597",
-    "address":"Hno 78/M, quepem, Goa 403720",
-    "category":"student",
-    "gender":"male",
-    "dob":"1999-12-16",
-    "userid": 6
-}
-    * */
-
-
-
-    /*
     * To add user passenger details
     * */
     @SerializedName("firstname")
@@ -39,14 +23,6 @@ public class RegisterPassengerRequest {
     private String dob;
     @SerializedName("userid")
     private int userid;
-//     "firstname":"Pearl",
-//    "lastname":"Rodrigues",
-//    "contact":"9325611223",
-//    "address":"Bacbhatt-Raia",
-//    "category":"student",
-//    "gender":"female",
-//    "dob":"2000-11-12",
-//    "userid": 7
 
     public String getFirstname() {
         return firstname;
