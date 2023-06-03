@@ -9,6 +9,7 @@ import com.example.sts_passenger.apiservices.response.InstantTicketBooking;
 import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
+import com.example.sts_passenger.apiservices.response.PhotoUploadResponse;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.apiservices.response.RegisterUser;
 import com.example.sts_passenger.apiservices.response.RegistrationOtp;
@@ -99,12 +100,11 @@ public interface Api {
 
 
 
-
+    // Passenger photo upload API
     @Multipart
     @POST(Consts.ENDPOINT_UPLOAD_PROFILE_PIC)
-    Call<ResponseBody> uploadProfilePhoto(
+    Call<PhotoUploadResponse> uploadProfilePhoto(
             @Part MultipartBody.Part photo,
             @Header("Authorization") String userSessionToken,
             @Path("passenger_id") Integer passengerId);
-
 }

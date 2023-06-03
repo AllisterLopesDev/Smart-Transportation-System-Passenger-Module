@@ -33,11 +33,15 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.activities.LoginActivity;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
+import com.example.sts_passenger.apiservices.response.PhotoUploadResponse;
+import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -111,6 +115,7 @@ public class ProfileFragment extends Fragment {
         initView(view); // views initialization
 
 
+
         /* upload image btn */
         addImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,25 +158,27 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-
-        if (isImageFileValid(savedPhotoFile)) {
-            Uri imageUri = Uri.fromFile(savedPhotoFile);
-            profile_picture.setImageURI(imageUri);
-        } else {
-            profile_picture.setImageResource(R.drawable.profile);
-        }
+        loadPassengerPhoto();
     }
 
-    public boolean isImageFileValid(File file) {
-        if (file.exists()) {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-            return options.outWidth != -1 && options.outHeight != -1;
-        }
-        return false;
-    }
+    /* load passenger photo function */
+    private void loadPassengerPhoto() {
+        if (sharedPrefManager.getPassengerPhotoFileName() != null) {
+            // SharedPref passenger photo filename
+            String fileName = sharedPrefManager.getPassengerPhotoFileName();
+            // Load the image using Glide
+            // Construct photo URL
+            String photoUrl = Consts.BASE_URL_PASSENGER_AUTH + Consts.ENDPOINT_GET_PROFILE_PIC + fileName;
+            // Add the fileName to the url at the end
+            RequestOptions requestOptions = new RequestOptions()
+                    .placeholder(R.drawable.profile);
 
+            Glide.with(requireContext())
+                    .load(photoUrl)
+                    .apply(requestOptions)
+                    .into(profile_picture);
+        }
+    }
 
     private void hideViewsOnFragTransaction() {
         tripHistory.setVisibility(View.GONE);
@@ -349,19 +356,28 @@ public class ProfileFragment extends Fragment {
         Log.i("TAG", "uploadImage: file name " + file.getName());
 
         // Api call
-        Call<ResponseBody> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().uploadProfilePhoto(photo, session.getToken(), session.getPassenger().getPassengerId());
+        Call<PhotoUploadResponse> req = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().uploadProfilePhoto(photo, session.getToken(), session.getPassenger().getPassengerId());
         Log.i("TAG", "uploadImage: enqueueing " + photo + " " + session.getPassenger().getPassengerId());
-        req.enqueue(new Callback<ResponseBody>() {
+        req.enqueue(new Callback<PhotoUploadResponse>() {
           @Override
-          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+          public void onResponse(Call<PhotoUploadResponse> call, Response<PhotoUploadResponse> response) {
               if (response.isSuccessful()) {
                   Log.i("TAG", "onResponse: image uploaded" );
                   Log.i("TAG", "onResponse: success file name " + photo);
+                  if (response.body() != null && response.body().getStatusCode() == 200) {
+                      PhotoUploadResponse uploadResponse = response.body();
+                      Passenger passenger = new Passenger();
+                      passenger.setFileName(uploadResponse.getFileName());
+                      sharedPrefManager.savePassengerPhotoFileName(passenger);
+
+                      // Load passenger photo after uploading
+                      loadPassengerPhoto();
+                  }
               }
           }
 
          @Override
-          public void onFailure(Call<ResponseBody> call, Throwable t) {
+          public void onFailure(Call<PhotoUploadResponse> call, Throwable t) {
              Log.i("TAG", "onFailure: " + t.getLocalizedMessage());
          }
         });

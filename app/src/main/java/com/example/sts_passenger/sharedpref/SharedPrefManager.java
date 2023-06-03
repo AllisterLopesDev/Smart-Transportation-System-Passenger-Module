@@ -140,21 +140,20 @@ public class SharedPrefManager {
 
     }
 
-    public void savePassengerPhoto(File file) {
+    public void savePassengerPhotoFileName(Passenger passenger) {
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
 
         // editor to insert data
         editor = sharedPreferences.edit();
-        editor.putString("photoFilePath", file.getAbsolutePath());
+        editor.putString("fileName", passenger.getFileName());
+        editor.putString("url", passenger.getUrlPath());
         editor.apply();
-
-        Log.i("TAG", "savePassengerPhoto: file path " + file.getAbsolutePath());
     }
 
-    public String getSavedPassengerPhoto() {
+    public String getPassengerPhotoFileName() {
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getString("photoFilePath", null);
+        return sharedPreferences.getString("fileName", null);
     }
 
 }

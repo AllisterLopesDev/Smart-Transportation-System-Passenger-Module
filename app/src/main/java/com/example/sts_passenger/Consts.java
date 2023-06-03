@@ -32,7 +32,10 @@ public class Consts {
     public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
+
+    // Photo upload and get
     public static final String ENDPOINT_UPLOAD_PROFILE_PIC = "upload-pic/{passenger_id}";
+    public static final String ENDPOINT_GET_PROFILE_PIC = "file/pic/";
 
 
     // booking endpoints
