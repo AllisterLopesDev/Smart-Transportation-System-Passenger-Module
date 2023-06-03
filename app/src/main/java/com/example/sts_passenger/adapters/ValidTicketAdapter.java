@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sts_passenger.R;
@@ -42,7 +43,14 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
         holder.tv_destination.setText(ticketResultList.get(position).getTicket().getDestination());
         String data = String.valueOf(ticketResultList.get(position).getTicket().getId());
 
-        QRCodeGenerator.generateQRCode(data, holder.imageViewQR);
+        holder.ticket_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+//        QRCodeGenerator.generateQRCode(data, holder.imageViewQR);
     }
 
     @Override
@@ -56,6 +64,7 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder{
         //    CardView cv_ticket,cv_pass;
     TextView tv_title,tv_busRegNo,tv_busType,tv_source, tv_destination;
+    AppCompatButton ticket_complete;
         ImageView imageViewQR;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,7 +73,8 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
         tv_busType = itemView.findViewById(R.id.bus_type);
         tv_source = itemView.findViewById(R.id.source);
         tv_destination = itemView.findViewById(R.id.destination);
-        imageViewQR = itemView.findViewById(R.id.ticketQr);
+//        imageViewQR = itemView.findViewById(R.id.ticketQr);
+            ticket_complete = itemView.findViewById(R.id.ticket_complete);
 
         }
     }

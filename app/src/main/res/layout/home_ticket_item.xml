@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_margin="10dp"
         android:id="@+id/cardView_ticket"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
@@ -41,8 +41,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
                     android:text="GA011233"
                     android:textSize="15sp" />
+
+
             </LinearLayout>
 
 
@@ -112,13 +115,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/ticketQr"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ticket_complete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="complete"/>
+
+
+                <!--                <ImageView-->
+<!--                    android:id="@+id/ticketQr"-->
+<!--                    android:layout_width="75dp"-->
+<!--                    android:layout_height="65dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginRight="20dp" />-->
 
             </LinearLayout>
 
