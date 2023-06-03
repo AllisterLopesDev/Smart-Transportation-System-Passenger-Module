@@ -42,11 +42,8 @@ public class User_register_details extends AppCompatActivity {
     private int year, month, day;
     String genderData,categoryData,dobData;
     CalendarDate calendarDays;
-    TextView tvShowServerMessage;
-    SharedPrefManager sharedPrefManager;
-
-    // store passenger data instance
     Passenger passenger;
+    SharedPrefManager sharedPrefManager;
 
     User user;
     @Override
@@ -90,14 +87,6 @@ public class User_register_details extends AppCompatActivity {
 
         // ############### gender spinner call #############
         gender();
-        // ############### Date of birth spinner call #############
-//        tv_dob.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getCurrentDate();
-//                Log.i("TAG", "onClick: tv_date ");
-//            }
-//        });
         // ############### category spinner call #############
         category();
 
@@ -123,7 +112,7 @@ public class User_register_details extends AppCompatActivity {
                     address.setError("Input is required");
                 }else if (Contact.isEmpty()){
                     contact.setError("Input is required");
-                }else if (Contact.length() <= 10) {
+                }else if (Contact.length() < 10 && Contact.length() > 10) {
                     lname.setError("min 10 letter required");
                 }else {
                     addUserInfo(createRequest());
@@ -137,14 +126,16 @@ public class User_register_details extends AppCompatActivity {
         userRequest.setFirstname(fname.getText().toString());
         userRequest.setLastname(lname.getText().toString());
         userRequest.setAddress(address.getText().toString());
-        userRequest.setGender(getGenderData());
 
-        Log.i("TAG", "createRequest: gender "+getGenderData());
+        userRequest.setGender(passenger.getGender());
+        Log.i("TAG", "createRequest: gender "+passenger.getGender());
         userRequest.setContact(contact.getText().toString());
-        userRequest.setCategory(getCategoryData());
+        userRequest.setCategory(passenger.getCategory());
+        Log.i("TAG", "createRequest: gender "+passenger.getCategory());
 
-        Log.i("TAG", "createRequest: gender "+getCategoryData());
+
         userRequest.setDob(etDateOfBirth.getText().toString());
+
         userRequest.setUserid(sharedPrefManager.getUser().getUserId());
 
         return userRequest;
@@ -158,7 +149,7 @@ public class User_register_details extends AppCompatActivity {
             public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().getStatus() == 200) {
-//                        sharedPrefManager.savePassengerData(response.body().getPassenger());
+                        sharedPrefManager.savePassengerData(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 //                        tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), LoginActivity.class);
@@ -188,10 +179,10 @@ public class User_register_details extends AppCompatActivity {
         spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                setGenderData(adapterView.getItemAtPosition(position).toString());
-                Log.i("TAG", "onItemSelected: selected gender : "+getGenderData());
+
                 passenger.setGender(adapterView.getItemAtPosition(position).toString());
-                Toast.makeText(User_register_details.this, passenger.getGender(), Toast.LENGTH_SHORT).show();
+                Log.i("TAG", "onItemSelected: selected gender : "+passenger.getGender());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -210,10 +201,10 @@ public class User_register_details extends AppCompatActivity {
         spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                setCategoryData(adapterView.getItemAtPosition(position).toString());
+
                 passenger.setCategory(adapterView.getItemAtPosition(position).toString());
-                Log.i("TAG", "onItemSelected: selected gender : "+getCategoryData());
-                Toast.makeText(User_register_details.this, passenger.getCategory(), Toast.LENGTH_SHORT).show();
+                Log.i("TAG", "onItemSelected: selected gender : "+passenger.getCategory());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -230,8 +221,10 @@ public class User_register_details extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        setDobData(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        etDateOfBirth.setText(getDobData());
+
+                        passenger.setDob(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        etDateOfBirth.setText(passenger.getDob());
+
                         Log.i("TAG", "onDateSet: "+genderData);
                     }
                 },
@@ -240,33 +233,5 @@ public class User_register_details extends AppCompatActivity {
                 day
         );
         datePickerDialog.show();
-    }
-
-
-    // --------------------------- getter & setter ------------------------
-
-
-    public String getGenderData() {
-        return genderData;
-    }
-
-    public void setGenderData(String genderData) {
-        this.genderData = genderData;
-    }
-
-    public String getCategoryData() {
-        return categoryData;
-    }
-
-    public void setCategoryData(String categoryData) {
-        this.categoryData = categoryData;
-    }
-
-    public String getDobData() {
-        return dobData;
-    }
-
-    public void setDobData(String dobData) {
-        this.dobData = dobData;
     }
 }

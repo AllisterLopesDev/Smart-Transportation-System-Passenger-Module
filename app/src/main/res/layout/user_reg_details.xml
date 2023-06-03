@@ -103,7 +103,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ticket"/>
+                android:src="@drawable/calender"/>
 
         </LinearLayout>
 

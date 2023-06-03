@@ -85,10 +85,12 @@ public class PassengerHomePage extends AppCompatActivity {
     public  void loadFrag(Fragment fragment, Boolean flag){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if (flag)
-            ft.add(R.id.container, fragment);
-        else
+        if (flag) {
             ft.replace(R.id.container, fragment);
+        }
+        else {
+            ft.replace(R.id.container, fragment);
+        }
         ft.commit();
     }
 
