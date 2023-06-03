@@ -74,7 +74,12 @@ public class ValidTicketAdapter extends RecyclerView.Adapter<ValidTicketAdapter.
         tv_source = itemView.findViewById(R.id.source);
         tv_destination = itemView.findViewById(R.id.destination);
 //        imageViewQR = itemView.findViewById(R.id.ticketQr);
-            ticket_complete = itemView.findViewById(R.id.ticket_complete);
+            ticket_complete = itemView.findViewById(R.id.ticket_complete_btn);
+
+
+
+        }
+        public void ticketComplete(){
 
         }
     }
