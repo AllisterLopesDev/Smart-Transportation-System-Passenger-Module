@@ -141,7 +141,7 @@ public class User_register_details extends AppCompatActivity {
             public void onResponse(Call<RegisterPassenger> call, Response<RegisterPassenger> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().getStatus() == 200) {
-//                        sharedPrefManager.savePassengerData(response.body().getPassenger());
+                        sharedPrefManager.savePassengerData(response.body().getPassenger());
                         Toast.makeText(User_register_details.this, "user registered " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 //                        tvShowServerMessage.setText(response.body().getMessage());
                         Intent i = new Intent(getApplicationContext(), LoginActivity.class);
