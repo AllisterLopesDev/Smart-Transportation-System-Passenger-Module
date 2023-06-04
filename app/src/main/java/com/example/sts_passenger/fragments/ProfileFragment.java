@@ -114,6 +114,8 @@ public class ProfileFragment extends Fragment {
         setSharedPrefManager();
         initView(view); // views initialization
 
+        // Get passenger photo on Login
+        loadPassengerPhoto();
 
 
         /* upload image btn */
@@ -164,6 +166,9 @@ public class ProfileFragment extends Fragment {
     /* load passenger photo function */
     private void loadPassengerPhoto() {
         if (sharedPrefManager.getPassengerPhotoFileName() != null) {
+            Log.i("TAG", "loadPassengerPhoto: photo fileName is not null");
+            Log.i("TAG", "loadPassengerPhoto: SPM.gPPFN" + sharedPrefManager.getPassengerPhotoFileName());
+            Log.i("TAG", "loadPassengerPhoto: SPM.savedSession" + sharedPrefManager.getSavedSessionOnLogin().getPassenger().getFileName());
             // SharedPref passenger photo filename
             String fileName = sharedPrefManager.getPassengerPhotoFileName();
             // Load the image using Glide

@@ -65,7 +65,8 @@ public class SharedPrefManager {
                 sharedPreferences.getString("gender", null),
                 sharedPreferences.getString("category", null),
                 sharedPreferences.getString("dob", null),
-                sharedPreferences.getInt("id", -1));
+                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getString("fileName", null));
     }
 
     public boolean isLogged() {
@@ -106,6 +107,7 @@ public class SharedPrefManager {
         editor.putString("gender", session.getPassenger().getGender());
         editor.putString("category", session.getPassenger().getCategory());
         editor.putString("dob", session.getPassenger().getDob());
+        editor.putString("fileName", session.getPassenger().getFileName());
         editor.putBoolean("logged", true);
         editor.apply();
     }
@@ -130,11 +132,12 @@ public class SharedPrefManager {
         String gender = sharedPreferences.getString("gender", "");
         String category = sharedPreferences.getString("category", "");
         String dateOfBirth = sharedPreferences.getString("dob", "");
+        String photoFileName = sharedPreferences.getString("fileName", "");
 
         // Create a new user
         User user = new User(userId, email);
         // Create new passenger
-        Passenger passenger = new Passenger(firstname, lastname, contact, address, dateOfBirth, category, gender, passengerId);
+        Passenger passenger = new Passenger(firstname, lastname, contact, address, dateOfBirth, category, gender, passengerId, photoFileName);
         // pass Session in return with user, passenger and token in constructor
         return new Session(user, passenger, token);
 
