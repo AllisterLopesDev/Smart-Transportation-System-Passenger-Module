@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +20,8 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.InstantTicketBooking;
 import com.example.sts_passenger.model.Bus;
-import com.example.sts_passenger.model.CalendarDate;
 import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.Route;
-import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.Ticket;

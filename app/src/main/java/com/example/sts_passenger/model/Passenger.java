@@ -24,7 +24,12 @@ public class Passenger {
     @SerializedName("id")
     private Integer passengerId;
 
-    public Passenger(String firstname, String lastname, String contact, String address, String dob, String category, String gender, Integer passengerId) {
+    // for saving photo details
+    @SerializedName("file-name")
+    private String fileName;
+    private String urlPath;
+
+    public Passenger(String firstname, String lastname, String contact, String address, String dob, String category, String gender, Integer passengerId, String fileName) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.contact = contact;
@@ -33,11 +38,10 @@ public class Passenger {
         this.category = category;
         this.gender = gender;
         this.passengerId = passengerId;
+        this.fileName = fileName;
     }
 
-    public Passenger() {
-
-    }
+    public Passenger() {}
 
 
 
@@ -103,5 +107,21 @@ public class Passenger {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getUrlPath() {
+        return urlPath;
+    }
+
+    public void setUrlPath(String urlPath) {
+        this.urlPath = urlPath;
     }
 }

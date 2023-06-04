@@ -2,7 +2,6 @@ package com.example.sts_passenger.fragments;
 
 import static com.example.sts_passenger.R.drawable.no_results;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

@@ -13,6 +13,7 @@ import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
 import com.example.sts_passenger.apiservices.response.PassDetailsResponse;
 import com.example.sts_passenger.apiservices.response.PassengerPassDetailsResponse;
+import com.example.sts_passenger.apiservices.response.PhotoUploadResponse;
 import com.example.sts_passenger.apiservices.response.RegisterPassenger;
 import com.example.sts_passenger.apiservices.response.RegisterUser;
 import com.example.sts_passenger.apiservices.response.RegistrationOtp;
@@ -21,12 +22,17 @@ import com.example.sts_passenger.apiservices.response.SeatAvailability;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.apiservices.response.TripHistoryResponse;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -82,7 +88,9 @@ public interface Api {
                                                  @Query("schedule-info-id") Integer scheduleInfoId,
                                                  @Query("schedule-id") Integer scheduleId);
 
-    @GET(Consts.ENDPOINT_GET_CURRENT_BOOTKING_TICKET)
+
+    @GET(Consts.ENDPOINT_GET_CURRENT_BOOKING_TICKET)
+
     Call<TicketDetailsResponse> getCurrentTicket(@Query("passenger-id") Integer passengerId);
 
     @POST(Consts.ENDPOINT_BOOK_INSTANT_TICKET)
@@ -102,4 +110,13 @@ public interface Api {
 
     @GET(Consts.ENDPOINT_BUS_LIVE_LOCATION)
     Call<LiveLocationResponse> getBusLiveLocation();
+
+
+    // Passenger photo upload API
+    @Multipart
+    @POST(Consts.ENDPOINT_UPLOAD_PROFILE_PIC)
+    Call<PhotoUploadResponse> uploadProfilePhoto(
+            @Part MultipartBody.Part photo,
+            @Header("Authorization") String userSessionToken,
+            @Path("passenger_id") Integer passengerId);
 }

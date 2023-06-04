@@ -36,11 +36,16 @@ public class Consts {
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
 
+    // Photo upload and get
+    public static final String ENDPOINT_UPLOAD_PROFILE_PIC = "upload-pic/{passenger_id}";
+    public static final String ENDPOINT_GET_PROFILE_PIC = "file/pic/";
+
 
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
     public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
-    public static final String ENDPOINT_GET_CURRENT_BOOTKING_TICKET = "current-ticket/passenger";
+    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
+
 
 
     // Endpoints for Bus
@@ -77,6 +82,7 @@ public class Consts {
 
     // request codes
     public static final Integer LOCATION_REQUEST_CODE = 1;
+    public static final int PERMISSION_REQUEST_CODE = 123;
 
 
     // password hash

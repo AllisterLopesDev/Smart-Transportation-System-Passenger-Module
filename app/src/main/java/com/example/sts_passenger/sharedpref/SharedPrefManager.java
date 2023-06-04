@@ -2,12 +2,15 @@ package com.example.sts_passenger.sharedpref;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.model.PassData;
 import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.model.User;
+
+import java.io.File;
 
 
 public class SharedPrefManager {
@@ -62,7 +65,8 @@ public class SharedPrefManager {
                 sharedPreferences.getString("gender", null),
                 sharedPreferences.getString("category", null),
                 sharedPreferences.getString("dob", null),
-                sharedPreferences.getInt("id", -1));
+                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getString("fileName", null));
     }
 
     public boolean isLogged() {
@@ -99,6 +103,7 @@ public class SharedPrefManager {
         editor.putString("gender", session.getPassenger().getGender());
         editor.putString("category", session.getPassenger().getCategory());
         editor.putString("dob", session.getPassenger().getDob());
+        editor.putString("fileName", session.getPassenger().getFileName());
         editor.putBoolean("logged", true);
         editor.apply();
     }
@@ -122,19 +127,31 @@ public class SharedPrefManager {
         String gender = sharedPreferences.getString("gender", "");
         String category = sharedPreferences.getString("category", "");
         String dateOfBirth = sharedPreferences.getString("dob", "");
+        String photoFileName = sharedPreferences.getString("fileName", "");
 
         // Create a new user
         User user = new User(userId, email);
         // Create new passenger
-        Passenger passenger = new Passenger(firstname, lastname, contact, address, dateOfBirth, category, gender, passengerId);
+        Passenger passenger = new Passenger(firstname, lastname, contact, address, dateOfBirth, category, gender, passengerId, photoFileName);
         // pass Session in return with user, passenger and token in constructor
         return new Session(user, passenger, token);
 
     }
 
-/*    public User getPassSource() {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_PASS_DATA, Context.MODE_PRIVATE);
-    }*/
+    public void savePassengerPhotoFileName(Passenger passenger) {
+        sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
 
+        // editor to insert data
+        editor = sharedPreferences.edit();
+        editor.putString("fileName", passenger.getFileName());
+        editor.putString("url", passenger.getUrlPath());
+        editor.apply();
+    }
+
+    public String getPassengerPhotoFileName() {
+        sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString("fileName", null);
+    }
 
 }
