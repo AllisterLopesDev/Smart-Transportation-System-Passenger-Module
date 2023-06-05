@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.AvailableBusScheduleSearchAdapter;
@@ -33,6 +35,7 @@ import com.example.sts_passenger.model.result.BusScheduleResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,7 +93,6 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
     // view initialisation
     private void initViews(View view) {
         noBusScheduleAvailableImg = view.findViewById(R.id.appCompatImageView_no_bus_schedule);
-        noBusScheduleAvailableImg.setVisibility(View.GONE);
 
         recyclerViewAvailableBusSchedules = view.findViewById(R.id.recyclerView_available_bus_schedule_search_list);
         recyclerViewAvailableBusSchedules.setHasFixedSize(true);
@@ -151,11 +153,16 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                         if (filteredBusScheduleList.isEmpty()) {
                             Log.i("TAG", "onResponse: if seats are > 0");
                             // hide recycler view and show no results image
+                            recyclerViewAvailableBusSchedules.setVisibility(View.GONE);
                             noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
-                            noBusScheduleAvailableImg.setImageResource(no_results);
+
+                            // Use Glide to load the image into the ImageView
+                            Glide.with(requireContext())
+                                    .load(no_results)
+                                    .into(noBusScheduleAvailableImg);
                         } else {
                             // show buses with available seats
-                            noBusScheduleAvailableImg.setVisibility(View.INVISIBLE);
+                            noBusScheduleAvailableImg.setVisibility(View.GONE);
                             recyclerViewAvailableBusSchedules.setAdapter(new AvailableBusScheduleSearchAdapter(filteredBusScheduleList, getContext(), new AvailableBusScheduleSearchAdapter.OnAvailableBusClickListener() {
                                 @Override
                                 public void onItemClick(Integer busId, String busRegNo, String busType, Integer scheduleInfoId, Integer scheduleId, String source, String destination, String date, String routeFare, String routeDistance) {
@@ -178,15 +185,26 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
                     } else if (statusCode == 400) {
                         Log.i("TAG", "onResponse: no buses available");
                         // hide recycler view and show no results image
+                        recyclerViewAvailableBusSchedules.setVisibility(View.GONE);
                         noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
-                        noBusScheduleAvailableImg.setImageResource(no_results);
+
+                        // Use Glide to load the image into the ImageView
+                        Glide.with(requireContext())
+                                .load(no_results)
+                                .into(noBusScheduleAvailableImg);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BusScheduleSearch> call, Throwable t) {
-
+                // hide recycler view and show no results image
+                recyclerViewAvailableBusSchedules.setVisibility(View.GONE);
+                noBusScheduleAvailableImg.setVisibility(View.VISIBLE);
+                // Use Glide to load the image into the ImageView
+                Glide.with(requireContext())
+                        .load(no_results)
+                        .into(noBusScheduleAvailableImg);
             }
         });
     }

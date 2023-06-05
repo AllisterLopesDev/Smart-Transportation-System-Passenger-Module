@@ -281,8 +281,14 @@ public class SearchInstantTicketFragment extends Fragment {
         }
 
         Location currentLocation = new Location("");
-        currentLocation.setLatitude(currentLat);
-        currentLocation.setLongitude(currentLong);
+
+        if (currentLat != null && currentLong != null) {
+            currentLocation.setLatitude(currentLat);
+            currentLocation.setLongitude(currentLong);
+        } else {
+            return noStopsText;
+        }
+
 
         for (int i = 0; i < busStops.size(); i++) {
             double lat = Double.parseDouble(busStops.get(i).getLatitude());
