@@ -2,7 +2,8 @@ package com.example.sts_passenger.apiservices.response;
 
 public class RegistrationVerifyOtp {
     String message;
-    String status;
+    Integer status;
+
     String success;
 
     public String getMessage() {
@@ -13,11 +14,11 @@ public class RegistrationVerifyOtp {
         this.message = message;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

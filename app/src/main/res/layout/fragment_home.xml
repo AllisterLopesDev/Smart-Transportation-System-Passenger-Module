@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycleView_ticketList">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <org.osmdroid.views.MapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HOME fragment"
-        android:layout_margin="11dp"
-        android:textSize="20sp" />
+        android:id="@+id/map"/>
 
-</FrameLayout>
+
+
+</LinearLayout>

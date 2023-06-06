@@ -2,4 +2,26 @@
     <string name="app_name">sts-passenger</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- bus status spinner items -->
+    <string-array name="pass_no_of_days">
+        <item>1 MONTH</item>
+        <item>3 MONTHS</item>
+        <item>6 MONTHS</item>
+        <item>12 MONTHS</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>MALE</item>
+        <item>FEMALE</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>STUDENT</item>
+        <item>ADULT</item>
+        <item>SENIOR-CITIZEN</item>
+    </string-array>
+
+
 </resources>

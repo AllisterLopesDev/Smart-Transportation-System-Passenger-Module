@@ -7,113 +7,140 @@
     android:layout_height="match_parent"
     tools:context=".activities.User_register_details">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/driverText"
-        android:text="Additional Details"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:layout_height="120dp"
+        android:background="@drawable/sts_background"/>
+
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/driverText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:gravity="center"
+            android:text="Required Details"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="29dp"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="First Name"
+            android:padding="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Last Name"
+            android:id="@+id/lastName"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Contact"
+            android:inputType="number"
+            android:id="@+id/contact"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Address"
+            android:id="@+id/address"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edittext"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_dob"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="date of birth"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/img_datePicker"
+                android:layout_marginStart="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/calender"/>
+
+        </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/driverText"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
-        android:hint="First Name"
-        android:padding="10dp" />
+        <Spinner
+            android:id="@+id/gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Last Name"
-        android:id="@+id/lastName"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/firstName"
-        android:padding="10dp"/>
+        <Spinner
+            android:id="@+id/category"
+            android:layout_width="349dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Contact"
-        android:id="@+id/contact"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/lastName"
-        android:padding="10dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/adddetailsbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_border"
+            android:shadowRadius="@integer/material_motion_duration_medium_2"
+            android:text="Sign in"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Address"
-        android:id="@+id/address"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/button_border"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/contact"
-        android:padding="10dp"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/contact"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="134dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
-        android:hint="dob"
-        android:padding="10dp" />
-
-    <EditText
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/contact"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="71dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
-        android:hint="gender"
-        android:padding="10dp" />
-
-    <EditText
-        android:id="@+id/category"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/contact"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="206dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
-        android:hint="eg. student"
-        android:padding="10dp" />
-
-    <Button
-        android:id="@+id/adddetailsbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/address"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="210dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_border"
-        android:shadowRadius="@integer/material_motion_duration_medium_2"
-        android:text="Register"
-        android:textSize="35sp"
-        android:textStyle="bold" />
 </RelativeLayout>

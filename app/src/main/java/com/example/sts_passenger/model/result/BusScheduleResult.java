@@ -3,15 +3,16 @@ package com.example.sts_passenger.model.result;
 import com.example.sts_passenger.model.Bus;
 import com.example.sts_passenger.model.Route;
 import com.example.sts_passenger.model.Schedule;
+import com.example.sts_passenger.model.ScheduleInfo;
 import com.google.gson.annotations.SerializedName;
 
 public class BusScheduleResult {
     @SerializedName("bus")
-    Bus bus;
-    @SerializedName("route")
-    Route route;
-    @SerializedName("schedule")
-    Schedule schedule;
+    private Bus bus;
+    @SerializedName("route-info")
+    private Route route;
+    @SerializedName("schedule-info")
+    private ScheduleInfo scheduleInfo;
 
     public Bus getBus() {
         return bus;
@@ -29,11 +30,11 @@ public class BusScheduleResult {
         this.route = route;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public ScheduleInfo getScheduleInfo() {
+        return scheduleInfo;
     }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setScheduleInfo(ScheduleInfo scheduleInfo) {
+        this.scheduleInfo = scheduleInfo;
     }
 }

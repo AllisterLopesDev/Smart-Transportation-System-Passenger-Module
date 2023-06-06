@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.InstantTicketFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ticket_bg_vector"/>
+
+                <TextView
+                    android:layout_marginTop="200dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:text="Instant ticket" />
+
+                <TextView
+                    android:layout_marginTop="245dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your ticket is valid for the current trip" />
+
+                <TextView
+                    android:layout_marginTop="80dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ticket No." />
+
+                <TextView
+                    android:layout_marginTop="100dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STS2023XR04001" />
+
+                <TextView
+                    android:layout_marginTop="80dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="290dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date" />
+
+                <TextView
+                    android:layout_marginTop="100dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="290dp"
+                    android:id="@+id/tv_instant_ticket_date"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20 May, 2023" />
+
+
+                <TextView
+                    android:layout_marginTop="280dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bus No." />
+
+                <TextView
+                    android:layout_marginTop="300dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_bus_reg_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GA-03-X-0001" />
+
+                <TextView
+                    android:layout_marginTop="280dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="300dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type" />
+
+                <TextView
+                    android:layout_marginTop="300dp"
+                    android:layout_marginStart="300dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_bus_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LOCAL" />
+
+                <TextView
+                    android:layout_marginTop="340dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Source" />
+
+                <TextView
+                    android:layout_marginTop="360dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MARGAO" />
+
+                <TextView
+                    android:layout_marginTop="340dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="300dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Destination" />
+
+                <TextView
+                    android:layout_marginTop="360dp"
+                    android:layout_marginStart="300dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PANJIM" />
+
+                <TextView
+                    android:layout_marginTop="400dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Passenger count" />
+
+                <TextView
+                    android:layout_marginTop="420dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_passenger_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5" />
+
+                <TextView
+                    android:layout_marginTop="400dp"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="300dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price" />
+
+                <TextView
+                    android:layout_marginTop="420dp"
+                    android:layout_marginStart="300dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_instant_ticket_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="128 INR" />
+
+
+                <ImageView
+                    android:id="@+id/imageView_ticket_qr"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="200dp"
+                    android:layout_marginTop="500dp"
+                    android:contentDescription="ticket qr code" />
+
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- Ticket Number -->
+
+        <!-- Bus Details -->
+        <!-- Ticket Details -->
+        <!-- QR code -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

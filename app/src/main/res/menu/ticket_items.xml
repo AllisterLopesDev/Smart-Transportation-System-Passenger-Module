@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item android:id="@+id/instant_ticket"
+        android:title="Instant Ticket"
+        android:icon="@drawable/issues"/>
+
+    <item android:id="@+id/pre_booking"
+        android:title="PreBooking"
+        android:icon="@drawable/profile"/>
+</menu>

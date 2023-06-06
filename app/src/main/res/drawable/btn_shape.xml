@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <!-- Background shape -->
+        <item>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/sts_theme_color" />
+                <corners android:radius="12dp" />
+            </shape>
+        </item>
+
+        <!-- Vector path layer -->
+        <item android:drawable="@drawable/arror_right" />
+    </layer-list>

@@ -1,6 +1,7 @@
 package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class RegActivity extends AppCompatActivity {
 
 
     EditText email, password;
-    Button regBtn;
+    AppCompatButton regBtn;
     TextView tv_ip;
 
     String userEmail,userPassword;
@@ -46,7 +47,22 @@ public class RegActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendOtp(createOtpRequest());
+
+                String Email = email.getText().toString().trim();
+                String Password = password.getText().toString().trim();
+
+                if (Email.isEmpty()) {
+                    email.setError("Email is required");
+                } else if (!isValidEmail(Email)) {
+                    email.setError("Invalid email address");
+                } else if (Password.isEmpty()){
+                    password.setError("Input is required");
+                }else {
+                    sendOtp(createOtpRequest());
+                }
+
+
+
             }
         });
 
@@ -98,6 +114,13 @@ public class RegActivity extends AppCompatActivity {
 
     private String getPassword() {
         return password.getText().toString();
+    }
+
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return email.matches(emailRegex);
     }
 
 }

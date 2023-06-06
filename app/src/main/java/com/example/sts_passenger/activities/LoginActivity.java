@@ -1,15 +1,21 @@
 package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.example.sts_passenger.PasswordHash;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
@@ -28,9 +34,11 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView text;
+    TextView text,signup;
     EditText email, password;
-    Button loginBtn, signup;
+    AppCompatButton loginBtn;
+
+
     TextView tvIpAddress;
 
     SharedPrefManager sharedPrefManager;
@@ -48,21 +56,51 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.adminPassword);
         loginBtn = findViewById(R.id.adminLoginBtn);
         signup = findViewById(R.id.signup);
+        ToggleButton toggleButton = findViewById(R.id.toggleButton);
 
+
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                password.setSelection(password.getText().length());
+            }
+        });
+
+
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
-        tvIpAddress = findViewById(R.id.tv_ip);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(loginRequest());
+                String Email = email.getText().toString().trim();
+                String Password = password.getText().toString().trim();
+
+                if (Email.isEmpty()) {
+                    email.setError("Email is required");
+                } else if (!isValidEmail(Email)) {
+                    email.setError("Invalid email address");
+                } else if (Password.isEmpty()){
+                    password.setError("Input is required");
+                }else {
+                    login(loginRequest());
+                }
+
+
+
             }
         });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(getApplicationContext(),RegActivity.class);
                 startActivity(i);
             }
@@ -84,9 +122,11 @@ public class LoginActivity extends AppCompatActivity {
 
     // to create the login request
     public com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest(){
+
         com.example.sts_passenger.apiservices.request.LoginPassenger loginRequest = new com.example.sts_passenger.apiservices.request.LoginPassenger();
         loginRequest.setEmail(email.getText().toString());
-        loginRequest.setPassword(password.getText().toString());
+        String encrptPass = PasswordHash.md5(password.getText().toString());
+        loginRequest.setPassword(encrptPass);
 //        loginRequest.setIpaddress(getIpAddress());
         return loginRequest;
     }
@@ -99,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginPassenger loginResponse = response.body();
                 if (response.isSuccessful()) {
                     if (loginResponse != null && loginResponse.getStatus() == 200) {
-                        sharedPrefManager.saveUser(loginResponse.getUser());
+                        sharedPrefManager.savePassengerOnLogin(loginResponse.getSession());
                         Toast.makeText(LoginActivity.this, "user successfully logged in", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, PassengerHomePage.class);
                         // setFlags clears previous tasks
@@ -145,5 +185,11 @@ public class LoginActivity extends AppCompatActivity {
 //                e.printStackTrace();
         }
         return ipAddress;
+    }
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        return email.matches(emailRegex);
     }
 }
