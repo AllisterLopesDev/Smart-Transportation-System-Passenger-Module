@@ -14,7 +14,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sts_passenger.Consts;
@@ -94,31 +93,37 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String Fname = fname.getText().toString().trim();
-                String Lname = lname.getText().toString().trim();
-                String Address = address.getText().toString().trim();
-                String Contact = contact.toString().trim();
-
-                if (Fname.isEmpty()) {
-                    fname.setError("Required");
-                } else if (Fname.length() <= 3) {
-                    fname.setError("min 3 letter required");
-                } else if (Lname.isEmpty()) {
-                    lname.setError("Required");
-                }else if (Lname.length() <= 3) {
-                    lname.setError("min 3 letter required");
-                } else if (Address.isEmpty()){
-                    address.setError("Input is required");
-                }else if (Contact.isEmpty()){
-                    contact.setError("Input is required");
-                }else if (Contact.length() < 10 && Contact.length() > 10) {
-                    lname.setError("min 10 letter required");
-                }else {
-                    addUserInfo(createRequest());
-                }
+                validateEditText();
             }
         });
+    }
+
+    /* Validations */
+    private boolean isContactNumberValid(CharSequence target) {
+        return target.length() == 10 && android.text.TextUtils.isDigitsOnly(target);
+    }
+
+    private boolean isNameValid(CharSequence target) {
+        return target.length() <= 3;
+    }
+
+    private void validateEditText() {
+        String contactNumber = contact.getText().toString().trim();
+        String firstName = fname.getText().toString().trim();
+        String lastName = lname.getText().toString().trim();
+
+        if (!isContactNumberValid(contactNumber)) {
+            contact.setError("Invalid contact number");
+        }
+
+        if (isNameValid(firstName) && isNameValid(lastName)) {
+            fname.setError("Please Enter Name");
+        }
+
+        if (isContactNumberValid(contactNumber) && isNameValid(firstName) && isNameValid(lastName)) {
+            // make api call to add data
+            addUserInfo(createRequest());
+        }
     }
 
     public RegisterPassengerRequest createRequest() {

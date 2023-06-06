@@ -95,13 +95,6 @@ public class PassengerHomePage extends AppCompatActivity {
     }
 
 
-    public  void loadActivity() {
-        Intent i = new Intent(getApplicationContext(), TicketActivity.class);
-        startActivity(i);
-
-    }
-
-
     // init views
     private void initViews() {
 

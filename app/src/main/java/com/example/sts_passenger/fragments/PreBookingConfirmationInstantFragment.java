@@ -81,6 +81,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
                 double fare = Double.parseDouble(route.getFare());
                 int passengerCount = ticket.getPassengerCount();
                 double fareAmount = calculateTotalFareAmount(fare, passengerCount);
+                int passengerId = savedSession.getPassenger().getPassengerId();
 
 
                 createInstantTicket(instantTicketBooking(scheduleInfo.getId(),
@@ -89,7 +90,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
                         ticket.getPassengerCount(),
                         source.getId(),
                         destination.getId(),
-                        3));
+                        passengerId));
             }
         });
     }
