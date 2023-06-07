@@ -35,6 +35,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:rippleColor="#3F51B5"
             android:contentDescription="TODO" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:src="@drawable/no_results"
+            android:id="@+id/no_pass"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- frame layout for booking related frags-->
         <FrameLayout

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,8 @@ import retrofit2.Response;
 
 public class User_register_details extends AppCompatActivity {
 
-    EditText fname, lname,address,contact, etDateOfBirth;
+    EditText fname, lname,address,contact;
+    TextView etDateOfBirth;
     AppCompatButton buttonRegister;
     ImageView imgDatePicker;
     Spinner spinner_gender, spinner_category;
@@ -94,29 +96,48 @@ public class User_register_details extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String Fname = fname.getText().toString().trim();
                 String Lname = lname.getText().toString().trim();
                 String Address = address.getText().toString().trim();
-                String Contact = contact.toString().trim();
+                String Contact = contact.getText().toString().trim();
+                String Dob = etDateOfBirth.getText().toString().trim();
+
 
                 if (Fname.isEmpty()) {
-                    fname.setError("Required");
-                } else if (Fname.length() <= 3) {
-                    fname.setError("min 3 letter required");
+                    fname.setError("First name Required");
+                } else if (Fname.length() < 3) {
+                    fname.setError("Minimum 3 characters required");
+                } else if (!isValidString(Fname)) {
+                    fname.setError("Invalid input");
                 } else if (Lname.isEmpty()) {
-                    lname.setError("Required");
-                }else if (Lname.length() <= 3) {
-                    lname.setError("min 3 letter required");
-                } else if (Address.isEmpty()){
-                    address.setError("Input is required");
-                }else if (Contact.isEmpty()){
-                    contact.setError("Input is required");
-                }else if (Contact.length() < 10 && Contact.length() > 10) {
-                    lname.setError("min 10 letter required");
-                }else {
+                    lname.setError("Last name Required");
+                } else if (Lname.length() < 3) {
+                    lname.setError("Minimum 3 characters required");
+                } else if (!isValidString(Lname)) {
+                    lname.setError("Invalid input");
+                } else if (Contact.isEmpty()) {
+                    contact.setError("Please enter contact no.");
+                } else if (Contact.length() != 10) {
+                    contact.setError("10 characters required");
+                } else if (Address.isEmpty()) {
+                    address.setError("please enter the address");
+                }else if (Dob.isEmpty()) {
+                    etDateOfBirth.setError("Select Dob");
+                }else if (spinner_gender.getSelectedItemPosition() == 0) {
+                    TextView errorText = (TextView) spinner_gender.getSelectedView();
+                    errorText.setError("SELECT GENDER");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Please select a gender");
+                }else if (spinner_category.getSelectedItemPosition() == 0) {
+                    TextView errorText = (TextView) spinner_category.getSelectedView();
+                    errorText.setError("SELECT Category");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Please select a category");
+                }else{
                     addUserInfo(createRequest());
                 }
+
+
             }
         });
     }
@@ -233,5 +254,12 @@ public class User_register_details extends AppCompatActivity {
                 day
         );
         datePickerDialog.show();
+    }
+
+
+    // Function to check if the string contains only alphabetic characters
+    private boolean isValidString(String input) {
+        String regex = "^[a-zA-Z]+$";
+        return input.matches(regex);
     }
 }

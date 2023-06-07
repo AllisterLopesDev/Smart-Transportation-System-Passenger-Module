@@ -1,11 +1,11 @@
 package com.example.sts_passenger.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.activities.PassQrCode;
@@ -36,9 +36,10 @@ import retrofit2.Response;
 
 public class PassFragment extends Fragment {
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewPassList;
 
     List<PassDetails> passDetailsList;
+    AppCompatImageView noPassDataImageView;
 
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
@@ -59,13 +60,15 @@ public class PassFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createPassBtn = view.findViewById(R.id.create_pass);
+        noPassDataImageView = view.findViewById(R.id.no_pass);
+
 
         // init sharedPrefManager for passenger session
         setSharedPrefManager();
 
-        recyclerView = view.findViewById(R.id.passenger_pass_details_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewPassList = view.findViewById(R.id.passenger_pass_details_recyclerView);
+        recyclerViewPassList.setHasFixedSize(true);
+        recyclerViewPassList.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
 
@@ -84,7 +87,8 @@ public class PassFragment extends Fragment {
     // function to hide views on fragment call
     private void hideViewsOnFragTransaction() {
         createPassBtn.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
+        recyclerViewPassList.setVisibility(View.GONE);
+        noPassDataImageView.setVisibility(View.GONE);
 
     }
 
@@ -115,14 +119,30 @@ public class PassFragment extends Fragment {
             public void onResponse(Call<PassengerPassDetailsResponse> call, Response<PassengerPassDetailsResponse> response) {
                 if (response.isSuccessful() && response.body() != null){
                     passDetailsList= response.body().getResult();
-                    recyclerView.setAdapter(new AllPassengerPassDetailsAdapter(passDetailsList, getContext(), new AllPassengerPassDetailsAdapter.OnClickPassDetails() {
-                        @Override
-                        public void onClickItem(Integer passId) {
-                            Intent i = new Intent(getContext(), PassQrCode.class);
-                            i.putExtra("passId",passId);
-                            startActivity(i);
-                        }
-                    }));
+
+
+                    // update img if no pass data is available
+                    if (passDetailsList.isEmpty()){
+                        recyclerViewPassList.setVisibility(View.GONE);
+                        noPassDataImageView.setVisibility(View.VISIBLE);
+
+                        // USE GLIDE LIBRARY TO LOAD IMAGE ON IMAGE VIEW
+
+                        Glide.with(requireContext())
+                                .load(R.drawable.no_results)
+                                .into(noPassDataImageView);
+                    }else{
+                        noPassDataImageView.setVisibility(View.GONE);
+
+                        recyclerViewPassList.setAdapter(new AllPassengerPassDetailsAdapter(passDetailsList, getContext(), new AllPassengerPassDetailsAdapter.OnClickPassDetails() {
+                            @Override
+                            public void onClickItem(Integer passId) {
+                                Intent i = new Intent(getContext(), PassQrCode.class);
+                                i.putExtra("passId",passId);
+                                startActivity(i);
+                            }
+                        }));
+                    }
                 }
             }
 
