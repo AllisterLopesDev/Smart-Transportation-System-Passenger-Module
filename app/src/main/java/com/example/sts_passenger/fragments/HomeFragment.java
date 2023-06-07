@@ -28,7 +28,9 @@ import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.ValidTicketAdapter;
 import com.example.sts_passenger.apiservices.Client;
+import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.LiveLocationResponse;
+import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.LiveLocation;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.model.Session;
@@ -62,6 +64,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     private MapView map;
 
     IMapController mapController;
+    List<Halts> busStopsList;
 
     RecyclerView recyclerView;
     List<TicketResult> ticketResultList;
@@ -106,6 +109,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
         } else {
             // Permission is granted, get current location
             getCurrentLocation();
+            getBusStops();
         }
 
 
@@ -182,6 +186,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     getCurrentLocation();
+                    getBusStops();
                 }
             }
         }
@@ -222,6 +227,50 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
 
             @Override
             public void onFailure(Call<LiveLocationResponse> call, Throwable t) {
+                // Handle failure
+                Log.i("TAG", "onFailure:  erroor  "+t);
+            }
+        });
+    }
+
+
+
+    /* =============================== get bus stops from server =========================*/
+
+    public void getBusStops() {
+        Call<BusStops> busStopsCall = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getBusStops();
+        busStopsCall.enqueue(new Callback<BusStops>() {
+            @Override
+            public void onResponse(Call<BusStops> call, Response<BusStops> response) {
+                if (response.isSuccessful()) {
+                    BusStops busStop = response.body();
+                    busStopsList = busStop.getResult();
+
+                    Log.i("TAG", "onResponse: success");
+
+                    Drawable markerDrawable = getResources().getDrawable(R.drawable.bustop); // Replace with your marker drawable
+
+                    ArrayList<Marker> markers = new ArrayList<>();
+                    for (Halts halts : busStopsList) {
+                        double latitude = Double.parseDouble(halts.getLatitude());
+                        double longitude = Double.parseDouble(halts.getLongitude());
+                        GeoPoint point = new GeoPoint(latitude, longitude);
+                        Marker marker = new Marker(map);
+                        marker.setPosition(point);
+                        marker.setIcon(markerDrawable);
+                        markers.add(marker);
+                    }
+
+                    for (Marker marker : markers) {
+                        map.getOverlays().add(marker); // Add the markers to the map's OverlayManager
+                    }
+
+                    map.invalidate(); // Refresh the map view
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BusStops> call, Throwable t) {
                 // Handle failure
                 Log.i("TAG", "onFailure:  erroor  "+t);
             }
