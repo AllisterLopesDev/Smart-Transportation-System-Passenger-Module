@@ -48,7 +48,7 @@ public class PassengerHomePage extends AppCompatActivity {
                 int id =  item.getItemId();
 
                 if (id == R.id.home){
-                    loadFrag(new HomeFragment(),false);
+                    loadFrag(new HomeFragment(),true);
                 } else if (id == R.id.ticket) {
                     loadFrag(new TicketFragment(),false);
                 } else if (id == R.id.schedule) {
@@ -56,13 +56,13 @@ public class PassengerHomePage extends AppCompatActivity {
                 } else if (id == R.id.issues) {
                     loadFrag(new PassFragment(),false);
                 }else {
-                    loadFrag(new ProfileFragment(),true);
+                    loadFrag(new ProfileFragment(),false);
                 }
 
                 return true;
             }
         });
-        bnView.setSelectedItemId(R.id.profile);
+        bnView.setSelectedItemId(R.id.home);
     }
 
     @Override
