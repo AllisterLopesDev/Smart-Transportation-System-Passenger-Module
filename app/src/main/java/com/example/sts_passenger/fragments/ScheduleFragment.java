@@ -1,9 +1,12 @@
 package com.example.sts_passenger.fragments;
 
+import static com.example.sts_passenger.R.drawable.no_results;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.AllAvailableBusScheduleAdapter;
@@ -32,7 +36,8 @@ import retrofit2.Response;
 public class ScheduleFragment extends Fragment {
 
     TextView tvDatePicker;
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewScheduleList;
+    AppCompatImageView no_schedule_data_image;
 
     List<BusScheduleResult> busScheduleSearchDetails;
 
@@ -61,12 +66,13 @@ public class ScheduleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        no_schedule_data_image = view.findViewById(R.id.no_schedule_data);
         tvDatePicker = view.findViewById(R.id.textView_search_date_picker);
 
         // recycler view init
-        recyclerView = view.findViewById(R.id.rv_busDetails);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewScheduleList = view.findViewById(R.id.rv_busDetails);
+        recyclerViewScheduleList.setHasFixedSize(true);
+        recyclerViewScheduleList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // init the year, month and day variables
         Calendar calendar = Calendar.getInstance();
@@ -79,23 +85,6 @@ public class ScheduleFragment extends Fragment {
         getAllBusSchedule();
     }
 
-//    private void initViews() {
-//        // date picker textview
-//        tvDatePicker = findViewById(R.id.textView_search_date_picker);
-//
-//        // recycler view init
-//        recyclerView = findViewById(R.id.rv_busDetails);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//
-//        // init the year, month and day variables
-//        Calendar calendar = Calendar.getInstance();
-//        year = calendar.get(Calendar.YEAR);
-//        month = calendar.get(Calendar.MONTH);
-//        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        // set textView with date
-//        tvDatePicker.setText(currentDate(year, month, day));
-//    }
 
 
     public void getAllBusSchedule(){
@@ -105,7 +94,20 @@ public class ScheduleFragment extends Fragment {
             public void onResponse(Call<BusScheduleSearch> call, Response<BusScheduleSearch> response) {
                 if (response.isSuccessful() && response.body() != null){
                     busScheduleSearchDetails = response.body().getResult();
-                    recyclerView.setAdapter(new AllAvailableBusScheduleAdapter(busScheduleSearchDetails, getContext()));
+
+                    // ui changes if not bus schedule available
+                    if (busScheduleSearchDetails.isEmpty()){
+                        recyclerViewScheduleList.setVisibility(View.GONE);
+                        no_schedule_data_image.setVisibility(View.VISIBLE);
+
+                        // Use Glide to load the image into the ImageView
+                        Glide.with(requireContext())
+                                .load(no_results)
+                                .into(no_schedule_data_image);
+                    }else {
+                        no_schedule_data_image.setVisibility(View.GONE);
+                        recyclerViewScheduleList.setAdapter(new AllAvailableBusScheduleAdapter(busScheduleSearchDetails, getContext()));
+                    }
                 }
             }
 

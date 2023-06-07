@@ -1,9 +1,12 @@
 package com.example.sts_passenger.fragments;
 
+import static com.example.sts_passenger.R.drawable.no_results;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.TripHistoryAdapter;
@@ -31,6 +35,7 @@ import retrofit2.Response;
 public class TripHistory extends Fragment {
 
     RecyclerView recyclerView;
+    AppCompatImageView no_trip_data;
     List<com.example.sts_passenger.model.TripHistory> tripHistoryList;
     SharedPrefManager sharedPrefManager;
     private Session session;
@@ -48,6 +53,8 @@ public class TripHistory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setSharedPrefManager();
+
+        no_trip_data = view.findViewById(R.id.no_trip_history);
 
         recyclerView = view.findViewById(R.id.recycleView_tripHistory);
         recyclerView.setHasFixedSize(true);
@@ -68,7 +75,24 @@ public class TripHistory extends Fragment {
             public void onResponse(Call<TripHistoryResponse> call, Response<TripHistoryResponse> response) {
                 if (response.isSuccessful() && response.body() != null){
                     tripHistoryList  = response.body().getBookings();
-                    recyclerView.setAdapter(new TripHistoryAdapter(tripHistoryList,getContext()));
+
+                    // update ui based on filtered list
+                    if (tripHistoryList.isEmpty()) {
+                        Log.i("TAG", "onResponse: if seats are > 0");
+                        // hide recycler view and show no results image
+                        recyclerView.setVisibility(View.GONE);
+                        no_trip_data.setVisibility(View.VISIBLE);
+
+                        // Use Glide to load the image into the ImageView
+                        Glide.with(requireContext())
+                                .load(no_results)
+                                .into(no_trip_data);
+                    }else {
+                        no_trip_data.setVisibility(View.GONE);
+                        recyclerView.setAdapter(new TripHistoryAdapter(tripHistoryList,getContext()));
+                    }
+
+
                 }
             }
 
