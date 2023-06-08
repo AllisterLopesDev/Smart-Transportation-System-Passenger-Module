@@ -33,6 +33,7 @@ public class Consts {
 
     public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
     public static final String ENDPOINT_ADD_PASS_DETAILS = "passenger/{passenger_id}/passes";
+    public static final String ENDPOINT_PUT_PASSENGER_DETAILS = "passenger-details/{passenger_id}";
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
 
@@ -44,7 +45,8 @@ public class Consts {
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
     public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
-    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
+//    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
+    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-ticket/passenger";
 
 
 

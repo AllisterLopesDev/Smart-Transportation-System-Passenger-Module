@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -41,7 +43,9 @@ import com.example.sts_passenger.R;
 import com.example.sts_passenger.activities.LoginActivity;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
+import com.example.sts_passenger.apiservices.request.UserProfileUpdateRequest;
 import com.example.sts_passenger.apiservices.response.PhotoUploadResponse;
+import com.example.sts_passenger.apiservices.response.UserProfileUpdateResponse;
 import com.example.sts_passenger.model.Passenger;
 import com.example.sts_passenger.model.Session;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
@@ -54,6 +58,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -77,12 +82,17 @@ public class ProfileFragment extends Fragment {
     // Getting photo File
     File savedPhotoFile;
 
+    // passenger list
+    Passenger passengerList;
 
+
+    AppCompatButton updateInfoBtn;
+    EditText contact_text,address_text;
 
 
     Button logout,tripHistory;
     SharedPrefManager sharedPrefManager;
-    TextView tv_title,name_text,email_text,contact_text,address_text,gender_text,category_text;
+    TextView tv_title,name_text,email_text,gender_text,category_text;
     CardView cardViewProfile;
 
 
@@ -149,6 +159,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        updateInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateUserProfileInfo(updateUserData());
+            }
+        });
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,8 +210,57 @@ public class ProfileFragment extends Fragment {
 //        cardViewProfile.setVisibility(View.GONE);
 //        tv_title.setVisibility(View.GONE);
         layout3.setVisibility(View.GONE);
+        updateInfoBtn.setVisibility(View.GONE);
 
     }
+
+/*--------------------------------- update profile data ---------------------------------------------------------------*/
+
+public UserProfileUpdateRequest updateUserData(){
+    UserProfileUpdateRequest updateRequest =  new UserProfileUpdateRequest();
+
+    String updatedContact = contact_text.getText().toString();
+    String updatedAddress = address_text.getText().toString();
+    if (!sharedPrefManager.getSavedSessionOnLogin().getPassenger().getContact().equals(updatedContact)){
+        updateRequest.setContact(updatedContact);
+    }
+    if (!sharedPrefManager.getSavedSessionOnLogin().getPassenger().getAddress().equals(updatedAddress)){
+        updateRequest.setAddress(updatedAddress);
+    }
+    return updateRequest;
+}
+
+
+public void updateUserProfileInfo(UserProfileUpdateRequest updateRequest){
+    Call<UserProfileUpdateResponse> call = Client.getInstance(Consts.BASE_URL_PASSENGER_AUTH).getRoute().updateUserInfo(updateRequest, session.getPassenger().getPassengerId());
+    call.enqueue(new Callback<UserProfileUpdateResponse>() {
+        @Override
+        public void onResponse(Call<UserProfileUpdateResponse> call, Response<UserProfileUpdateResponse> response) {
+            passengerList = response.body().getPassenger();
+            if (response.isSuccessful()){
+                sharedPrefManager.savePassengerData(passengerList);
+                Log.i("TAG", "onResponse: updated successfully");
+                Toast.makeText(getContext(), "Data updated Succesfully", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserProfileUpdateResponse> call, Throwable t) {
+            Log.i("TAG", "onFailure: update failed");
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
 
     //------------------------------logout-------------------------
     public LogoutPassenger logoutRequest(){
@@ -250,6 +316,7 @@ public class ProfileFragment extends Fragment {
         gender_text = view.findViewById(R.id.genger_text);
         category_text = view.findViewById(R.id.category_text);
         layout3 = view.findViewById(R.id.linearLayout3);
+        updateInfoBtn = view.findViewById(R.id.updateButton);
 
         profile_picture = view.findViewById(R.id.profile_picture);
         addImageBtn = view.findViewById(R.id.upload_img);
