@@ -97,10 +97,11 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
 
         // init sharedPrefManager for passenger session
         setSharedPrefManager();
-        getTicketDetails();
+
 
         recyclerView = rootView.findViewById(R.id.recycleView_ticketList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        getTicketDetails();
 
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getContext()));
 
@@ -137,7 +138,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
             @Override
             public void run() {
                 getBusLiveLoc();
-                handler.postDelayed(this, 10000); // Call the function every 30 seconds
+                handler.postDelayed(this, 3000); // Call the function every 30 seconds
             }
         };
 
@@ -350,7 +351,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                     // Handle the updated location here
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
-                    Log.i("TAG", "onLocationChanged: " +latitude + " " + longitude);
+//                    Log.i("TAG", "onLocationChanged: " +latitude + " " + longitude);
                     // Do something with latitude and longitude
 
                     // Create an OverlayItem for the current location

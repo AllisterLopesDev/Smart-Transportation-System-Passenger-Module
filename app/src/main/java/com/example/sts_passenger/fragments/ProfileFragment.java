@@ -210,6 +210,7 @@ public class ProfileFragment extends Fragment {
 //        cardViewProfile.setVisibility(View.GONE);
 //        tv_title.setVisibility(View.GONE);
         layout3.setVisibility(View.GONE);
+        updateInfoBtn.setVisibility(View.GONE);
 
     }
 

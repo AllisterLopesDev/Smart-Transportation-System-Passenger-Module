@@ -45,7 +45,8 @@ public class Consts {
     // booking endpoints
     public static final String ENDPOINT_BOOK_INSTANT_TICKET = "instant";
     public static final String ENDPOINT_GET_TICKET_BOOKING = "passenger-ticket-bookings";
-    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
+//    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-booked-ticket";
+    public static final String ENDPOINT_GET_CURRENT_BOOKING_TICKET = "current-ticket/passenger";
 
 
 
