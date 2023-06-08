@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.adapters.CurrentBookedTicketAdapter;
 import com.example.sts_passenger.adapters.ValidTicketAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.BusStops;
@@ -320,7 +321,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                     if (response.body()  != null && response.body().getStatus() == 200){
                         ticketResultList = response.body().getTicketResultList();
 
-//                         filter booked tickets
+                        // filter booked tickets
                         List<TicketResult> filterBookedTickets = new ArrayList<>();
                         for (TicketResult bookedTicket : ticketResultList) {
                             if (bookedTicket.getTicket().getStatus().equals("Booked")) {
@@ -329,7 +330,8 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                         }
 
                         // add filtered list to recyclerview
-                        recyclerView.setAdapter(new ValidTicketAdapter(ticketResultList, getContext()));
+//                        recyclerView.setAdapter(new ValidTicketAdapter(filterBookedTickets, getContext()));
+                        recyclerView.setAdapter(new CurrentBookedTicketAdapter(filterBookedTickets));
                     }
                 }
             }

@@ -93,7 +93,6 @@ public interface Api {
 
 
     @GET(Consts.ENDPOINT_GET_CURRENT_BOOKING_TICKET)
-
     Call<TicketDetailsResponse> getCurrentTicket(@Query("passenger-id") Integer passengerId);
 
     @POST(Consts.ENDPOINT_BOOK_INSTANT_TICKET)

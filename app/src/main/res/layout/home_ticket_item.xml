@@ -9,7 +9,7 @@
     <!--card 1-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_ticket"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
