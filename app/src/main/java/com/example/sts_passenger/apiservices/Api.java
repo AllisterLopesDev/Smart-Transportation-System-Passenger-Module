@@ -4,10 +4,12 @@ import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.apiservices.request.PassDetailsRequest;
 import com.example.sts_passenger.apiservices.request.RegisterPassengerRequest;
 import com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp;
+import com.example.sts_passenger.apiservices.request.UserProfileUpdateRequest;
 import com.example.sts_passenger.apiservices.response.BusScheduleSearch;
 import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.InstantTicketBooking;
 import com.example.sts_passenger.apiservices.response.LiveLocationResponse;
+import com.example.sts_passenger.apiservices.response.UserProfileUpdateResponse;
 import com.example.sts_passenger.model.LiveLocation;
 import com.example.sts_passenger.apiservices.response.LoginPassenger;
 import com.example.sts_passenger.apiservices.request.LogoutPassenger;
@@ -32,6 +34,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -119,4 +122,8 @@ public interface Api {
             @Part MultipartBody.Part photo,
             @Header("Authorization") String userSessionToken,
             @Path("passenger_id") Integer passengerId);
+
+    @PUT(Consts.ENDPOINT_PUT_PASSENGER_DETAILS)
+    Call<UserProfileUpdateResponse> updateUserInfo(@Body UserProfileUpdateRequest updateRequest,
+                                                   @Path("passenger_id") Integer passengerId);
 }

@@ -33,6 +33,7 @@ public class Consts {
 
     public static final String ENDPOINT_PASSENGER_PASS_DETAILS = "passenger/{passenger_id}/passes";
     public static final String ENDPOINT_ADD_PASS_DETAILS = "passenger/{passenger_id}/passes";
+    public static final String ENDPOINT_PUT_PASSENGER_DETAILS = "passenger-details/{passenger_id}";
 
     public static final String ENDPOINT_ROUTE_INFO = "route-info";
 
