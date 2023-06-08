@@ -266,7 +266,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
 
                     Log.i("TAG", "onResponse: success");
 
-                    Drawable markerDrawable = getResources().getDrawable(R.drawable.bus_stop_bus); // Replace with your marker drawable
+                    Drawable markerDrawable = getResources().getDrawable(R.drawable.location_pointer); // Replace with your marker drawable
 
                     ArrayList<Marker> markers = new ArrayList<>();
                     for (Halts halts : busStopsList) {
