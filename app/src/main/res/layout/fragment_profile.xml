@@ -123,11 +123,12 @@
                     android:text="Contact no. : "
                     android:textSize="15sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/contact_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="91xxxxxxxx97"
+                    android:inputType="number"
                     android:textStyle="bold" />
             </LinearLayout>
 
