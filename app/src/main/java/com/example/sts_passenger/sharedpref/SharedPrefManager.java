@@ -45,8 +45,8 @@ public class SharedPrefManager {
     public void savePassengerData(Passenger passenger){
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putString("firstname",passenger.getFirstname());
-        editor.putString("lastname",passenger.getLastname());
+        editor.putString("firstName",passenger.getFirstname());
+        editor.putString("lastName",passenger.getLastname());
         editor.putString("contact",passenger.getContact());
         editor.putString("address",passenger.getAddress());
         editor.putString("gender",passenger.getGender());
@@ -58,8 +58,8 @@ public class SharedPrefManager {
 
     public Passenger getPassenger() {
         sharedPreferences = context.getSharedPreferences(Consts.SHARED_PREF_AUTH, Context.MODE_PRIVATE);
-        return new Passenger(sharedPreferences.getString("firstname", null),
-                sharedPreferences.getString("lastname", null),
+        return new Passenger(sharedPreferences.getString("firstName", null),
+                sharedPreferences.getString("lastName", null),
                 sharedPreferences.getString("contact", null),
                 sharedPreferences.getString("address", null),
                 sharedPreferences.getString("gender", null),

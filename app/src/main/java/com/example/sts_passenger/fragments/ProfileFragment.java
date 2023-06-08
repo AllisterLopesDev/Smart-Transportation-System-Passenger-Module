@@ -243,8 +243,6 @@ public class ProfileFragment extends Fragment {
     public void initView(View view){
         logout = view.findViewById(R.id.logout);
         tripHistory = view.findViewById(R.id.tripHistory);
-//        cardViewProfile = view.findViewById(R.id.cardView_profile);
-//        tv_title = view.findViewById(R.id.sts_title);
         name_text = view.findViewById(R.id.name_text);
         email_text = view.findViewById(R.id.email_text);
         contact_text = view.findViewById(R.id.contact_text);
@@ -256,7 +254,14 @@ public class ProfileFragment extends Fragment {
         profile_picture = view.findViewById(R.id.profile_picture);
         addImageBtn = view.findViewById(R.id.upload_img);
 
-        String name = session.getPassenger().getFirstname()+ " "+ session.getPassenger().getLastname();
+        String name = session.getPassenger().getFirstname() + " "+ session.getPassenger().getLastname();
+        Log.i("TAG", "initView: name " + session.getPassenger().getFirstname() + " "+ session.getPassenger().getLastname());
+        /*if (name.isEmpty()) {
+            String firstName = sharedPrefManager.getPassenger().getFirstname();
+            String lastName = sharedPrefManager.getPassenger().getLastname();
+            String passengerName = firstName + " " + lastName;
+            name_text.setText(passengerName);
+        }*/
         name_text.setText(name);
         email_text.setText(session.getUser().getEmail());
         contact_text.setText(session.getPassenger().getContact());
