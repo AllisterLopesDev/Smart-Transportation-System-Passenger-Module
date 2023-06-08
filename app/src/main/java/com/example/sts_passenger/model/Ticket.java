@@ -11,6 +11,9 @@ public class Ticket {
     private String distance;
     @SerializedName("total-fare-amount")
     private Integer fareAmount;
+
+    @SerializedName("fare-amount")
+    private int amount;
     @SerializedName("id")
     private Integer id;
     @SerializedName("passenger-count")
@@ -82,5 +85,13 @@ public class Ticket {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

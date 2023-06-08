@@ -78,7 +78,27 @@ public class InstantTicketFragment extends Fragment {
     private void getBundleData() {
         Bundle data = getArguments();
 
+        /*// variable
+        String busRegNo = "";
+        String busType = "";
+        String source  = "";
+        String destination  = "";
+        int pCount  = 0;
+        int fareAmount  = 0;
+        int tId  = 0;
+        String date  = "";*/
+
         if (data != null) {
+            /*busRegNo = data.getString("busRegNo");
+            busType = data.getString("busType");
+            source = data.getString("ticketSource");
+            destination = data.getString("ticketDestination");
+            pCount = data.getInt("passengerCount");
+            fareAmount = data.getInt("ticketAmount");
+            tId = data.getInt("ticketId");
+            date = data.getString("ticketDate");*/
+
+
             bus.setRegistrationNumber(data.getString("busRegNo"));
             bus.setType(data.getString("busType"));
             ticket.setSource(data.getString("ticketSource"));
@@ -87,15 +107,19 @@ public class InstantTicketFragment extends Fragment {
             ticket.setFareAmount(data.getInt("ticketAmount"));
             ticket.setId(data.getInt("ticketId"));
             ticket.setDate(data.getString("ticketDate"));
+
+            tvTicketNumber.setText(String.valueOf(ticket.getId()));
+            tvDate.setText(ticket.getDate());
+            tvBusRegNo.setText(bus.getRegistrationNumber());
+            tvBusType.setText(bus.getType());
+            tvSource.setText(ticket.getSource());
+            tvDestination.setText(ticket.getDestination());
+            tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
+            tvPrice.setText(String.valueOf(ticket.getFareAmount()));
         }
 
-        tvTicketNumber.setText(String.valueOf(ticket.getId()));
-        tvDate.setText(ticket.getDate());
-        tvBusRegNo.setText(bus.getRegistrationNumber());
-        tvBusType.setText(bus.getType());
-        tvSource.setText(ticket.getSource());
-        tvDestination.setText(ticket.getDestination());
-        tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
-        tvPrice.setText(String.valueOf(ticket.getFareAmount()));
+        /*tvBusRegNo.setText(busRegNo);
+        tvBusType.setText(busType);*/
+
     }
 }

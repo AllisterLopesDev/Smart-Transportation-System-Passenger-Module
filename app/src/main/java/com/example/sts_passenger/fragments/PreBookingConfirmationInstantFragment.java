@@ -160,39 +160,20 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
                         Log.i("TAG", "onResponse: " + ticketResponse.getResult().getTicket());
                         TicketBooking instantTicket = ticketResponse.getResult();
                         Toast.makeText(getContext(), "Instant Ticket Successfully created", Toast.LENGTH_SHORT).show();
-
                         // set data for next frag/activity
-                        setBundleDateToTicketConfirmationFrag(instantTicket);
-                        String busRegistrationNumber = bus.getRegistrationNumber();
-                        Log.i("TAG", "onResponse: instant ticket bus reg" + busRegistrationNumber);
-
-                        /*if (instantTicket != null) {
+                        if (instantTicket != null) {
                             String bType = instantTicket.getBus() != null ? instantTicket.getBus().getBusType() : "";
                             String bRegNo = instantTicket.getBus() != null ? instantTicket.getBus().getRegistrationNumber() : "";
                             String source = instantTicket.getTicket() != null ? instantTicket.getTicket().getSource() : "";
                             String destination = instantTicket.getTicket() != null ? instantTicket.getTicket().getDestination() : "";
                             int pCount = instantTicket.getTicket() != null ? instantTicket.getTicket().getPassengerCount() : 0;
-                            int fare = instantTicket.getTicket() != null ? instantTicket.getTicket().getFareAmount() : 0;
+                            int fare = instantTicket.getTicket() != null ? instantTicket.getTicket().getAmount() : 0;
                             int tId = instantTicket.getTicket() != null ? instantTicket.getTicket().getId() : 0;
                             String date = instantTicket.getTicket() != null ? instantTicket.getTicket().getDate() : "";
-                            Log.i("TAG", "onResponse: bus type" + bType);
 
-                            // show ticket layout on success
-                            *//*
-                             * Ticket number
-                             * Source
-                             * Destination
-                             * Date
-                             * Bus Registration number
-                             * Bus type
-                             * Passenger count
-                             * Price
-                             * Qr (passenger-id, ticket-id, status)
-                             * *//*
-
-//                             switch fragment to ticket booked
+                            // switch fragment to ticket booked
                             setBundleDateToTicketConfirmationFrag(tId, pCount, fare, bType, bRegNo, source, destination, date);
-                        }*/
+                        }
                     }
                 }
             }
@@ -258,28 +239,6 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         args.putString("ticketDate", date);
         // set args to frag
         fragment.setArguments(args);
-
-        // transaction
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.ticketContainer, fragment);
-        transaction.commit();
-    }
-
-    private void setBundleDateToTicketConfirmationFrag(TicketBooking instantTicket) {
-        InstantTicketFragment fragment = new InstantTicketFragment();
-
-        /*// add data to bundle args
-        Bundle args = new Bundle();
-        args.putString("busType", bus.getBusType());
-        args.putString("busRegNo", bus.getRegistrationNumber());
-        args.putString("ticketDestination", ticket.getDestination());
-        args.putString("ticketSource", ticket.getSource());
-        args.putInt("passengerCount", ticket.getPassengerCount());
-        args.putInt("ticketAmount", instantTicket.getTicket().getFareAmount());
-        args.putInt("ticketId", ticket.getId());
-        args.putString("ticketDate", ticket.getDate());
-        // set args to frag
-        fragment.setArguments(args);*/
 
         // transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

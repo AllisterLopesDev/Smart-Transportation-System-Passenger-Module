@@ -11,204 +11,178 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView2"
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <FrameLayout
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_margin="16dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:src="@drawable/instant_ticket_layout" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ticket_bg_vector"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="110dp"
+                android:text="Instant ticket"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="200dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="32sp"
-                    android:text="Instant ticket" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="280dp"
+                android:text="Your ticket is valid for the current trip"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="245dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your ticket is valid for the current trip" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="160dp"
+                android:text="STS2023XR04001"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="80dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ticket No." />
-
-                <TextView
-                    android:layout_marginTop="100dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="STS2023XR04001" />
-
-                <TextView
-                    android:layout_marginTop="80dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="290dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date" />
-
-                <TextView
-                    android:layout_marginTop="100dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="290dp"
-                    android:id="@+id/tv_instant_ticket_date"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20 May, 2023" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="120dp"
+                android:text="20 May, 2023"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
 
-                <TextView
-                    android:layout_marginTop="280dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bus No." />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="280dp"
+                android:text="Bus No."
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="300dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_bus_reg_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GA-03-X-0001" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_bus_reg_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="300dp"
+                android:text="GA-03-X-0001"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="280dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="300dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Type" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="280dp"
+                android:text="Type"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="300dp"
-                    android:layout_marginStart="300dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_bus_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LOCAL" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_bus_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="300dp"
+                android:text="LOCAL"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="340dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Source" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="340dp"
+                android:text="Source"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="360dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MARGAO" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="360dp"
+                android:text="MARGAO"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="340dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="300dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Destination" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="340dp"
+                android:text="Destination"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="360dp"
-                    android:layout_marginStart="300dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_destination"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PANJIM" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="360dp"
+                android:text="PANJIM"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="400dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Passenger count" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="400dp"
+                android:text="Passenger count"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="420dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="32dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_passenger_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5" />
+            <TextView
+                android:id="@+id/tv_instant_ticket_passenger_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="420dp"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_marginTop="400dp"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="300dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="400dp"
+                android:text="Price"
+                android:textColor="#6D676767" />
 
-                <TextView
-                    android:layout_marginTop="420dp"
-                    android:layout_marginStart="300dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_instant_ticket_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="128 INR" />
-
-
-                <ImageView
-                    android:id="@+id/imageView_ticket_qr"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="500dp"
-                    android:contentDescription="ticket qr code" />
-
-            </FrameLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tv_instant_ticket_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="420dp"
+                android:text="128 INR"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
 
-        <!-- Ticket Number -->
+            <ImageView
+                android:src="@drawable/qr_code"
+                android:id="@+id/imageView_ticket_qr"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="215dp"
+                android:contentDescription="ticket qr code" />
 
-        <!-- Bus Details -->
-        <!-- Ticket Details -->
-        <!-- QR code -->
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
