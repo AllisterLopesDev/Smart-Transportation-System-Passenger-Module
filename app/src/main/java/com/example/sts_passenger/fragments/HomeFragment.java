@@ -61,6 +61,8 @@ public class HomeFragment extends Fragment{
 private static final int REQUEST_LOCATION_PERMISSION = 1;
     private LocationManager locationManager;
     private MapView map;
+    // Flag to check if map is centered to user location
+    private boolean isMapCentered = false;
 
     IMapController mapController;
     List<Halts> busStopsList;
@@ -350,17 +352,19 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
-                    // Handle the updated location here
-                    double latitude = location.getLatitude();
-                    double longitude = location.getLongitude();
-//                    Log.i("TAG", "onLocationChanged: " +latitude + " " + longitude);
-                    // Do something with latitude and longitude
+                    if (!isMapCentered) {
+                        // Handle the updated location here
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        // Do something with latitude and longitude
 
-                    // Create an OverlayItem for the current location
+                        // Update the map view with the current location
+                        GeoPoint startPoint = new GeoPoint(latitude, longitude);
+                        mapController.setCenter(startPoint);
 
-                    // Update the map view with the current location
-                    GeoPoint startPoint = new GeoPoint(latitude, longitude);
-                    mapController.setCenter(startPoint);
+                        // Mark the Flag as true on centering to user's current location
+                        isMapCentered = true;
+                    }
                 }
 
                 @Override
