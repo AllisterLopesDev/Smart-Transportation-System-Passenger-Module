@@ -174,7 +174,6 @@
 
 
             <ImageView
-                android:src="@drawable/qr_code"
                 android:id="@+id/imageView_ticket_qr"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sts_passenger.R;
+import com.example.sts_passenger.assets.QRCodeGenerator;
 import com.example.sts_passenger.model.Bus;
 import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
@@ -48,7 +50,15 @@ public class InstantTicketFragment extends Fragment {
 
         // init views
         initViews(view);
-        getBundleData();
+
+        // Restore the fragment state
+        if (savedInstanceState != null) {
+            Log.i("TAG", "onViewCreated: SavedInstanceState");
+            restoreInstanceState(savedInstanceState);
+        } else {
+            // If no saved instance state, get the ticket bundle data
+            getBundleData();
+        }
     }
 
     private void initViews(View view) {
@@ -61,6 +71,9 @@ public class InstantTicketFragment extends Fragment {
         tvPassengerCount = view.findViewById(R.id.tv_instant_ticket_passenger_count);
         tvPrice = view.findViewById(R.id.tv_instant_ticket_price);
 
+        // ImageView to hold qr code
+        qrCodeIV = view.findViewById(R.id.imageView_ticket_qr);
+
         // init models
         bus = new Bus();
         scheduleInfo = new ScheduleInfo();
@@ -68,37 +81,12 @@ public class InstantTicketFragment extends Fragment {
         ticket = new Ticket();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
     // get the ticket booked data for pre-booking-confirmation-instant-frag
     private void getBundleData() {
         Bundle data = getArguments();
 
-        /*// variable
-        String busRegNo = "";
-        String busType = "";
-        String source  = "";
-        String destination  = "";
-        int pCount  = 0;
-        int fareAmount  = 0;
-        int tId  = 0;
-        String date  = "";*/
-
         if (data != null) {
-            /*busRegNo = data.getString("busRegNo");
-            busType = data.getString("busType");
-            source = data.getString("ticketSource");
-            destination = data.getString("ticketDestination");
-            pCount = data.getInt("passengerCount");
-            fareAmount = data.getInt("ticketAmount");
-            tId = data.getInt("ticketId");
-            date = data.getString("ticketDate");*/
-
-
+            // Data required to show instant ticket
             bus.setRegistrationNumber(data.getString("busRegNo"));
             bus.setType(data.getString("busType"));
             ticket.setSource(data.getString("ticketSource"));
@@ -108,6 +96,7 @@ public class InstantTicketFragment extends Fragment {
             ticket.setId(data.getInt("ticketId"));
             ticket.setDate(data.getString("ticketDate"));
 
+            // Set data on TextView
             tvTicketNumber.setText(String.valueOf(ticket.getId()));
             tvDate.setText(ticket.getDate());
             tvBusRegNo.setText(bus.getRegistrationNumber());
@@ -116,10 +105,54 @@ public class InstantTicketFragment extends Fragment {
             tvDestination.setText(ticket.getDestination());
             tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
             tvPrice.setText(String.valueOf(ticket.getFareAmount()));
+
+            // Create qr-code
+            generateInstantTicketQr();
         }
+    }
 
-        /*tvBusRegNo.setText(busRegNo);
-        tvBusType.setText(busType);*/
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        // Save the fragment state to the bundle
+        outState.putString("busRegNo", bus.getRegistrationNumber());
+        outState.putString("busType", bus.getRegistrationNumber());
+        outState.putString("ticketSource", ticket.getSource());
+        outState.putString("ticketDestination", ticket.getDestination());
+        outState.putInt("passengerCount", ticket.getPassengerCount());
+        outState.putInt("ticketAmount", ticket.getFareAmount());
+        outState.putInt("ticketId", ticket.getId());
+        outState.putString("ticketDate", ticket.getDate());
+    }
+
+    private void restoreInstanceState(Bundle savedInstanceState) {
+        // Restore the fragment state from the saved bundle
+        bus.setRegistrationNumber(savedInstanceState.getString("busRegNo"));
+        bus.setType(savedInstanceState.getString("busType"));
+        ticket.setSource(savedInstanceState.getString("ticketSource"));
+        ticket.setDestination(savedInstanceState.getString("ticketDestination"));
+        ticket.setPassengerCount(savedInstanceState.getInt("passengerCount"));
+        ticket.setFareAmount(savedInstanceState.getInt("ticketAmount"));
+        ticket.setId(savedInstanceState.getInt("ticketId"));
+        ticket.setDate(savedInstanceState.getString("ticketDate"));
+
+        // Set the restored data on TextViews
+        tvTicketNumber.setText(String.valueOf(ticket.getId()));
+        tvDate.setText(ticket.getDate());
+        tvBusRegNo.setText(bus.getRegistrationNumber());
+        tvBusType.setText(bus.getType());
+        tvSource.setText(ticket.getSource());
+        tvDestination.setText(ticket.getDestination());
+        tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
+        tvPrice.setText(String.valueOf(ticket.getFareAmount()));
+    }
+
+    private void generateInstantTicketQr() {
+        // Print in logs
+        Log.i("TAG", "generateInstantTicketQr: creating qr");
+        String ticketId = String.valueOf(ticket.getId());
+        QRCodeGenerator.generateQRCode(ticketId, qrCodeIV);
+        Log.i("TAG", "generateInstantTicketQr: qr created");
     }
 }
