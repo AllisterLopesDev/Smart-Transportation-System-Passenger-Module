@@ -7,16 +7,16 @@ public class LiveLocation {
 //            "bus_schedule_id": 34,
 //                    "latitude": 15.345,
 //                    "longitude": 74.0015
-    @SerializedName("bus_schedule_id") private Integer bus_schedule_id;
+    @SerializedName("bus_schedule_id") private Integer busScheduleId;
     @SerializedName("latitude") private Double latitude;
     @SerializedName("longitude") private Double longitude;
 
-    public Integer getBus_schedule_id() {
-        return bus_schedule_id;
+    public Integer getBusScheduleId() {
+        return busScheduleId;
     }
 
-    public void setBus_schedule_id(Integer bus_schedule_id) {
-        this.bus_schedule_id = bus_schedule_id;
+    public void setBusScheduleId(Integer busScheduleId) {
+        this.busScheduleId = busScheduleId;
     }
 
     public Double getLatitude() {

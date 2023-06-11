@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.CurrentBookedTicketAdapter;
-import com.example.sts_passenger.adapters.ValidTicketAdapter;
 import com.example.sts_passenger.apiservices.Client;
 import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.apiservices.response.LiveLocationResponse;
@@ -35,12 +34,8 @@ import com.example.sts_passenger.model.Halts;
 import com.example.sts_passenger.model.LiveLocation;
 import com.example.sts_passenger.apiservices.response.TicketDetailsResponse;
 import com.example.sts_passenger.model.Session;
-import com.example.sts_passenger.model.result.TicketBooking;
 import com.example.sts_passenger.model.result.TicketResult;
 import com.example.sts_passenger.sharedpref.SharedPrefManager;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -54,9 +49,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -230,10 +223,14 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                     for (LiveLocation liveLocation : liveLocations) {
                         double latitude = liveLocation.getLatitude();
                         double longitude = liveLocation.getLongitude();
+                        int busScheduleID = liveLocation.getBusScheduleId();
+
+
                         GeoPoint point = new GeoPoint(latitude, longitude);
                         Marker marker = new Marker(map);
                         marker.setPosition(point);
                         marker.setIcon(markerDrawable);
+                        marker.setTitle(String.valueOf(busScheduleID));
                         markers.add(marker);
                     }
 
@@ -274,10 +271,13 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                     for (Halts halts : busStopsList) {
                         double latitude = Double.parseDouble(halts.getLatitude());
                         double longitude = Double.parseDouble(halts.getLongitude());
+                        String haltName = halts.getName();
+
                         GeoPoint point = new GeoPoint(latitude, longitude);
                         Marker marker = new Marker(map);
                         marker.setPosition(point);
                         marker.setIcon(markerDrawable);
+                        marker.setTitle(haltName); // Set halt name
                         markers.add(marker);
                     }
 
