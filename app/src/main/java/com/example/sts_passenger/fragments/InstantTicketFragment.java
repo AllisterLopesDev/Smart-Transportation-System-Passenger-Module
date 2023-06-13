@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -25,6 +27,10 @@ import com.example.sts_passenger.model.Schedule;
 import com.example.sts_passenger.model.ScheduleInfo;
 import com.example.sts_passenger.model.Ticket;
 import com.example.sts_passenger.model.result.TicketBooking;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class InstantTicketFragment extends Fragment {
 
@@ -184,21 +190,36 @@ public class InstantTicketFragment extends Fragment {
                 + "\nPassenger Count: " + ticket.getPassengerCount()
                 + "\nPrice: " + ticket.getFareAmount();
 
-        // Intent to Share on Whatsapp
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, message);
-        // intent.setPackage("com.whatsapp");
+        // Generate QR code bitmap
+        String ticketId = String.valueOf(ticket.getId());
+        File qrCodeFile = QRCodeGenerator.generateQRCode(ticketId, requireContext());
 
-        // Verify if WhatsApp is installed on the device
-        PackageManager packageManager = requireActivity().getPackageManager();
-        if (intent.resolveActivity(packageManager) != null) {
-            // Start the activity
-            Log.i("TAG", "shareTicketOnWhatsApp: If " + message);
-            startActivity(intent);
+        if (qrCodeFile != null) {
+            // Get the content URI for the QR code image using FileProvider
+            Uri qrCodeUri = FileProvider.getUriForFile(requireContext(), "com.example.sts_passenger.fileprovider", qrCodeFile);
+
+            Log.i("TAG", "shareTicketOnWhatsApp: QR code generated");
+            // Intent to Share on Whatsapp
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            // intent.setType("text/plain");
+            intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_STREAM, qrCodeUri);
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            // intent.setPackage("com.whatsapp");
+
+            // Verify if WhatsApp is installed on the device
+            PackageManager packageManager = requireActivity().getPackageManager();
+            if (intent.resolveActivity(packageManager) != null) {
+                // Start the activity
+                startActivity(intent);
+            } else {
+                // WhatsApp is not installed, display an error message or redirect to the Play Store
+                Toast.makeText(requireContext(), "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            // WhatsApp is not installed, display an error message or redirect to the Play Store
-            Toast.makeText(requireContext(), "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
+            // Handle error when saving QR code image
+            Toast.makeText(requireContext(), "Failed to generate QR code", Toast.LENGTH_SHORT).show();
         }
     }
 }
