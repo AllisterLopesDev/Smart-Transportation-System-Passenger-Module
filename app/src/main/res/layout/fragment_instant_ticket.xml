@@ -181,6 +181,15 @@
                 android:layout_marginTop="215dp"
                 android:contentDescription="ticket qr code" />
 
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginTop="340dp"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/img_shareOn_whatsApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/whatsapp" />
+
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

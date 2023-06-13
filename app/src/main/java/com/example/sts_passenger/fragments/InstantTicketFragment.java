@@ -1,5 +1,8 @@
 package com.example.sts_passenger.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.assets.QRCodeGenerator;
@@ -29,7 +33,7 @@ public class InstantTicketFragment extends Fragment {
 
     // qr
     private ImageView qrCodeIV;
-    Bitmap bitmap;
+    private ImageView imgWhatsAppShare;
 
     // model
     Bus bus;
@@ -59,6 +63,13 @@ public class InstantTicketFragment extends Fragment {
             // If no saved instance state, get the ticket bundle data
             getBundleData();
         }
+
+        imgWhatsAppShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareTicketOnWhatsApp();
+            }
+        });
     }
 
     private void initViews(View view) {
@@ -73,6 +84,9 @@ public class InstantTicketFragment extends Fragment {
 
         // ImageView to hold qr code
         qrCodeIV = view.findViewById(R.id.imageView_ticket_qr);
+
+        // ImageView to share on whatsapp
+        imgWhatsAppShare = view.findViewById(R.id.img_shareOn_whatsApp);
 
         // init models
         bus = new Bus();
@@ -154,5 +168,37 @@ public class InstantTicketFragment extends Fragment {
         String ticketId = String.valueOf(ticket.getId());
         QRCodeGenerator.generateQRCode(ticketId, qrCodeIV);
         Log.i("TAG", "generateInstantTicketQr: qr created");
+    }
+
+    // Share instant ticket on whatsapp
+    @SuppressLint("QueryPermissionsNeeded")
+    private void shareTicketOnWhatsApp() {
+        // Create message with the ticket details
+        String message = "Ticket Details:"
+                + "\nTicket Number: " + ticket.getId()
+                + "\nDate: " + ticket.getDate()
+                + "\nBus Registration Number: " + bus.getRegistrationNumber()
+                + "\nBus Type: " + bus.getType()
+                + "\nSource: " + ticket.getSource()
+                + "\nDestination: " + ticket.getDestination()
+                + "\nPassenger Count: " + ticket.getPassengerCount()
+                + "\nPrice: " + ticket.getFareAmount();
+
+        // Intent to Share on Whatsapp
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        // intent.setPackage("com.whatsapp");
+
+        // Verify if WhatsApp is installed on the device
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (intent.resolveActivity(packageManager) != null) {
+            // Start the activity
+            Log.i("TAG", "shareTicketOnWhatsApp: If " + message);
+            startActivity(intent);
+        } else {
+            // WhatsApp is not installed, display an error message or redirect to the Play Store
+            Toast.makeText(requireContext(), "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
+        }
     }
 }
