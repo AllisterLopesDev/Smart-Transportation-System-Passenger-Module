@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // ----------------- do the changes
-        text = findViewById(R.id.adminText);
+//        text = findViewById(R.id.tv_verification_typo);
         email = findViewById(R.id.adminUsername);
         password = findViewById(R.id.adminPassword);
         loginBtn = findViewById(R.id.adminLoginBtn);

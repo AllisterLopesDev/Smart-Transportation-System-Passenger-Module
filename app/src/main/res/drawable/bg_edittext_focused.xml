@@ -4,10 +4,11 @@
     <stroke
         android:width="2dip"
         android:color="#F6F6F6" />
-    <corners android:radius="2dip" />
+    <corners android:radius="20dp" />
     <padding
         android:bottom="7dip"
         android:left="7dip"
         android:right="7dip"
         android:top="7dip" />
+    <stroke android:color="#FF9800" android:width="2dp"/>
 </shape>

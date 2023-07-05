@@ -8,7 +8,7 @@
     tools:context=".activities.VerifyOtp">
 
     <TextView
-        android:id="@+id/adminText"
+        android:id="@+id/tv_verification_typo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -24,7 +24,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/adminText"
+        android:layout_below="@id/tv_verification_typo"
         android:layout_marginTop="48dp"
         android:gravity="center"
         android:hint="We send you a code to verify "
@@ -33,13 +33,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminText" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_verification_typo" />
 
     <TextView
         android:id="@+id/email1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/adminText"
+        android:layout_below="@id/tv_verification_typo"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint=""
