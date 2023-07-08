@@ -2,10 +2,14 @@ package com.example.sts_passenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,7 +37,7 @@ import retrofit2.Response;
 public class VerifyOtp extends AppCompatActivity {
 
     TextView tv1;
-    EditText otp_code;
+    EditText otpFirstNumber, otpSecondNumber, otpThirdNumber, otpFourthNumber, otpFifthNumber, otpSixthNumber;
     Button verifyBtn;
     SharedPrefManager sharedPrefManager;
 
@@ -43,6 +47,7 @@ public class VerifyOtp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp);
         initViews();
+        otpInputWatcher();
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
@@ -69,7 +74,16 @@ public class VerifyOtp extends AppCompatActivity {
 
     public  void initViews(){
         tv1  = findViewById(R.id.email1);
-        otp_code = findViewById(R.id.otp);
+
+        // EditText OTP
+        otpFirstNumber = findViewById(R.id.et_otp_first);
+        otpSecondNumber = findViewById(R.id.et_otp_second);
+        otpThirdNumber = findViewById(R.id.et_otp_third);
+        otpFourthNumber = findViewById(R.id.et_otp_fourth);
+        otpFifthNumber = findViewById(R.id.et_otp_fifth);
+        otpSixthNumber = findViewById(R.id.et_otp_sixth);
+
+        // Button
         verifyBtn = findViewById(R.id.verifybtn);
     }
 
@@ -90,7 +104,19 @@ public class VerifyOtp extends AppCompatActivity {
     public com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp createVerifyRequest() {
         com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp requestVerifyOtp = new com.example.sts_passenger.apiservices.request.RegistrationVerifyOtp();
         requestVerifyOtp.setEmail(getUserEmail());
-        requestVerifyOtp.setOtp(otp_code.getText().toString());
+
+        // OTP
+        String first, second, third, fourth, fifth, sixth;
+        first = otpFirstNumber.getText().toString();
+        second = otpSecondNumber.getText().toString();
+        third = otpThirdNumber.getText().toString();
+        fourth = otpFourthNumber.getText().toString();
+        fifth = otpFifthNumber.getText().toString();
+        sixth = otpSixthNumber.getText().toString();
+
+        String otp = first + second + third + fourth + fifth + sixth;
+        requestVerifyOtp.setOtp(otp);
+
         return requestVerifyOtp;
     }
 
@@ -198,5 +224,55 @@ public class VerifyOtp extends AppCompatActivity {
         return ipAddress;
     }
 
+    /*
+    * OTP EditText watcher to set one input length and than shift to other view
+    *
+    * */
+
+    private void setOtpTextWatcher(final EditText currentEditText, final EditText nextEditText) {
+        currentEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 1 && nextEditText != null) {
+                    nextEditText.requestFocus();
+                } else if (s.length() == 0) {
+                    currentEditText.requestFocus();
+                } else if (s.length() == 1 && nextEditText == null) {
+                    hideKeyboard(currentEditText);
+                }
+            }
+        });
+    }
+
+    private void otpInputWatcher() {
+        // First input
+        setOtpTextWatcher(otpFirstNumber, otpSecondNumber);
+        // Second input
+        setOtpTextWatcher(otpSecondNumber, otpThirdNumber);
+        // Third input
+        setOtpTextWatcher(otpThirdNumber, otpFourthNumber);
+        // Fourth input
+        setOtpTextWatcher(otpFourthNumber, otpFifthNumber);
+        // Fifth input
+        setOtpTextWatcher(otpFifthNumber, otpSixthNumber);
+        // Sixth input
+        setOtpTextWatcher(otpSixthNumber, null);
+    }
+
+    /* Hide keyboard */
+    private void hideKeyboard(EditText editText) {
+        InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 
 }

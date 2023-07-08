@@ -21,14 +21,14 @@
         android:id="@+id/tv_welcome_typo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="184dp"
         android:text="Welcome back,"
-        android:textStyle="bold"
         android:textColor="#454545"
         android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Good to see you again"
         android:textSize="15sp"
+
         android:textColor="#454545"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.13"
@@ -86,7 +87,7 @@
         app:layout_constraintStart_toStartOf="@+id/adminPassword" />
 
 
-
+    <!-- Login button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/adminLoginBtn"
         android:layout_width="match_parent"
@@ -132,7 +133,7 @@
             android:shadowRadius="@integer/material_motion_duration_medium_2"
             android:textSize="12sp"
             android:text="Sign up here"
-            android:textColor="#03A9F4"
+            android:textColor="#FF9800"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="198dp"
             tools:layout_editor_absoluteY="583dp" />
@@ -154,16 +155,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="456dp" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="181dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/sts_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

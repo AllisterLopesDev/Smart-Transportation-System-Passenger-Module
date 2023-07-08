@@ -51,7 +51,7 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/bg_edittext"
         android:drawableLeft="@drawable/baseline_lock_24"
-        android:hint="Password"
+        android:hint="  Password"
         android:inputType="textPassword"
         android:padding="10dp" />
 
@@ -70,13 +70,4 @@
         android:textColor="@color/white"
         android:textSize="35sp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_ip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28dp"
-        android:layout_margin="50dp"
-        android:layout_below="@+id/reg"
-        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

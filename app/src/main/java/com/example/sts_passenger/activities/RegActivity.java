@@ -25,7 +25,6 @@ public class RegActivity extends AppCompatActivity {
 
     EditText email, password;
     AppCompatButton regBtn;
-    TextView tv_ip;
 
     String userEmail,userPassword;
 
@@ -39,7 +38,6 @@ public class RegActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         regBtn = findViewById(R.id.reg);
-        tv_ip = findViewById(R.id.tv_ip);
 
         userEmail = email.getText().toString();
         userPassword = password.getText().toString();
@@ -51,17 +49,21 @@ public class RegActivity extends AppCompatActivity {
                 String Email = email.getText().toString().trim();
                 String Password = password.getText().toString().trim();
 
-                if (Email.isEmpty()) {
-                    email.setError("Email is required");
-                } else if (!isValidEmail(Email)) {
-                    email.setError("Invalid email address");
-                } else if (Password.isEmpty()){
-                    password.setError("Input is required");
-                }else {
-                    sendOtp(createOtpRequest());
-                }
+//                if (Email.isEmpty()) {
+//                    email.setError("Email is required");
+//                } else if (!isValidEmail(Email)) {
+//                    email.setError("Invalid email address");
+//                } else if (Password.isEmpty()){
+//                    password.setError("Input is required");
+//                }else {
+//                    sendOtp(createOtpRequest());
+//                }
 
-
+                /* Testing case for otp input */
+                Intent i = new Intent(getApplicationContext(), VerifyOtp.class);
+                i.putExtra("email", getEmail());
+                i.putExtra("password",getPassword());
+                startActivity(i);
 
             }
         });
@@ -85,7 +87,6 @@ public class RegActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.isSuccessful()) {
                         Toast.makeText(RegActivity.this, "OTP send ..." + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        tv_ip.setText(response.body().getMessage());
 
                         Intent i = new Intent(getApplicationContext(), VerifyOtp.class);
                         i.putExtra("email", getEmail());
@@ -93,7 +94,6 @@ public class RegActivity extends AppCompatActivity {
                         startActivity(i);
                     } else {
                         Toast.makeText(RegActivity.this, "request failed"+ response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        tv_ip.setText(response.body().getMessage());
                     }
                 }
             }
