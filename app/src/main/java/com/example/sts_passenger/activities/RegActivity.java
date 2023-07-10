@@ -49,21 +49,21 @@ public class RegActivity extends AppCompatActivity {
                 String Email = email.getText().toString().trim();
                 String Password = password.getText().toString().trim();
 
-//                if (Email.isEmpty()) {
-//                    email.setError("Email is required");
-//                } else if (!isValidEmail(Email)) {
-//                    email.setError("Invalid email address");
-//                } else if (Password.isEmpty()){
-//                    password.setError("Input is required");
-//                }else {
-//                    sendOtp(createOtpRequest());
-//                }
+                if (Email.isEmpty()) {
+                    email.setError("Email is required");
+                } else if (!isValidEmail(Email)) {
+                    email.setError("Invalid email address");
+                } else if (Password.isEmpty()){
+                    password.setError("Input is required");
+                }else {
+                    sendOtp(createOtpRequest());
+                }
 
                 /* Testing case for otp input */
-                Intent i = new Intent(getApplicationContext(), VerifyOtp.class);
+                /*Intent i = new Intent(getApplicationContext(), VerifyOtp.class);
                 i.putExtra("email", getEmail());
                 i.putExtra("password",getPassword());
-                startActivity(i);
+                startActivity(i);*/
 
             }
         });

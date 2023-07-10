@@ -181,7 +181,6 @@ public class VerifyOtp extends AppCompatActivity {
                         startActivity(i);
                     } else if (response.body().getStatus() == 400) {
                         Toast.makeText(VerifyOtp.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
                     }
                 }else{
                     Log.i("TAG", "onResponse: NOT SUCCESS");

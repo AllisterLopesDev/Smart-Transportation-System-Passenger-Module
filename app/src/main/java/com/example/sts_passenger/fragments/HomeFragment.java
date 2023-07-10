@@ -19,11 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sts_passenger.Consts;
 import com.example.sts_passenger.R;
 import com.example.sts_passenger.adapters.CurrentBookedTicketAdapter;
@@ -51,6 +55,7 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,6 +82,12 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     // User Current Live Location instance
     ItemizedOverlayWithFocus<OverlayItem> mOverlay;
 
+    // Greet and Name
+    private TextView tvUserName, tvGreetUser;
+
+    // Profile Image display
+    private CircleImageView profileImageDisplay;
+
 
     private Handler handler;
     private Runnable runnable;
@@ -91,8 +102,15 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // Initialize views
+        tvGreetUser = rootView.findViewById(R.id.tv_greet_user);
+        tvUserName = rootView.findViewById(R.id.tv_hello_user);
+        profileImageDisplay = rootView.findViewById(R.id.circle_imgView_home_profile);
+
         // init sharedPrefManager for passenger session
         setSharedPrefManager();
+        displayProfileImage();
+        greetUser();
 
 
         recyclerView = rootView.findViewById(R.id.recycleView_ticketList);
@@ -377,6 +395,42 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                 public void onStatusChanged(String provider, int status, Bundle extras) {}
             });
         }
+    }
+
+    /*
+    * Load profile Image of User on Home page method
+    *
+    * */
+    private void displayProfileImage() {
+        // Check if profile image exists
+        if (sharedPrefManager.getPassengerPhotoFileName() != null) {
+            // Photo file name as stored in sharedpref manager
+            String filename = sharedPrefManager.getPassengerPhotoFileName();
+            // Construct photo url
+            String uri = Consts.BASE_URL_PASSENGER_AUTH + Consts.ENDPOINT_GET_PROFILE_PIC + filename;
+            // Add filename to the uri at the end
+            RequestOptions requestOptions = new RequestOptions()
+                    .placeholder(R.drawable.profile);
+            // Call the api and display the image
+            Glide.with(requireContext())
+                    .load(uri)
+                    .apply(requestOptions)
+                    .into(profileImageDisplay);
+        }
+    }
+
+    /*
+    * Greet User and say his name function
+    * */
+    private void greetUser() {
+        // User first name from the session
+        String userFirstName = savedSession.getPassenger().getFirstname();
+        // Make name bold using html tag
+        String boldFirstName = "<b>" + userFirstName + "</b>";
+        // Display Hello message along with user first name
+        String displayMessage = "Hello " + boldFirstName + "!";
+
+        tvUserName.setText(Html.fromHtml(displayMessage));
     }
 
 }
