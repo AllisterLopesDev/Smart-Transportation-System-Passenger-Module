@@ -89,4 +89,11 @@ public class Consts {
 
     // password hash
     public static final String MD5 = "MD5";
+
+    // Display Message
+    public static final String STRING_GOOD_MORNING = "Good morning";
+    public static final String STRING_GOOD_AFTERNOON = "Good afternoon";
+    public static final String STRING_GOOD_EVENING = "Good evening";
+
+    public static final String STRING_WELCOME_BACK = "Welcome back";
 }

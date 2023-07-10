@@ -53,6 +53,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -431,6 +432,23 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
         String displayMessage = "Hello " + boldFirstName + "!";
 
         tvUserName.setText(Html.fromHtml(displayMessage));
+
+        /*
+        * Greet user good morning, afternoon or evening based on time of the day
+        * */
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay < 12) {
+            String message = Consts.STRING_GOOD_MORNING + ", " + Consts.STRING_WELCOME_BACK;
+            tvGreetUser.setText(message);
+        } else if (timeOfDay < 17) {
+            String message = Consts.STRING_GOOD_AFTERNOON + ", " + Consts.STRING_WELCOME_BACK;
+            tvGreetUser.setText(message);
+        } else {
+            String message = Consts.STRING_GOOD_EVENING + ", " + Consts.STRING_WELCOME_BACK;
+            tvGreetUser.setText(message);
+        }
     }
 
 }
