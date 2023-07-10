@@ -107,8 +107,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/textView_fare"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_bus_type">
+                app:layout_constraintStart_toEndOf="@+id/ll_source"
+                app:layout_constraintTop_toBottomOf="@+id/textView_bus_type"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/textView_to"
@@ -137,24 +140,28 @@
                 android:id="@+id/textView_bus_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="56dp"
                 android:padding="8dp"
                 android:text="Local"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_bus_reg_no"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView_fare"
-                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="25 Rs"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView_available_seats_description" />
 
             <TextView
                 android:id="@+id/textView_available_seats_description"
@@ -182,6 +189,8 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView_fare"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView_available_seats_description"
                 app:layout_constraintTop_toBottomOf="@+id/ll_destination"
                 app:layout_constraintVertical_bias="1.0" />
@@ -193,6 +202,7 @@
                 android:layout_marginStart="56dp"
                 android:layout_marginTop="20dp"
                 android:text="15 May 2023"
+                android:maxLength="16"
                 android:textColor="#EDAEAEAE"
                 android:layout_marginBottom="8dp"
                 android:textSize="15sp"

@@ -12,15 +12,30 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Available PASSES"
+            android:textColor="@android:color/holo_orange_light"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/passenger_pass_details_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/passenger_pass_details_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_pass"
@@ -28,31 +43,34 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="66dp"
-            app:elevation="6dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ticket"
+            app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="#3F51B5"
-            android:contentDescription="TODO" />
+            app:rippleColor="#3F51B5" />
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:src="@drawable/no_results"
             android:id="@+id/no_pass"
             android:layout_width="400dp"
             android:layout_height="400dp"
+            android:src="@drawable/no_results"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <!-- frame layout for booking related frags-->
         <FrameLayout
             android:id="@+id/frameLayout_pass_container"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
