@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -89,6 +92,11 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     // Profile Image display
     private CircleImageView profileImageDisplay;
 
+    // Button
+    private TextView tvProceedToBookTicket;
+
+    // LinearLayout showing no bookings view
+    LinearLayout linearLayoutNoBookingsWhiteSpace;
 
     private Handler handler;
     private Runnable runnable;
@@ -108,12 +116,18 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
         tvUserName = rootView.findViewById(R.id.tv_hello_user);
         profileImageDisplay = rootView.findViewById(R.id.circle_imgView_home_profile);
 
+        // TextView
+        tvProceedToBookTicket = rootView.findViewById(R.id.tv_proceed_to_booking);
+        // LinearLayout
+        linearLayoutNoBookingsWhiteSpace = rootView.findViewById(R.id.linearLayout_blankSpace);
+
         // init sharedPrefManager for passenger session
         setSharedPrefManager();
         displayProfileImage();
         greetUser();
 
 
+        // RecyclerView displaying the booked tickets
         recyclerView = rootView.findViewById(R.id.recycleView_ticketList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         getTicketDetails();
@@ -313,7 +327,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
             @Override
             public void onFailure(Call<BusStops> call, Throwable t) {
                 // Handle failure
-                Log.i("TAG", "onFailure:  erroor  "+t);
+                Log.i("TAG", "onFailure:  error  "+t);
             }
         });
     }
@@ -334,6 +348,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
     private void getTicketDetails() {
         int passengerId = savedSession.getPassenger().getPassengerId();
         Log.i("TAG", "getTicketDetails: passenger-id " + passengerId);
+
         Call<TicketDetailsResponse> call = Client.getInstance(Consts.BASE_URL_BOOKING).getRoute().getCurrentTicket(savedSession.getPassenger().getPassengerId());
         call.enqueue(new Callback<TicketDetailsResponse>() {
             @Override
@@ -350,9 +365,23 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                             }
                         }
 
-                        // add filtered list to recyclerview
-//                        recyclerView.setAdapter(new ValidTicketAdapter(filterBookedTickets, getContext()));
-                        recyclerView.setAdapter(new CurrentBookedTicketAdapter(filterBookedTickets));
+                        if (filterBookedTickets.isEmpty()) {
+                            // Show blank screen with ticket booking button
+                            recyclerView.setVisibility(View.GONE);
+                            linearLayoutNoBookingsWhiteSpace.setVisibility(View.VISIBLE);
+                            tvProceedToBookTicket.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    openTicketBookingFragment();
+                                }
+                            });
+                        } else {
+                            // Populate recyclerview with booked tickets
+                            recyclerView.setVisibility(View.VISIBLE);
+                            recyclerView.setAdapter(new CurrentBookedTicketAdapter(filterBookedTickets));
+                            // Hide LinearLayout containing no booking space
+                            linearLayoutNoBookingsWhiteSpace.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -449,6 +478,23 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
             String message = Consts.STRING_GOOD_EVENING + ", " + Consts.STRING_WELCOME_BACK;
             tvGreetUser.setText(message);
         }
+    }
+
+    /*
+    * function to open instant ticket booking fragment
+    * TicketFragment.java
+    * */
+
+    private void openTicketBookingFragment(){
+        Fragment ticketFragment = new TicketFragment();
+        loadFragment(ticketFragment);
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fm = getParentFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();
     }
 
 }
