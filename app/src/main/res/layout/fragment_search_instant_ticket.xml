@@ -1,206 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/sts_theme_color">
 
+    <TextView
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/textView13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Book Instant Ticket"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--card 1-->
+    <View
+        android:layout_marginStart="16dp"
+        android:layout_width="30dp"
+        android:layout_height="3dp"
+        android:background="#FFFFFF"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <!-- CardView layout, hold from and to -->
     <androidx.cardview.widget.CardView
-        android:layout_margin="20dp"
         android:id="@+id/cardView_ticket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="20dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+        <!-- Linear layout hold vertically From and To -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="32dp">
 
-
-
-
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="From"
+                android:textColor="#939393" />
 
-                <ImageView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_width="33dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/location_pointer" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@android:color/darker_gray" />
-                <ImageView
-                    android:layout_width="33dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/location_pointer" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView_auto_source_stop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="from"/>
+                android:text="Margao"
+                android:textStyle="bold"
+                android:textColor="#FF9800"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView_auto_source_stop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="margao"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#C1C1C1" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="7dp"
-                    android:layout_height="2dp"
-                    android:background="@drawable/dotted_line" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="To"
+                android:textColor="#939393" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:id="@+id/textView_search_destination_stop"
-                    android:textStyle="bold"
-                    android:hint="select destination"
-                    android:text="select destination"/>
-
-
-
-            </LinearLayout>
-
-
-
+            <TextView
+                android:id="@+id/textView_search_destination_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shiroda Market"
+                android:textStyle="bold"
+                android:textColor="#FF9800"
+                android:textSize="24sp" />
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
+    <!-- CardView layout, hold date and time, and passenger count -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_ticket">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_width="23dp"
-            android:layout_height="22dp"
-            android:src="@drawable/calender" />
-        <TextView
+        <!-- Linear layout hold vertically From and To -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/textView_show_current_date"
-            android:text="12-12-2023"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:padding="5dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp">
 
+            <!-- Hold the departure date and time in horizontal view -->
             <LinearLayout
-                android:id="@+id/linearlayout_counter_holder"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/button_search_buses_available"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:orientation="horizontal">
 
-                
-
+                <!-- Hold Departure date-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_edittext"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imgBtn_decrement_passenger_counter"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/rounded_corner_btn"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/decrement_counter" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView_passenger_counter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="24sp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/imgBtn_increment_passenger_counter"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/rounded_corner_btn"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/increment_counter" />
+                        android:layout_marginTop="30dp"
+                        android:text="Date"
+                        android:textColor="#939393" />
 
                     <TextView
-                        android:id="@+id/textView_passenger_counter_desc"
+                        android:id="@+id/textView_show_current_date"
                         android:layout_width="wrap_content"
-                        android:padding="8dp"
                         android:layout_height="wrap_content"
-                        android:text="Passenger"
-                        android:textStyle=""
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:background="@drawable/rounded_corner_btn"/>
+                        android:layout_marginTop="5dp"
+                        android:text="11 July 2023"
+                        android:textStyle="bold"
+                        android:textColor="#FF9800"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
+                <!-- Hold Departure Time-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="Time"
+                        android:textColor="#939393" />
+
+                    <TextView
+                        android:id="@+id/tv_show_current_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
+                        android:text="17 : 45"
+                        android:textColor="#FF9800"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_search_buses_available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="250dp"
-        android:background="@drawable/bg_edittext"
-        android:drawableRight="@drawable/btn_shape"
-        android:drawablePadding="8dp"
-        android:padding="10dp"
-        android:text="search" />
+            <!-- Hold the Bus type and passenger count in horizontal view -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <!-- Hold Bus type -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-</LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="Type"
+                        android:textColor="#939393" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Local"
+                        android:textStyle="bold"
+                        android:textColor="#FF9800"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <!-- Hold Passenger count -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="Passenger"
+                        android:textColor="#939393" />
+
+                    <!-- Linear layout to hold passenger counter horizontally -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/imgBtn_decrement_passenger_counter"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/rounded_corner_btn"
+                            android:src="@drawable/decrement_counter" />
+
+                        <TextView
+                            android:id="@+id/textView_passenger_counter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textColor="#FF9800"
+                            android:textStyle="bold" />
+
+                        <!-- Increment passenger count button -->
+                        <ImageButton
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/imgBtn_increment_passenger_counter"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/rounded_corner_btn"
+                            android:src="@drawable/increment_counter" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Search Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_search_buses_available"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/bg_edittext"
+                android:drawablePadding="8dp"
+                android:padding="10dp"
+                android:text="search bus"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,11 +30,13 @@ import com.example.sts_passenger.apiservices.response.BusStops;
 import com.example.sts_passenger.model.CalendarDate;
 import com.example.sts_passenger.model.CurrentLocation;
 import com.example.sts_passenger.model.Halts;
+import com.example.sts_passenger.module.SlideshowAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormatSymbols;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -71,6 +74,9 @@ public class SearchInstantTicketFragment extends Fragment {
 
     // to store current source-stop for check
     private Halts halts;
+
+    // SlideShow ViewPager
+    private ViewPager2 viewPager;
 
 
     @Override
@@ -318,16 +324,20 @@ public class SearchInstantTicketFragment extends Fragment {
 
         destinationBusStop = new Halts();
 
+        String destination = "";
+
         if (data != null) {
             destinationBusStop.setId(data.getInt("destinationBusStopId"));
             destinationBusStop.setName(data.getString("destinationBusStopName"));
 
+            destination = destinationBusStop.getName();
+
             Log.i("TAG", "setDestinationData: " + destinationBusStop.getName());
+        } else {
+            destination = "Choose destination";
         }
-            tvDestination.setText(destinationBusStop.getName());
 
-
-
+        tvDestination.setText(destination);
     }
 
 
@@ -366,4 +376,10 @@ public class SearchInstantTicketFragment extends Fragment {
     }
 
 
+    // Viewpager
+    private void displaySlideShow() {
+        List<Integer> imageList = Arrays.asList(R.drawable.slide_1, R.drawable.slide_2, R.drawable.slide_3, R.drawable.slide_4, R.drawable.slide_5);
+        SlideshowAdapter slideshowAdapter = new SlideshowAdapter(imageList);
+        viewPager.setAdapter(slideshowAdapter);
+    }
 }
