@@ -43,7 +43,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
     private Session savedSession;
 
     // views defining
-    TextView tvBusRegistrationNumber, tvBusType, tvSource, tvDestination, tvPassengerCount, tvTicketAmount;
+    TextView tvBusRegistrationNumber, tvBusType, tvSource, tvDestination, tvPassengerCount, tvTicketAmount, tvDepartureTime, tvArrivalTime, tvDuration, tvUserName;
     AppCompatButton btnBookInstantTicket;
 
     // models defining
@@ -82,6 +82,8 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
                 int passengerCount = ticket.getPassengerCount();
                 double fareAmount = calculateTotalFareAmount(fare, passengerCount);
 
+                int passengerId = savedSession.getPassenger().getPassengerId();
+
 
                 createInstantTicket(instantTicketBooking(scheduleInfo.getId(),
                         fareAmount,
@@ -89,7 +91,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
                         ticket.getPassengerCount(),
                         source.getId(),
                         destination.getId(),
-                        3));
+                        passengerId));
             }
         });
     }
@@ -103,6 +105,10 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         tvDestination = view.findViewById(R.id.tv_destination);
         tvPassengerCount = view.findViewById(R.id.tv_passenger_count);
         tvTicketAmount = view.findViewById(R.id.tv_ticket_amount);
+        /*tvDepartureTime = view.findViewById(R.id.tv_departure_time);
+        tvArrivalTime = view.findViewById(R.id.tv_arrival_time);
+        tvDuration = view.findViewById(R.id.tv_duration);*/
+        tvUserName = view.findViewById(R.id.tv_passenger_name);
 
         // button
         btnBookInstantTicket = view.findViewById(R.id.appCompatButton_bookTicket);
@@ -123,12 +129,18 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         tvBusType.setText(bus.getType());
         tvSource.setText(route.getSource());
         tvDestination.setText(route.getDestination());
-        tvPassengerCount.setText(String.valueOf(ticket.getPassengerCount()));
+        // Passenger name
+        String passengerName = savedSession.getPassenger().getFirstname() + " " + savedSession.getPassenger().getLastname() + " +";
+        tvUserName.setText(passengerName);
+        // Passenger count
+        int actualPassengerCount = ticket.getPassengerCount();
+        int displayPassengerCount = actualPassengerCount - 1;
+
+        tvPassengerCount.setText(String.valueOf(displayPassengerCount));
 
         // calculate fare and show
         double fare = Double.parseDouble(route.getFare());
-        int passengerCount = ticket.getPassengerCount();
-        double fareAmount = calculateTotalFareAmount(fare, passengerCount);
+        double fareAmount = calculateTotalFareAmount(fare, actualPassengerCount);
         tvTicketAmount.setText(String.valueOf(fareAmount));
 
     }
@@ -142,7 +154,7 @@ public class PreBookingConfirmationInstantFragment extends Fragment {
         instantTicketRequest.setPassengerCount(passengerCount);
         instantTicketRequest.setSourceId(sourceId);
         instantTicketRequest.setDestinationId(destinationId);
-        instantTicketRequest.setPassengerId(savedSession.getPassenger().getPassengerId());
+        instantTicketRequest.setPassengerId(passengerId);
         instantTicketRequest.setBusScheduleId(scheduleInfoId);
 
         return instantTicketRequest;

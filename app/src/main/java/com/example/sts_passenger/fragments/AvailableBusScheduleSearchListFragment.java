@@ -1,6 +1,7 @@
 package com.example.sts_passenger.fragments;
 
 import static com.example.sts_passenger.R.drawable.no_results;
+import static com.example.sts_passenger.R.drawable.schedule;
 
 import android.os.Bundle;
 
@@ -229,6 +230,9 @@ public class AvailableBusScheduleSearchListFragment extends Fragment {
         args.putString("busType", bus.getType());
         args.putString("source", route.getSource());
         args.putString("destination", route.getDestination());
+        /*args.putString("departTime", scheduleInfo.getSchedule().getDeparture());
+        args.putString("arrivalTime", scheduleInfo.getSchedule().getArrival());
+        args.putString("duration", scheduleInfo.getSchedule().getDuration());*/
 
         // set arguments
         fragment.setArguments(args);

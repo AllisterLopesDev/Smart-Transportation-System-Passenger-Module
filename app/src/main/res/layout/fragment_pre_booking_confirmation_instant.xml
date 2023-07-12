@@ -9,20 +9,31 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/sts_theme_color">
+
+        <!-- World map background image -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:src="@drawable/world_map_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Material CardView to hold post available data of search and passenger count -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="150dp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/imageView2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,63 +41,319 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
+                <!-- Ticket Confirmation textview -->
                 <TextView
-                    android:id="@+id/tv_bus_registration_no"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GA 08 X 0053"
-                    android:textSize="24sp" />
+                    android:text="Ticket Confirmation"
+                    android:layout_marginTop="28dp"
+                    android:textSize="28sp"
+                    android:textColor="@color/sts_theme_color"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_bus_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LOCAL"
-                    android:textSize="24sp" />
+                <!-- Source and destination -->
+                <LinearLayout
+                    android:background="#4BEFEFEF"
+                    android:layout_margin="8dp"
+                    android:padding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NUVEM"
-                    android:textSize="24sp" />
+                    <!-- TextView to hold source -->
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        android:id="@+id/tv_source"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nuvem"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/tv_destination"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AGASSAIM"
-                    android:textSize="24sp" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/bus_design_vector_2"/>
 
-                <TextView
-                    android:id="@+id/tv_passenger_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textSize="24sp" />
+                    <!-- TextView to hold destination -->
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/tv_destination"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Verna"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/tv_ticket_amount"
-                    android:layout_width="wrap_content"
+                </LinearLayout>
+
+
+                <!--&lt;!&ndash; Linearlayout to hold time and duration &ndash;&gt;
+                <LinearLayout
+                    android:layout_margin="16dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="25"
-                    android:textSize="24sp" />
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        &lt;!&ndash; TextView to hold view beneath title &ndash;&gt;
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="departure"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        &lt;!&ndash; TextView to hold departure time &ndash;&gt;
+                        <TextView
+                            android:id="@+id/tv_departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="15:35"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    &lt;!&ndash; TextView to hold view beneath title
+                    <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textAllCaps="true"
+                        android:textSize="32sp"/>&ndash;&gt;
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        &lt;!&ndash; TextView to hold view beneath title &ndash;&gt;
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="arrival"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        &lt;!&ndash; TextView to hold departure time &ndash;&gt;
+                        <TextView
+                            android:id="@+id/tv_arrival_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="15:55"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        &lt;!&ndash; TextView to hold view beneath title &ndash;&gt;
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="duration"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        &lt;!&ndash; TextView to hold duration &ndash;&gt;
+                        <TextView
+                            android:id="@+id/tv_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="20 m"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>-->
+
+                <!-- Passenger name and count -->
+                <LinearLayout
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- TextView to hold view beneath title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="passenger"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- TextView to hold passenger count -->
+                        <TextView
+                            android:id="@+id/tv_passenger_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="Darron Moraes +"
+                            android:textSize="24sp" />
+
+                        <!-- TextView to hold passenger count -->
+                        <TextView
+                            android:id="@+id/tv_passenger_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="1"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Linearlayout to hold Bus Registration and type -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Bus Registration -->
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- TextView to hold view beneath title -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bus No."
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        <!-- TextView to hold bus registration number -->
+                        <TextView
+                            android:id="@+id/tv_bus_registration_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GA 08 X 0053"
+                            android:textStyle="bold"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <!-- Bus Type -->
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- TextView to hold view beneath title -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bus Type"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        <!-- TextView to hold bus type -->
+                        <TextView
+                            android:id="@+id/tv_bus_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="LOCAL"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Linearlayout to hold price and button -->
+                <LinearLayout
+                    android:layout_marginBottom="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Price -->
+                    <LinearLayout
+                        android:layout_marginTop="32dp"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <!-- TextView to hold view beneath title -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Price"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"/>
+
+                        <!-- TextView to hold ticket price -->
+                        <TextView
+                            android:id="@+id/tv_ticket_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/sts_theme_color"
+                            android:text="25.51"
+                            android:textStyle="bold"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_marginTop="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:id="@+id/appCompatButton_bookTicket"
+                        android:layout_width="match_parent"
+                        android:background="@color/sts_theme_color"
+                        android:layout_height="wrap_content"
+                        android:text="Happy journey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:text="book instant"
-            android:id="@+id/appCompatButton_bookTicket"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
