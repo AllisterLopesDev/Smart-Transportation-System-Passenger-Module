@@ -38,7 +38,7 @@ public class TripHistoryAdapter extends RecyclerView.Adapter<TripHistoryAdapter.
         holder.destnation.setText(tripHistoryList.get(position).getTicket().getDestination());
         holder.tv_date.setText(tripHistoryList.get(position).getTicket().getDate());
         holder.seatCount.setText(String.valueOf(tripHistoryList.get(position).getTicket().getPassengerCount()));
-        holder.fare.setText(String.valueOf(tripHistoryList.get(position).getTicket().getFareAmount()));
+        holder.fare.setText("Rs."+String.valueOf(tripHistoryList.get(position).getTicket().getFareAmount()));
         holder.busType.setText(tripHistoryList.get(position).getBus().getType());
         holder.busRegNumber.setText(tripHistoryList.get(position).getBus().getRegistrationNumber());
     }
