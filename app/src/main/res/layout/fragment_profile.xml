@@ -8,9 +8,202 @@
     tools:context=".fragments.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintprofileLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/constraintprofileLayout">
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_generate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/bg_edittext_focused"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Linear layout hold vertically From and To -->
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/tripHistory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
+
+                <!-- Profile Picture -->
+
+                <!-- Name -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="center"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
+
+                <!-- btn to upload image-->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/upload_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="-20dp"
+                    android:src="@drawable/add_image"
+                    app:fabSize="mini" />
+
+                <!-- Name -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Name : "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/name_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ALLISTER LOPES"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <!-- Email -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email Id : "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/email_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="xyz@gmail.com"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Contact -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Contact no. : "
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/contact_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="91xxxxxxxx97"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Address -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Address : "
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/address_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="h.no 41, quepem"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Address -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Gender : "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/genger_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="m/f"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Category -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Category : "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/category_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="student / adult / senior"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -21,237 +214,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/tripHistory"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-            <!-- Profile Picture -->
-
-            <!-- Name -->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_gravity="center"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp" />
-
-            <!-- btn to upload image-->
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/upload_img"
-                android:layout_marginTop="-20dp"
-                android:layout_marginLeft="200dp"
-                android:src="@drawable/add_image"
-                app:fabSize="mini" />
-
-            <!-- Name -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name : "
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/name_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ALLISTER LOPES"
-                    android:textStyle="bold" />
-
-
-
-
-            </LinearLayout>
-
-
-            <!-- Email -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email Id : "
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/email_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="xyz@gmail.com"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Contact -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact no. : "
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/contact_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="91xxxxxxxx97"
-                    android:inputType="number"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Address -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Address : "
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/address_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="h.no 41, quepem"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <!-- Address -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gender : "
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/genger_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="m/f"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <!-- Category -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Category : "
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/category_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="student / adult / senior"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tripHistory"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="42dp"
-            android:layout_marginBottom="9dp"
-            android:background="@color/sts_theme_color"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/bg_edittext_focused"
+            android:padding="15dp"
             android:text="trip history"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/logout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintVertical_bias="0.689" />
+            android:textColor="@color/sts_theme_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/updateButton"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_generate" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/logout"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="128dp"
-            android:background="@color/sts_theme_color"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/bg_edittext"
             android:text="Logout"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.459"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/updateButton" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/updateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="180dp"
-            android:background="@color/sts_theme_color"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/bg_edittext_focused"
+            android:padding="15dp"
             android:text="UPDATE INFO"
-            android:textColor="@color/white"
+            android:textColor="@color/sts_theme_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_generate" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout_profile_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.745"
-            app:layout_constraintStart_toEndOf="@+id/tripHistory" />
-
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout_profile_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </FrameLayout>
+
 </FrameLayout>

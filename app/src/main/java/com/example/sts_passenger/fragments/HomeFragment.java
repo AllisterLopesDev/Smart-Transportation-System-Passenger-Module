@@ -117,7 +117,7 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
         profileImageDisplay = rootView.findViewById(R.id.circle_imgView_home_profile);
 
         // TextView
-        tvProceedToBookTicket = rootView.findViewById(R.id.tv_proceed_to_booking);
+//        tvProceedToBookTicket = rootView.findViewById(R.id.tv_proceed_to_booking);
         // LinearLayout
         linearLayoutNoBookingsWhiteSpace = rootView.findViewById(R.id.linearLayout_blankSpace);
 
@@ -369,12 +369,13 @@ private static final int REQUEST_LOCATION_PERMISSION = 1;
                             // Show blank screen with ticket booking button
                             recyclerView.setVisibility(View.GONE);
                             linearLayoutNoBookingsWhiteSpace.setVisibility(View.VISIBLE);
-                            tvProceedToBookTicket.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    openTicketBookingFragment();
-                                }
-                            });
+//                            tvProceedToBookTicket.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    openTicketBookingFragment();
+//                                    Log.i("TAG", "onClick: book ticket");
+//                                }
+//                            });
                         } else {
                             // Populate recyclerview with booked tickets
                             recyclerView.setVisibility(View.VISIBLE);

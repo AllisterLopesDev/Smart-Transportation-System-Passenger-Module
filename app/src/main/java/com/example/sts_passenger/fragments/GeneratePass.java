@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -46,6 +47,7 @@ public class GeneratePass extends Fragment {
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
     private Session savedSession;
+    CardView cardView_generate;
     String selectedDate;
     String totalPassFaretoString;
     TextView tvDate, tvRoute, title,textView2,textView3,textView4,textView5,textView6,tv_pass_type,tv_total_fare;
@@ -171,6 +173,7 @@ public class GeneratePass extends Fragment {
         textView3.setVisibility(View.GONE);
         textView4.setVisibility(View.GONE);
         textView6.setVisibility(View.GONE);
+        cardView_generate.setVisibility(View.GONE);
     }
     public void initComponets(View view) {
         tvDate = view.findViewById(R.id.textView_pass_start_date);
@@ -179,6 +182,7 @@ public class GeneratePass extends Fragment {
         createPassBtn = view.findViewById(R.id.create_pass_btn);
         title = view.findViewById(R.id.generate_pass_title);
         tv_total_fare = view.findViewById(R.id.tv_total_fare);
+        cardView_generate = view.findViewById(R.id.cardView_generate);
 
         textView2 = view.findViewById(R.id.textView2);
         textView3 = view.findViewById(R.id.textView3);

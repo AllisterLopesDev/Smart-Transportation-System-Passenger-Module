@@ -92,22 +92,23 @@
                     <TextView
                         android:layout_gravity="center"
                         android:textAlignment="center"
+                        android:textColor="@color/sts_theme_color"
                         android:text="Currently you have no ticket booked,\nBook an instant ticket to travel\n with us."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:clickable="true"
-                        android:layout_margin="8dp"
-                        android:id="@+id/tv_proceed_to_booking"
-                        android:layout_gravity="center"
-                        android:textColor="@color/sts_theme_color"
-                        android:text="click here to book"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:focusable="true" />
+<!--                    <TextView-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:clickable="true"-->
+<!--                        android:layout_margin="8dp"-->
+<!--                        android:id="@+id/tv_proceed_to_booking"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:textColor="@color/sts_theme_color"-->
+<!--                        android:text="click here to book"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:focusable="true" />-->
 
                 </LinearLayout>
 
