@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.sts_passenger.Consts;
@@ -41,6 +42,7 @@ public class PassFragment extends Fragment {
     List<PassDetails> passDetailsList;
     AppCompatImageView noPassDataImageView;
 
+    TextView textView13;
     // SharedPrefManager
     SharedPrefManager sharedPrefManager;
     private Session savedSession;
@@ -61,6 +63,7 @@ public class PassFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         createPassBtn = view.findViewById(R.id.create_pass);
         noPassDataImageView = view.findViewById(R.id.no_pass);
+        textView13 = view.findViewById(R.id.textView13);
 
 
         // init sharedPrefManager for passenger session
@@ -89,6 +92,9 @@ public class PassFragment extends Fragment {
         createPassBtn.setVisibility(View.GONE);
         recyclerViewPassList.setVisibility(View.GONE);
         noPassDataImageView.setVisibility(View.GONE);
+        textView13.setVisibility(View.GONE);
+
+
 
     }
 
