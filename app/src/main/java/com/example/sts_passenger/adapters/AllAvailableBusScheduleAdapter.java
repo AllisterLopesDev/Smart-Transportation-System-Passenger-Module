@@ -38,6 +38,8 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.busNo.setText(busScheduleSearchList.get(position).getBus().getRegistrationNumber());
+        holder.busType.setText(busScheduleSearchList.get(position).getBus().getType());
+
         holder.source.setText(busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getDepartureStand());
         holder.destination.setText("To "+busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrivalStand());
         holder.arrival.setText(" at "+busScheduleSearchList.get(position).getScheduleInfo().getSchedule().getArrival());
@@ -53,7 +55,7 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView busNo,source,destination,arrival,departure;
+        TextView busNo,source,destination,arrival,departure, busType;
 
         CardView cardView;
 
@@ -63,6 +65,8 @@ public class AllAvailableBusScheduleAdapter extends RecyclerView.Adapter<AllAvai
             cardView = itemView.findViewById(R.id.cardView_bus_schedule);
 
             busNo=itemView.findViewById(R.id.tv_Bus_no);
+            busType = itemView.findViewById(R.id.bus_type);
+
             source=itemView.findViewById(R.id.tv_Source);
             destination=itemView.findViewById(R.id.tv_Destination);
             arrival=itemView.findViewById(R.id.tv_arrival);
